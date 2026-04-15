@@ -1,0 +1,807 @@
+<!DOCTYPE html><html lang="ja" class="bg-[var(--page-bg)] transition text-[14px] md:text-[16px]" data-overlayscrollbars-initialize data-astro-cid-sckkx6r4 style="--bannerOffset: 15vh;--banner-height-home: 65vh;--banner-height: 35vh;--configHue: 250;--page-width: 75rem;"> <head><title>一問一答で学ぶ機械学習【アルゴリズム編】 - ゆるディープ</title><meta charset="UTF-8"><meta name="description" content="線形回帰、ロジスティック回帰、k-NN、SVM、ナイーブベイズ、k-means、ランダムフォレスト、勾配ブースティング、PCA、ニューラルネットワークなど、主要な機械学習アルゴリズムの仕組みや特徴を一問一答形式で学ぶ記事です。"><meta name="author" content="ひらノルム"><meta property="og:site_name" content="ゆるディープ"><meta property="og:url" content="https://yurudeep.com/posts/deeplearning/2025/20251124/"><meta property="og:title" content="一問一答で学ぶ機械学習【アルゴリズム編】 - ゆるディープ"><meta property="og:description" content="線形回帰、ロジスティック回帰、k-NN、SVM、ナイーブベイズ、k-means、ランダムフォレスト、勾配ブースティング、PCA、ニューラルネットワークなど、主要な機械学習アルゴリズムの仕組みや特徴を一問一答形式で学ぶ記事です。"><meta property="og:type" content="article"><meta name="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://yurudeep.com/posts/deeplearning/2025/20251124/"><meta name="twitter:title" content="一問一答で学ぶ機械学習【アルゴリズム編】 - ゆるディープ"><meta name="twitter:description" content="線形回帰、ロジスティック回帰、k-NN、SVM、ナイーブベイズ、k-means、ランダムフォレスト、勾配ブースティング、PCA、ニューラルネットワークなど、主要な機械学習アルゴリズムの仕組みや特徴を一問一答形式で学ぶ記事です。"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.13.10"><link rel="icon" href="/favicon/favicon-light-192.png" sizes="192x192" media="(prefers-color-scheme: light)"><link rel="icon" href="/favicon/favicon-dark-192.png" sizes="192x192" media="(prefers-color-scheme: dark)"><link rel="icon" href="/favicon/favicon-light-32.png" sizes="32x32" media="(prefers-color-scheme: light)"><link rel="icon" href="/favicon/favicon-dark-32.png" sizes="32x32" media="(prefers-color-scheme: dark)"><!-- Set the theme before the page is rendered to avoid a flash --><script>(function(){const DEFAULT_THEME = "auto";
+const LIGHT_MODE = "light";
+const DARK_MODE = "dark";
+const AUTO_MODE = "auto";
+const BANNER_HEIGHT_EXTEND = 30;
+const PAGE_WIDTH = 75;
+const configHue = 250;
+
+			// Load the theme from local storage
+			const theme = localStorage.getItem('theme') || DEFAULT_THEME;
+			switch (theme) {
+				case LIGHT_MODE:
+					document.documentElement.classList.remove('dark');
+					break
+				case DARK_MODE:
+					document.documentElement.classList.add('dark');
+					break
+				case AUTO_MODE:
+					if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+						document.documentElement.classList.add('dark');
+					} else {
+						document.documentElement.classList.remove('dark');
+					}
+			}
+
+			// Load the hue from local storage
+			const hue = localStorage.getItem('hue') || configHue;
+			document.documentElement.style.setProperty('--hue', hue);
+
+			// calculate the --banner-height-extend, which needs to be a multiple of 4 to avoid blurry text
+			let offset = Math.floor(window.innerHeight * (BANNER_HEIGHT_EXTEND / 100));
+			offset = offset - offset % 4;
+			document.documentElement.style.setProperty('--banner-height-extend', `${offset}px`);
+		})();</script><!-- defines global css variables. This will be applied to <html> <body> and some other elements idk why --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"一問一答で学ぶ機械学習【アルゴリズム編】","description":"線形回帰、ロジスティック回帰、k-NN、SVM、ナイーブベイズ、k-means、ランダムフォレスト、勾配ブースティング、PCA、ニューラルネットワークなど、主要な機械学習アルゴリズムの仕組みや特徴を一問一答形式で学ぶ記事です。","keywords":["q&a","study"],"author":{"@type":"Person","name":"ひらノルム","url":"https://yurudeep.com/"},"datePublished":"2025-11-24","inLanguage":"ja"}</script><link rel="alternate" type="application/rss+xml" title="ひらノルム" href="https://yurudeep.com/rss.xml"><link rel="stylesheet" href="/_astro/Layout.DSulWsr7.css">
+<link rel="stylesheet" href="/_astro/Layout.y4KPJ9hc.css">
+<link rel="stylesheet" href="/_astro/_page_.B4nTPE6O.css">
+<link rel="stylesheet" href="/_astro/_page_.ZlghMKVQ.css">
+<link rel="stylesheet" href="/_astro/about.BtniRLn_.css">
+<style>input.svelte-1wah7ro:focus{outline:0}.search-panel.svelte-1wah7ro{max-height:calc(100vh - 100px);overflow-y:auto}#display-setting.svelte-d7tq3k input[type=range]:where(.svelte-d7tq3k){-webkit-appearance:none;height:1.5rem;background-image:var(--color-selection-bar);transition:background-image .15s ease-in-out}#display-setting.svelte-d7tq3k input[type=range]:where(.svelte-d7tq3k)::-webkit-slider-thumb{-webkit-appearance:none;height:1rem;width:.5rem;border-radius:.125rem;background:#ffffffb3;box-shadow:none}#display-setting.svelte-d7tq3k input[type=range]:where(.svelte-d7tq3k)::-webkit-slider-thumb:hover{background:#fffc}#display-setting.svelte-d7tq3k input[type=range]:where(.svelte-d7tq3k)::-webkit-slider-thumb:active{background:#fff9}#display-setting.svelte-d7tq3k input[type=range]:where(.svelte-d7tq3k)::-moz-range-thumb{-webkit-appearance:none;height:1rem;width:.5rem;border-radius:.125rem;border-width:0;background:#ffffffb3;box-shadow:none}#display-setting.svelte-d7tq3k input[type=range]:where(.svelte-d7tq3k)::-moz-range-thumb:hover{background:#fffc}#display-setting.svelte-d7tq3k input[type=range]:where(.svelte-d7tq3k)::-moz-range-thumb:active{background:#fff9}#display-setting.svelte-d7tq3k input[type=range]:where(.svelte-d7tq3k)::-ms-thumb{-webkit-appearance:none;height:1rem;width:.5rem;border-radius:.125rem;background:#ffffffb3;box-shadow:none}#display-setting.svelte-d7tq3k input[type=range]:where(.svelte-d7tq3k)::-ms-thumb:hover{background:#fffc}#display-setting.svelte-d7tq3k input[type=range]:where(.svelte-d7tq3k)::-ms-thumb:active{background:#fff9}
+</style><script type="module" src="/_astro/page.Z8IJTFqj.js"></script></head> <body class=" min-h-screen transition " data-overlayscrollbars-initialize data-astro-cid-sckkx6r4 style="--bannerOffset: 15vh;--banner-height-home: 65vh;--banner-height: 35vh;--configHue: 250;--page-width: 75rem;"> <div id="config-carrier" data-hue="250"></div>    <div id="top-row" class="z-50 pointer-events-none relative transition-all duration-700 max-w-[var(--page-width)] px-0 md:px-4 mx-auto"> <div id="navbar-wrapper" class="pointer-events-auto sticky top-0 transition-all"> <div id="navbar" class="z-50 onload-animation"> <div class="absolute h-8 left-0 right-0 -top-8 bg-[var(--card-bg)] transition"></div> <!-- used for onload animation --> <div class="card-base !overflow-visible max-w-[var(--page-width)] h-[4.5rem] !rounded-t-none mx-auto flex items-center justify-between px-4"> <a href="/" class="btn-plain scale-animation rounded-lg h-[3.25rem] px-5 font-bold active:scale-95"> <div class="flex flex-row text-[var(--primary)] items-center text-md"> <svg width="1em" height="1em" class="text-[1.75rem] mb-1 mr-2" data-icon="material-symbols:home-outline-rounded">   <symbol id="ai:material-symbols:home-outline-rounded" viewBox="0 0 24 24"><path fill="currentColor" d="M6 19h3v-5q0-.425.288-.712T10 13h4q.425 0 .713.288T15 14v5h3v-9l-6-4.5L6 10zm-2 0v-9q0-.475.213-.9t.587-.7l6-4.5q.525-.4 1.2-.4t1.2.4l6 4.5q.375.275.588.7T20 10v9q0 .825-.588 1.413T18 21h-4q-.425 0-.712-.288T13 20v-5h-2v5q0 .425-.288.713T10 21H6q-.825 0-1.412-.587T4 19m8-6.75"/></symbol><use href="#ai:material-symbols:home-outline-rounded"></use>  </svg> ゆるディープ </div> </a> <div class="hidden md:flex"> <a aria-label="Home" href="/" class="btn-plain scale-animation rounded-lg h-11 font-bold px-5 active:scale-95"> <div class="flex items-center"> Home  </div> </a><a aria-label="Archive" href="/archive/" class="btn-plain scale-animation rounded-lg h-11 font-bold px-5 active:scale-95"> <div class="flex items-center"> Archive  </div> </a><a aria-label="About" href="/about/" class="btn-plain scale-animation rounded-lg h-11 font-bold px-5 active:scale-95"> <div class="flex items-center"> About  </div> </a><a aria-label="GitHub" href="https://github.com/hiranorm/yurudeep" target="_blank" class="btn-plain scale-animation rounded-lg h-11 font-bold px-5 active:scale-95"> <div class="flex items-center"> GitHub <svg width="1em" height="1em" class="text-[0.875rem] transition -translate-y-[1px] ml-1 text-black/[0.2] dark:text-white/[0.2]" data-icon="fa6-solid:arrow-up-right-from-square">   <symbol id="ai:fa6-solid:arrow-up-right-from-square" viewBox="0 0 512 512"><path fill="currentColor" d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32zM80 32C35.8 32 0 67.8 0 112v320c0 44.2 35.8 80 80 80h320c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v112c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16h112c17.7 0 32-14.3 32-32s-14.3-32-32-32z"/></symbol><use href="#ai:fa6-solid:arrow-up-right-from-square"></use>  </svg> </div> </a> </div> <div class="flex"> <!--<SearchPanel client:load>--> <style>astro-island,astro-slot,astro-static-slot{display:contents}</style><script>(()=>{var e=async t=>{await(await t())()};(self.Astro||(self.Astro={})).only=e;window.dispatchEvent(new Event("astro:only"));})();</script><script>(()=>{var A=Object.defineProperty;var g=(i,o,a)=>o in i?A(i,o,{enumerable:!0,configurable:!0,writable:!0,value:a}):i[o]=a;var d=(i,o,a)=>g(i,typeof o!="symbol"?o+"":o,a);{let i={0:t=>m(t),1:t=>a(t),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(a(t)),5:t=>new Set(a(t)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(t),9:t=>new Uint16Array(t),10:t=>new Uint32Array(t),11:t=>1/0*t},o=t=>{let[l,e]=t;return l in i?i[l](e):void 0},a=t=>t.map(o),m=t=>typeof t!="object"||t===null?t:Object.fromEntries(Object.entries(t).map(([l,e])=>[l,o(e)]));class y extends HTMLElement{constructor(){super(...arguments);d(this,"Component");d(this,"hydrator");d(this,"hydrate",async()=>{var b;if(!this.hydrator||!this.isConnected)return;let e=(b=this.parentElement)==null?void 0:b.closest("astro-island[ssr]");if(e){e.addEventListener("astro:hydrate",this.hydrate,{once:!0});return}let c=this.querySelectorAll("astro-slot"),n={},h=this.querySelectorAll("template[data-astro-template]");for(let r of h){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("data-astro-template")||"default"]=r.innerHTML,r.remove())}for(let r of c){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("name")||"default"]=r.innerHTML)}let p;try{p=this.hasAttribute("props")?m(JSON.parse(this.getAttribute("props"))):{}}catch(r){let s=this.getAttribute("component-url")||"<unknown>",v=this.getAttribute("component-export");throw v&&(s+=` (export ${v})`),console.error(`[hydrate] Error parsing props for component ${s}`,this.getAttribute("props"),r),r}let u;await this.hydrator(this)(this.Component,p,n,{client:this.getAttribute("client")}),this.removeAttribute("ssr"),this.dispatchEvent(new CustomEvent("astro:hydrate"))});d(this,"unmount",()=>{this.isConnected||this.dispatchEvent(new CustomEvent("astro:unmount"))})}disconnectedCallback(){document.removeEventListener("astro:after-swap",this.unmount),document.addEventListener("astro:after-swap",this.unmount,{once:!0})}connectedCallback(){if(!this.hasAttribute("await-children")||document.readyState==="interactive"||document.readyState==="complete")this.childrenConnectedCallback();else{let e=()=>{document.removeEventListener("DOMContentLoaded",e),c.disconnect(),this.childrenConnectedCallback()},c=new MutationObserver(()=>{var n;((n=this.lastChild)==null?void 0:n.nodeType)===Node.COMMENT_NODE&&this.lastChild.nodeValue==="astro:end"&&(this.lastChild.remove(),e())});c.observe(this,{childList:!0}),document.addEventListener("DOMContentLoaded",e)}}async childrenConnectedCallback(){let e=this.getAttribute("before-hydration-url");e&&await import(e),this.start()}async start(){let e=JSON.parse(this.getAttribute("opts")),c=this.getAttribute("client");if(Astro[c]===void 0){window.addEventListener(`astro:${c}`,()=>this.start(),{once:!0});return}try{await Astro[c](async()=>{let n=this.getAttribute("renderer-url"),[h,{default:p}]=await Promise.all([import(this.getAttribute("component-url")),n?import(n):()=>()=>{}]),u=this.getAttribute("component-export")||"default";if(!u.includes("."))this.Component=h[u];else{this.Component=h;for(let f of u.split("."))this.Component=this.Component[f]}return this.hydrator=p,this.hydrate},e,this)}catch(n){console.error(`[astro-island] Error hydrating ${this.getAttribute("component-url")}`,n)}}attributeChangedCallback(){this.hydrate()}}d(y,"observedAttributes",["props"]),customElements.get("astro-island")||customElements.define("astro-island",y)}})();</script><astro-island uid="k3LLY" component-url="/_astro/Search.Df-STTCR.js" component-export="default" renderer-url="/_astro/client.svelte.BtEbdPyR.js" props="{}" ssr client="only" opts="{&quot;name&quot;:&quot;Search&quot;,&quot;value&quot;:&quot;svelte&quot;}"></astro-island> <button aria-label="Display Settings" class="btn-plain scale-animation rounded-lg h-11 w-11 active:scale-90" id="display-settings-switch"> <svg width="1em" height="1em" class="text-[1.25rem]" data-icon="material-symbols:palette-outline">   <symbol id="ai:material-symbols:palette-outline" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22q-2.05 0-3.875-.788t-3.187-2.15t-2.15-3.187T2 12q0-2.075.813-3.9t2.2-3.175T8.25 2.788T12.2 2q2 0 3.775.688t3.113 1.9t2.125 2.875T22 11.05q0 2.875-1.75 4.413T16 17h-1.85q-.225 0-.312.125t-.088.275q0 .3.375.863t.375 1.287q0 1.25-.687 1.85T12 22m-5.5-9q.65 0 1.075-.425T8 11.5t-.425-1.075T6.5 10t-1.075.425T5 11.5t.425 1.075T6.5 13m3-4q.65 0 1.075-.425T11 7.5t-.425-1.075T9.5 6t-1.075.425T8 7.5t.425 1.075T9.5 9m5 0q.65 0 1.075-.425T16 7.5t-.425-1.075T14.5 6t-1.075.425T13 7.5t.425 1.075T14.5 9m3 4q.65 0 1.075-.425T19 11.5t-.425-1.075T17.5 10t-1.075.425T16 11.5t.425 1.075T17.5 13M12 20q.225 0 .363-.125t.137-.325q0-.35-.375-.825T11.75 17.3q0-1.05.725-1.675T14.25 15H16q1.65 0 2.825-.962T20 11.05q0-3.025-2.312-5.038T12.2 4Q8.8 4 6.4 6.325T4 12q0 3.325 2.338 5.663T12 20"/></symbol><use href="#ai:material-symbols:palette-outline"></use>  </svg> </button> <astro-island uid="28ERlR" component-url="/_astro/LightDarkSwitch.B1s_VltI.js" component-export="default" renderer-url="/_astro/client.svelte.BtEbdPyR.js" props="{}" ssr client="only" opts="{&quot;name&quot;:&quot;LightDarkSwitch&quot;,&quot;value&quot;:&quot;svelte&quot;}"></astro-island> <button aria-label="Menu" name="Nav Menu" class="btn-plain scale-animation rounded-lg w-11 h-11 active:scale-90 md:!hidden" id="nav-menu-switch"> <svg width="1em" height="1em" class="text-[1.25rem]" data-icon="material-symbols:menu-rounded">   <symbol id="ai:material-symbols:menu-rounded" viewBox="0 0 24 24"><path fill="currentColor" d="M4 18q-.425 0-.712-.288T3 17t.288-.712T4 16h16q.425 0 .713.288T21 17t-.288.713T20 18zm0-5q-.425 0-.712-.288T3 12t.288-.712T4 11h16q.425 0 .713.288T21 12t-.288.713T20 13zm0-5q-.425 0-.712-.288T3 7t.288-.712T4 6h16q.425 0 .713.288T21 7t-.288.713T20 8z"/></symbol><use href="#ai:material-symbols:menu-rounded"></use>  </svg> </button> </div> <div id="nav-menu-panel" class="float-panel float-panel-closed absolute transition-all fixed right-4 px-2 py-2"> <a href="/" class="group flex justify-between items-center py-2 pl-3 pr-1 rounded-lg gap-8
+            hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)] transition
+        "> <div class="transition text-black/75 dark:text-white/75 font-bold group-hover:text-[var(--primary)] group-active:text-[var(--primary)]"> Home </div> <svg width="1em" height="1em" class="transition text-[1.25rem] text-[var(--primary)]" data-icon="material-symbols:chevron-right-rounded">   <symbol id="ai:material-symbols:chevron-right-rounded" viewBox="0 0 24 24"><path fill="currentColor" d="M12.6 12L8.7 8.1q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.6 4.6q.15.15.213.325t.062.375t-.062.375t-.213.325l-4.6 4.6q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7z"/></symbol><use href="#ai:material-symbols:chevron-right-rounded"></use>  </svg>  </a><a href="/archive/" class="group flex justify-between items-center py-2 pl-3 pr-1 rounded-lg gap-8
+            hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)] transition
+        "> <div class="transition text-black/75 dark:text-white/75 font-bold group-hover:text-[var(--primary)] group-active:text-[var(--primary)]"> Archive </div> <svg width="1em" height="1em" viewBox="0 0 24 24" class="transition text-[1.25rem] text-[var(--primary)]" data-icon="material-symbols:chevron-right-rounded">   <use href="#ai:material-symbols:chevron-right-rounded"></use>  </svg>  </a><a href="/about/" class="group flex justify-between items-center py-2 pl-3 pr-1 rounded-lg gap-8
+            hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)] transition
+        "> <div class="transition text-black/75 dark:text-white/75 font-bold group-hover:text-[var(--primary)] group-active:text-[var(--primary)]"> About </div> <svg width="1em" height="1em" viewBox="0 0 24 24" class="transition text-[1.25rem] text-[var(--primary)]" data-icon="material-symbols:chevron-right-rounded">   <use href="#ai:material-symbols:chevron-right-rounded"></use>  </svg>  </a><a href="https://github.com/hiranorm/yurudeep" class="group flex justify-between items-center py-2 pl-3 pr-1 rounded-lg gap-8
+            hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)] transition
+        " target="_blank"> <div class="transition text-black/75 dark:text-white/75 font-bold group-hover:text-[var(--primary)] group-active:text-[var(--primary)]"> GitHub </div>  <svg width="1em" height="1em" viewBox="0 0 512 512" class="transition text-[0.75rem] text-black/25 dark:text-white/25 -translate-x-1" data-icon="fa6-solid:arrow-up-right-from-square">   <use href="#ai:fa6-solid:arrow-up-right-from-square"></use>  </svg> </a> </div> <astro-island uid="RxI0l" component-url="/_astro/DisplaySettings.58CC7o2o.js" component-export="default" renderer-url="/_astro/client.svelte.BtEbdPyR.js" props="{}" ssr client="only" opts="{&quot;name&quot;:&quot;DisplaySettings&quot;,&quot;value&quot;:&quot;svelte&quot;}"></astro-island> </div> </div> <script type="module">function c(){localStorage.theme==="dark"?(document.documentElement.classList.remove("dark"),localStorage.theme="light"):(document.documentElement.classList.add("dark"),localStorage.theme="dark")}function o(){let t=document.getElementById("scheme-switch");t&&(t.onclick=function(){c()});let n=document.getElementById("display-settings-switch");n&&(n.onclick=function(){let e=document.getElementById("display-setting");e&&e.classList.toggle("float-panel-closed")});let l=document.getElementById("nav-menu-switch");l&&(l.onclick=function(){let e=document.getElementById("nav-menu-panel");e&&e.classList.toggle("float-panel-closed")})}o();</script> <script>(function(){const scriptUrl = "/pagefind/pagefind.js";
+
+async function loadPagefind() {
+    try {
+        const response = await fetch(scriptUrl, { method: 'HEAD' });
+        if (!response.ok) {
+            throw new Error(`Pagefind script not found: ${response.status}`);
+        }
+
+        const pagefind = await import(scriptUrl);
+
+        await pagefind.options({
+            excerptLength: 20
+        });
+
+        window.pagefind = pagefind;
+
+        document.dispatchEvent(new CustomEvent('pagefindready'));
+        console.log('Pagefind loaded and initialized successfully, event dispatched.');
+    } catch (error) {
+        console.error('Failed to load Pagefind:', error);
+        window.pagefind = {
+            search: () => Promise.resolve({ results: [] }),
+            options: () => Promise.resolve(),
+        };
+        document.dispatchEvent(new CustomEvent('pagefindloaderror'));
+        console.log('Pagefind load error, event dispatched.');
+    }
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadPagefind);
+} else {
+    loadPagefind();
+}
+})();</script> </div> </div>   <div class="absolute w-full z-30 pointer-events-none" style="top: 5.5rem"> <!-- The pointer-events-none here prevent blocking the click event of the TOC --> <div class="relative max-w-[var(--page-width)] mx-auto pointer-events-auto"> <div id="main-grid" class="transition duration-700 w-full left-0 right-0 grid grid-cols-[17.5rem_auto] grid-rows-[auto_1fr_auto] lg:grid-rows-[auto]
+    mx-auto gap-4 px-0 md:px-4"> <!-- Banner image credit -->  <div id="sidebar" class="mb-4 row-start-2 row-end-3 col-span-2 lg:row-start-1 lg:row-end-2 lg:col-span-1 lg:max-w-[17.5rem] onload-animation w-full"> <div class="flex flex-col w-full gap-4 mb-4"> <div class="card-base p-3"> <a aria-label="Go to About Page" href="/about/" class="group block relative mx-auto mt-1 lg:mx-0 lg:mt-0 mb-3
+       max-w-[12rem] lg:max-w-none overflow-hidden rounded-xl active:scale-95"> <div class="absolute transition pointer-events-none group-hover:bg-black/30 group-active:bg-black/50
+        w-full h-full z-50 flex items-center justify-center"> <svg width="1.13em" height="1em" class="transition opacity-0 scale-90 group-hover:scale-100 group-hover:opacity-100 text-white text-5xl" data-icon="fa6-regular:address-card">   <symbol id="ai:fa6-regular:address-card" viewBox="0 0 576 512"><path fill="currentColor" d="M512 80c8.8 0 16 7.2 16 16v320c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V96c0-8.8 7.2-16 16-16zM64 32C28.7 32 0 60.7 0 96v320c0 35.3 28.7 64 64 64h448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64zm144 224a64 64 0 1 0 0-128a64 64 0 1 0 0 128m-32 32c-44.2 0-80 35.8-80 80c0 8.8 7.2 16 16 16h192c8.8 0 16-7.2 16-16c0-44.2-35.8-80-80-80zm200-144c-13.3 0-24 10.7-24 24s10.7 24 24 24h80c13.3 0 24-10.7 24-24s-10.7-24-24-24zm0 96c-13.3 0-24 10.7-24 24s10.7 24 24 24h80c13.3 0 24-10.7 24-24s-10.7-24-24-24z"/></symbol><use href="#ai:fa6-regular:address-card"></use>  </svg> </div> <div class="mx-auto lg:w-full h-full lg:mt-0  overflow-hidden relative"> <div class="transition absolute inset-0 dark:bg-black/10 bg-opacity-50 pointer-events-none"></div>  <img src="/assets/images/logo.png" alt="Profile Image of the Author" class="w-full h-full object-cover" style="object-position: center"> </div> </a> <div class="px-2"> <div class="font-bold text-xl text-center mb-1 dark:text-neutral-50 transition">ひらノルム</div> <div class="h-1 w-5 bg-[var(--primary)] mx-auto rounded-full mb-2 transition"></div> <div class="text-center text-neutral-400 mb-2.5 transition">機械学習・AI・自動化についてゆるふわに書いています。</div> <div class="flex flex-wrap gap-2 justify-center mb-1">  <a rel="me" aria-label="GitHub" href="https://github.com/hiranorm" target="_blank" class="btn-regular rounded-lg h-10 gap-2 px-3 font-bold active:scale-95"> <svg width="0.97em" height="1em" class="text-[1.5rem]" data-icon="fa6-brands:github">   <symbol id="ai:fa6-brands:github" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6c-3.3.3-5.6-1.3-5.6-3.6c0-2 2.3-3.6 5.2-3.6c3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9c2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9c.3 2 2.9 3.3 5.9 2.6c2.9-.7 4.9-2.6 4.6-4.6c-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2c12.8 2.3 17.3-5.6 17.3-12.1c0-6.2-.3-40.4-.3-61.4c0 0-70 15-84.7-29.8c0 0-11.4-29.1-27.8-36.6c0 0-22.9-15.7 1.6-15.4c0 0 24.9 2 38.6 25.8c21.9 38.6 58.6 27.5 72.9 20.9c2.3-16 8.8-27.1 16-33.7c-55.9-6.2-112.3-14.3-112.3-110.5c0-27.5 7.6-41.3 23.6-58.9c-2.6-6.5-11.1-33.3 2.6-67.9c20.9-6.5 69 27 69 27c20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27c13.7 34.7 5.2 61.4 2.6 67.9c16 17.7 25.8 31.5 25.8 58.9c0 96.5-58.9 104.2-114.8 110.5c9.2 7.9 17 22.9 17 46.4c0 33.7-.3 75.4-.3 83.6c0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252C496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2c1.6 1.6 3.9 2.3 5.2 1c1.3-1 1-3.3-.7-5.2c-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9c1.6 1 3.6.7 4.3-.7c.7-1.3-.3-2.9-2.3-3.9c-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2c2.3 2.3 5.2 2.6 6.5 1c1.3-1.3.7-4.3-1.3-6.2c-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2c-1.4-2.3-4-3.3-5.6-2"/></symbol><use href="#ai:fa6-brands:github"></use>  </svg> GitHub </a> </div> </div> </div> </div> <div id="sidebar-sticky" class="transition-all duration-700 flex flex-col w-full gap-4 top-4 sticky top-4"> <widget-layout data-id="categories" data-is-collapsed="false" class="pb-4 card-base onload-animation" style="animation-delay: 150ms; --collapsedHeight: 7.5rem;" data-astro-cid-ucso7hve="true"> <div class="font-bold transition text-lg text-neutral-900 dark:text-neutral-100 relative ml-8 mt-4 mb-2
+        before:w-1 before:h-4 before:rounded-md before:bg-[var(--primary)]
+        before:absolute before:left-[-16px] before:top-[5.5px]" data-astro-cid-ucso7hve style="--collapsedHeight: 7.5rem;">カテゴリ</div> <div id="categories" class="collapse-wrapper px-4 overflow-hidden" data-astro-cid-ucso7hve style="--collapsedHeight: 7.5rem;"> <a href="/archive/?category=automation" aria-label="View all posts in the automation category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> automation </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[var(--btn-regular-bg)] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 9 </div> </div> </button> </a><a href="/archive/?category=deeplearning" aria-label="View all posts in the deeplearning category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> deeplearning </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[var(--btn-regular-bg)] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 25 </div> </div> </button> </a><a href="/archive/?category=other" aria-label="View all posts in the other category"> <button class="
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        "> <div class="flex items-center justify-between relative mr-2"> <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  "> other </div> <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[var(--btn-regular-bg)] dark:bg-[var(--primary)]
+                    flex items-center justify-center"> 34 </div> </div> </button> </a> </div>  </widget-layout>  <script type="module">class d extends HTMLElement{constructor(){if(super(),this.dataset.isCollapsed!=="true")return;const e=this.dataset.id,t=this.querySelector(".expand-btn"),s=this.querySelector(`#${e}`);t.addEventListener("click",()=>{s.classList.remove("collapsed"),t.classList.add("hidden")})}}customElements.get("widget-layout")||customElements.define("widget-layout",d);</script> <widget-layout data-id="tags" data-is-collapsed="true" class="pb-4 card-base onload-animation" style="animation-delay: 200ms; --collapsedHeight: 7.5rem;" data-astro-cid-ucso7hve="true"> <div class="font-bold transition text-lg text-neutral-900 dark:text-neutral-100 relative ml-8 mt-4 mb-2
+        before:w-1 before:h-4 before:rounded-md before:bg-[var(--primary)]
+        before:absolute before:left-[-16px] before:top-[5.5px]" data-astro-cid-ucso7hve style="--collapsedHeight: 7.5rem;">タグ</div> <div id="tags" class="collapse-wrapper px-4 overflow-hidden collapsed" data-astro-cid-ucso7hve style="--collapsedHeight: 7.5rem;">  <div class="flex gap-2 flex-wrap"> <a href="/archive/?tag=affiliates" aria-label="View all posts with the affiliates tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  affiliates </a><a href="/archive/?tag=AI" aria-label="View all posts with the AI tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  AI </a><a href="/archive/?tag=ai-safety" aria-label="View all posts with the ai-safety tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  ai-safety </a><a href="/archive/?tag=anthropic" aria-label="View all posts with the anthropic tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  anthropic </a><a href="/archive/?tag=Astro" aria-label="View all posts with the Astro tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  Astro </a><a href="/archive/?tag=book" aria-label="View all posts with the book tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  book </a><a href="/archive/?tag=c%23" aria-label="View all posts with the c# tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  c# </a><a href="/archive/?tag=chatgpt" aria-label="View all posts with the chatgpt tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  chatgpt </a><a href="/archive/?tag=cifar10" aria-label="View all posts with the cifar10 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  cifar10 </a><a href="/archive/?tag=claude" aria-label="View all posts with the claude tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  claude </a><a href="/archive/?tag=claude-code" aria-label="View all posts with the claude-code tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  claude-code </a><a href="/archive/?tag=ClaudeCode" aria-label="View all posts with the ClaudeCode tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  ClaudeCode </a><a href="/archive/?tag=cnn" aria-label="View all posts with the cnn tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  cnn </a><a href="/archive/?tag=crypto" aria-label="View all posts with the crypto tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  crypto </a><a href="/archive/?tag=cursor" aria-label="View all posts with the cursor tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  cursor </a><a href="/archive/?tag=device" aria-label="View all posts with the device tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  device </a><a href="/archive/?tag=docker" aria-label="View all posts with the docker tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  docker </a><a href="/archive/?tag=environment" aria-label="View all posts with the environment tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  environment </a><a href="/archive/?tag=Fuwari" aria-label="View all posts with the Fuwari tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  Fuwari </a><a href="/archive/?tag=ginza" aria-label="View all posts with the ginza tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  ginza </a><a href="/archive/?tag=gpt2" aria-label="View all posts with the gpt2 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  gpt2 </a><a href="/archive/?tag=hhkb" aria-label="View all posts with the hhkb tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  hhkb </a><a href="/archive/?tag=jupyter" aria-label="View all posts with the jupyter tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  jupyter </a><a href="/archive/?tag=kaggle" aria-label="View all posts with the kaggle tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  kaggle </a><a href="/archive/?tag=llama" aria-label="View all posts with the llama tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  llama </a><a href="/archive/?tag=llm" aria-label="View all posts with the llm tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  llm </a><a href="/archive/?tag=mac" aria-label="View all posts with the mac tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  mac </a><a href="/archive/?tag=markdown" aria-label="View all posts with the markdown tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  markdown </a><a href="/archive/?tag=miniforge" aria-label="View all posts with the miniforge tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  miniforge </a><a href="/archive/?tag=mnist" aria-label="View all posts with the mnist tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  mnist </a><a href="/archive/?tag=music" aria-label="View all posts with the music tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  music </a><a href="/archive/?tag=netlify" aria-label="View all posts with the netlify tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  netlify </a><a href="/archive/?tag=nlp" aria-label="View all posts with the nlp tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  nlp </a><a href="/archive/?tag=oyayubishift" aria-label="View all posts with the oyayubishift tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  oyayubishift </a><a href="/archive/?tag=proofreading" aria-label="View all posts with the proofreading tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  proofreading </a><a href="/archive/?tag=pyenv" aria-label="View all posts with the pyenv tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  pyenv </a><a href="/archive/?tag=python" aria-label="View all posts with the python tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  python </a><a href="/archive/?tag=q%26a" aria-label="View all posts with the q&#38;a tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  q&amp;a </a><a href="/archive/?tag=qwen" aria-label="View all posts with the qwen tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  qwen </a><a href="/archive/?tag=resnet" aria-label="View all posts with the resnet tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  resnet </a><a href="/archive/?tag=rnnattension" aria-label="View all posts with the rnnattension tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  rnnattension </a><a href="/archive/?tag=SEO" aria-label="View all posts with the SEO tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  SEO </a><a href="/archive/?tag=sf" aria-label="View all posts with the sf tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  sf </a><a href="/archive/?tag=smart-city" aria-label="View all posts with the smart-city tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  smart-city </a><a href="/archive/?tag=spacy" aria-label="View all posts with the spacy tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  spacy </a><a href="/archive/?tag=spi" aria-label="View all posts with the spi tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  spi </a><a href="/archive/?tag=stablediffusion" aria-label="View all posts with the stablediffusion tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  stablediffusion </a><a href="/archive/?tag=statistics" aria-label="View all posts with the statistics tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  statistics </a><a href="/archive/?tag=study" aria-label="View all posts with the study tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  study </a><a href="/archive/?tag=tensorflow" aria-label="View all posts with the tensorflow tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  tensorflow </a><a href="/archive/?tag=transformer" aria-label="View all posts with the transformer tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  transformer </a><a href="/archive/?tag=tweepy" aria-label="View all posts with the tweepy tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  tweepy </a><a href="/archive/?tag=unity" aria-label="View all posts with the unity tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  unity </a><a href="/archive/?tag=vue" aria-label="View all posts with the vue tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  vue </a><a href="/archive/?tag=vuepress" aria-label="View all posts with the vuepress tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  vuepress </a><a href="/archive/?tag=VuePress" aria-label="View all posts with the VuePress tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  VuePress </a><a href="/archive/?tag=wordpress" aria-label="View all posts with the wordpress tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  wordpress </a><a href="/archive/?tag=xcode" aria-label="View all posts with the xcode tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  xcode </a><a href="/archive/?tag=xserver" aria-label="View all posts with the xserver tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  xserver </a><a href="/archive/?tag=%E3%82%A8%E3%83%83%E3%82%BB%E3%82%A4" aria-label="View all posts with the エッセイ tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  エッセイ </a><a href="/archive/?tag=%E3%82%B5%E3%82%A4%E3%83%88%E7%A7%BB%E8%A1%8C" aria-label="View all posts with the サイト移行 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  サイト移行 </a><a href="/archive/?tag=%E5%80%8B%E4%BA%BA%E9%96%8B%E7%99%BA" aria-label="View all posts with the 個人開発 tag" class="btn-regular h-8 text-sm px-3 rounded-lg">  個人開発 </a> </div>  </div> <div class="expand-btn px-4 -mb-2" data-astro-cid-ucso7hve style="--collapsedHeight: 7.5rem;"> <button class="btn-plain rounded-lg w-full h-9" data-astro-cid-ucso7hve style="--collapsedHeight: 7.5rem;"> <div class="text-[var(--primary)] flex items-center justify-center gap-2 -translate-x-2" data-astro-cid-ucso7hve style="--collapsedHeight: 7.5rem;"> <svg width="1em" height="1em" class="text-[1.75rem]" data-astro-cid-ucso7hve="true" data-icon="material-symbols:more-horiz">   <symbol id="ai:material-symbols:more-horiz" viewBox="0 0 24 24"><path fill="currentColor" d="M6 14q-.825 0-1.412-.587T4 12t.588-1.412T6 10t1.413.588T8 12t-.587 1.413T6 14m6 0q-.825 0-1.412-.587T10 12t.588-1.412T12 10t1.413.588T14 12t-.587 1.413T12 14m6 0q-.825 0-1.412-.587T16 12t.588-1.412T18 10t1.413.588T20 12t-.587 1.413T18 14"/></symbol><use href="#ai:material-symbols:more-horiz"></use>  </svg> もっと </div> </button> </div> </widget-layout>   </div> </div> <main id="swup-container" class="transition-swup-fade col-span-2 lg:col-span-1 overflow-hidden"> <div id="content-wrapper" class="onload-animation"> <!-- the overflow-hidden here prevent long text break the layout--> <!-- make id different from windows.swup global property -->   <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative mb-4"> <div id="post-container" class="card-base z-10 px-6 md:px-9 pt-6 pb-4 relative w-full "> <!-- word count and reading time --> <div class="flex flex-row text-black/30 dark:text-white/30 gap-5 mb-3 transition onload-animation"> <div class="flex flex-row items-center"> <div class="transition h-6 w-6 rounded-md bg-black/5 dark:bg-white/10 text-black/50 dark:text-white/50 flex items-center justify-center mr-2"> <svg width="1em" height="1em" data-icon="material-symbols:notes-rounded">   <symbol id="ai:material-symbols:notes-rounded" viewBox="0 0 24 24"><path fill="currentColor" d="M4 18q-.425 0-.712-.288T3 17t.288-.712T4 16h10q.425 0 .713.288T15 17t-.288.713T14 18zm0-5q-.425 0-.712-.288T3 12t.288-.712T4 11h16q.425 0 .713.288T21 12t-.288.713T20 13zm0-5q-.425 0-.712-.288T3 7t.288-.712T4 6h16q.425 0 .713.288T21 7t-.288.713T20 8z"/></symbol><use href="#ai:material-symbols:notes-rounded"></use>  </svg> </div> <div class="text-sm">8704  文字</div> </div> <div class="flex flex-row items-center"> <div class="transition h-6 w-6 rounded-md bg-black/5 dark:bg-white/10 text-black/50 dark:text-white/50 flex items-center justify-center mr-2"> <svg width="1em" height="1em" data-icon="material-symbols:schedule-outline-rounded">   <symbol id="ai:material-symbols:schedule-outline-rounded" viewBox="0 0 24 24"><path fill="currentColor" d="M13 11.6V8q0-.425-.288-.712T12 7t-.712.288T11 8v3.975q0 .2.075.388t.225.337l3.3 3.3q.275.275.7.275T16 16t.275-.7t-.275-.7zM12 22q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22m0-2q3.325 0 5.663-2.337T20 12t-2.337-5.663T12 4T6.337 6.338T4 12t2.338 5.663T12 20"/></symbol><use href="#ai:material-symbols:schedule-outline-rounded"></use>  </svg> </div> <div class="text-sm"> 44  分 </div> </div> </div> <!-- title --> <div class="relative onload-animation"> <div data-pagefind-body data-pagefind-weight="10" data-pagefind-meta="title" class="transition w-full block font-bold mb-3
+                    text-3xl md:text-[2.25rem]/[2.75rem]
+                    text-black/90 dark:text-white/90
+                    md:before:w-1 before:h-5 before:rounded-md before:bg-[var(--primary)]
+                    before:absolute before:top-[0.75rem] before:left-[-1.125rem]
+                "> 一問一答で学ぶ機械学習【アルゴリズム編】 </div> </div> <!-- metadata --> <div class="onload-animation"> <div class="flex flex-wrap text-neutral-500 dark:text-neutral-400 items-center gap-4 gap-x-4 gap-y-2 mb-5"> <!-- publish date --> <div class="flex items-center"> <div class="meta-icon"> <svg width="1em" height="1em" class="text-xl" data-icon="material-symbols:calendar-today-outline-rounded">   <symbol id="ai:material-symbols:calendar-today-outline-rounded" viewBox="0 0 24 24"><path fill="currentColor" d="M5 22q-.825 0-1.412-.587T3 20V6q0-.825.588-1.412T5 4h1V3q0-.425.288-.712T7 2t.713.288T8 3v1h8V3q0-.425.288-.712T17 2t.713.288T18 3v1h1q.825 0 1.413.588T21 6v14q0 .825-.587 1.413T19 22zm0-2h14V10H5zM5 8h14V6H5zm0 0V6z"/></symbol><use href="#ai:material-symbols:calendar-today-outline-rounded"></use>  </svg> </div> <span class="text-50 text-sm font-medium">2025-11-24</span> </div> <!-- update date -->  <!-- categories --> <div class="flex items-center"> <div class="meta-icon"> <svg width="1em" height="1em" class="text-xl" data-icon="material-symbols:book-2-outline-rounded">   <symbol id="ai:material-symbols:book-2-outline-rounded" viewBox="0 0 24 24"><path fill="currentColor" d="M6 15.325q.35-.175.725-.25T7.5 15H8V4h-.5q-.625 0-1.062.438T6 5.5zM10 15h8V4h-8zm-4 .325V4zM7.5 22q-1.45 0-2.475-1.025T4 18.5v-13q0-1.45 1.025-2.475T7.5 2H18q.825 0 1.413.587T20 4v12.525q0 .2-.162.363t-.588.362q-.35.175-.55.5t-.2.75t.2.763t.55.487t.55.413t.2.562v.25q0 .425-.288.725T19 22zm0-2h9.325q-.15-.35-.237-.712T16.5 18.5q0-.4.075-.775t.25-.725H7.5q-.65 0-1.075.438T6 18.5q0 .65.425 1.075T7.5 20"/></symbol><use href="#ai:material-symbols:book-2-outline-rounded"></use>  </svg> </div> <div class="flex flex-row flex-nowrap items-center"> <a href="/archive/?category=deeplearning" aria-label="View all posts in the deeplearning category" class="link-lg transition text-50 text-sm font-medium
+                            hover:text-[var(--primary)] dark:hover:text-[var(--primary)] whitespace-nowrap"> deeplearning </a> </div> </div> <!-- tags --> <div class="items-center flex"> <div class="meta-icon"> <svg width="1em" height="1em" class="text-xl" data-icon="material-symbols:tag-rounded">   <symbol id="ai:material-symbols:tag-rounded" viewBox="0 0 24 24"><path fill="currentColor" d="m9 16l-.825 3.275q-.075.325-.325.525t-.6.2q-.475 0-.775-.375T6.3 18.8L7 16H4.275q-.5 0-.8-.387T3.3 14.75q.075-.35.35-.55t.625-.2H7.5l1-4H5.775q-.5 0-.8-.387T4.8 8.75q.075-.35.35-.55t.625-.2H9l.825-3.275Q9.9 4.4 10.15 4.2t.6-.2q.475 0 .775.375t.175.825L11 8h4l.825-3.275q.075-.325.325-.525t.6-.2q.475 0 .775.375t.175.825L17 8h2.725q.5 0 .8.387t.175.863q-.075.35-.35.55t-.625.2H16.5l-1 4h2.725q.5 0 .8.388t.175.862q-.075.35-.35.55t-.625.2H15l-.825 3.275q-.075.325-.325.525t-.6.2q-.475 0-.775-.375T12.3 18.8L13 16zm.5-2h4l1-4h-4z"/></symbol><use href="#ai:material-symbols:tag-rounded"></use>  </svg> </div> <div class="flex flex-row flex-nowrap items-center"> <div class="hidden mx-1.5 text-[var(--meta-divider)] text-sm">/</div>
+                <a href="/archive/?tag=q%26a" aria-label="View all posts with the q&#38;a tag" class="link-lg transition text-50 text-sm font-medium
+                                hover:text-[var(--primary)] dark:hover:text-[var(--primary)] whitespace-nowrap"> q&amp;a </a><div class="mx-1.5 text-[var(--meta-divider)] text-sm">/</div>
+                <a href="/archive/?tag=study" aria-label="View all posts with the study tag" class="link-lg transition text-50 text-sm font-medium
+                                hover:text-[var(--primary)] dark:hover:text-[var(--primary)] whitespace-nowrap"> study </a>  </div> </div> </div>  </div> <!-- always show cover as long as it has one --> <div id="post-cover" class="mb-8 rounded-xl banner-container onload-animation overflow-hidden relative"> <div class="transition absolute inset-0 dark:bg-black/10 bg-opacity-50 pointer-events-none"></div>  <img src="/blogimg/claude/robot.jpg" alt class="w-full h-full object-cover" style="object-position: center"> </div> <div data-pagefind-body class="prose dark:prose-invert prose-base !max-w-none custom-md mb-6 markdown-content onload-animation"> <!--<div class="prose dark:prose-invert max-w-none custom-md">--> <!--<div class="max-w-none custom-md">-->  <blockquote class="admonition bdm-tip"><span class="bdm-title"><div>要約</div></span><p>機械学習のアルゴリズムを一問一答で勉強していこうという旨の記事です。</p><p>基礎編に続いて、今回は具体的なアルゴリズムについて一問一答形式で学んでいきます。</p><p>線形回帰、ロジスティック回帰、k-NN、SVM、ナイーブベイズ、k-means、ランダムフォレスト、勾配ブースティング、PCA、ニューラルネットワークなど、主要なアルゴリズムについて理解を深めていきましょう。</p><p>解答部分はMarkdownで折りたたみを使うことでクリックしないと見れないようにしています。</p><p>※AIによる生成が含まれますが、内容はE資格を保有し、Kaggle Expertの筆者が確認済みです。</p></blockquote>
+<section><h2 id="はじめに">はじめに<a class="anchor" href="#はじめに"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h2><p>この記事は、機械学習の基礎編に続く、アルゴリズム編の一問一答形式の学習記事です。</p><p>基礎編では機械学習の基本的な概念について学びましたが、今回は具体的なアルゴリズムの仕組みや特徴について深掘りしていきます。各アルゴリズムの原理を理解することで、適切なアルゴリズムの選択や、ハイパーパラメータの調整ができるようになります。</p><p>この記事では、線形回帰、ロジスティック回帰、k-NN、SVM、ナイーブベイズ、クラスタリング、アンサンブル手法、次元削減、ニューラルネットワークなど、主要なアルゴリズムについて一問一答形式で学んでいきます。</p><p>解答部分は折りたたみ形式にしているので、まずは自分で考えてからクリックして確認してください。</p><p>※AIによる生成が含まれますが、内容はE資格を保有し、Kaggle Expertの筆者が確認済みです。</p></section>
+<section><h2 id="一問一答">一問一答<a class="anchor" href="#一問一答"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h2><section><h3 id="q1-線形回帰linear-regressionの基本的な仕組みを説明してください">Q1. 線形回帰（Linear Regression）の基本的な仕組みを説明してください。<a class="anchor" href="#q1-線形回帰linear-regressionの基本的な仕組みを説明してください"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h3><details>
+<summary>解答を見る</summary><p>線形回帰は、連続値を予測する回帰問題に使用される最も基本的なアルゴリズムです。入力特徴量と出力の間に線形関係があると仮定し、その関係を表す直線（または超平面）を学習します。</p><p><strong>基本的な式：</strong></p><ul>
+<li>単回帰：y = ax + b（a: 傾き、b: 切片）</li>
+<li>重回帰：y = w₁x₁ + w₂x₂ + … + wₙxₙ + b</li>
+<li>ベクトル表記：y = wᵀx + b（w: 重みベクトル、b: バイアス）</li>
+</ul><p><strong>学習方法：</strong></p><ol>
+<li><strong>最小二乗法（Ordinary Least Squares, OLS）</strong>：残差の二乗和を最小化するパラメータを求める</li>
+<li><strong>勾配降下法</strong>：損失関数（平均二乗誤差、MSE）の勾配を使ってパラメータを更新</li>
+</ol><p><strong>損失関数：</strong></p><ul>
+<li>MSE = (1/n) Σ(yᵢ - ŷᵢ)²（n: サンプル数、yᵢ: 実際の値、ŷᵢ: 予測値）</li>
+</ul><p><strong>メリット：</strong></p><ul>
+<li>解釈が容易</li>
+<li>計算が高速</li>
+<li>過学習しにくい（正則化を追加可能）</li>
+</ul><p><strong>デメリット：</strong></p><ul>
+<li>非線形関係を捉えられない</li>
+<li>外れ値の影響を受けやすい</li>
+<li>特徴量間の相関が高い場合（多重共線性）に問題が生じる</li>
+</ul></details><br></section><section><h3 id="q2-ロジスティック回帰logistic-regressionは回帰なのに分類問題に使われるのはなぜですか">Q2. ロジスティック回帰（Logistic Regression）は回帰なのに分類問題に使われるのはなぜですか？<a class="anchor" href="#q2-ロジスティック回帰logistic-regressionは回帰なのに分類問題に使われるのはなぜですか"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h3><details>
+<summary>解答を見る</summary><p>ロジスティック回帰は「回帰」という名前がついていますが、実際には分類問題に使用されます。名前の由来は、線形回帰の出力をロジスティック関数（シグモイド関数）で変換することで、確率として解釈できるようにしたためです。</p><p><strong>基本的な仕組み：</strong></p><ol>
+<li>線形回帰と同様に、特徴量の線形結合を計算：z = wᵀx + b</li>
+<li>シグモイド関数で0から1の範囲に変換：p = 1 / (1 + e⁻ᶻ)</li>
+<li>この確率pを使って分類を行う（例：p > 0.5ならクラス1、それ以外ならクラス0）</li>
+</ol><p><strong>シグモイド関数の特徴：</strong></p><ul>
+<li>出力が0から1の範囲に収まる</li>
+<li>S字カーブを描く</li>
+<li>zが大きいとpは1に近づき、zが小さいとpは0に近づく</li>
+</ul><p><strong>損失関数：</strong></p><ul>
+<li>交差エントロピー誤差（Cross-Entropy Loss）</li>
+<li>L = -Σ[yᵢ log(pᵢ) + (1-yᵢ) log(1-pᵢ)]</li>
+</ul><p><strong>なぜ「回帰」という名前か：</strong></p><ul>
+<li>歴史的な経緯：線形回帰を拡張した手法として開発された</li>
+<li>内部的には連続値（確率）を予測してから分類に変換している</li>
+</ul><p><strong>メリット：</strong></p><ul>
+<li>確率を出力できる（不確実性を評価可能）</li>
+<li>解釈が容易（各特徴量の影響度を確認できる）</li>
+<li>計算が高速</li>
+<li>正則化を追加しやすい</li>
+</ul><p><strong>デメリット：</strong></p><ul>
+<li>線形分離可能な問題に適している（非線形関係には弱い）</li>
+<li>特徴量間の相互作用を捉えにくい</li>
+</ul></details><br></section><section><h3 id="q3-k-nnk近傍法k-nearest-neighborsの仕組みとkの値の選び方について説明してください">Q3. k-NN（k近傍法、k-Nearest Neighbors）の仕組みと、kの値の選び方について説明してください。<a class="anchor" href="#q3-k-nnk近傍法k-nearest-neighborsの仕組みとkの値の選び方について説明してください"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h3><details>
+<summary>解答を見る</summary><p>k-NNは、新しいデータ点に対して、訓練データの中で最も近いk個のデータ点（近傍）を見つけ、そのk個の多数決で分類・回帰を行うアルゴリズムです。教師あり学習の一種ですが、実際には訓練データをそのまま保持するだけの「怠惰学習（Lazy Learning）」です。</p><p><strong>分類問題での動作：</strong></p><ol>
+<li>新しいデータ点xが与えられる</li>
+<li>訓練データからxに最も近いk個のデータ点を見つける（距離計算：ユークリッド距離、マンハッタン距離など）</li>
+<li>k個の近傍のクラスを確認し、最も多いクラスに分類</li>
+</ol><p><strong>回帰問題での動作：</strong></p><ul>
+<li>k個の近傍の値の平均を予測値とする</li>
+</ul><p><strong>距離の計算方法：</strong></p><ul>
+<li><strong>ユークリッド距離</strong>：√Σ(xᵢ - yᵢ)²（最も一般的）</li>
+<li><strong>マンハッタン距離</strong>：Σ|xᵢ - yᵢ|</li>
+<li><strong>コサイン類似度</strong>：ベクトルの角度で距離を測る</li>
+</ul><p><strong>kの値の選び方：</strong></p><ul>
+<li><strong>kが小さい場合（k=1など）</strong>：
+<ul>
+<li>メリット：局所的なパターンを捉えやすい</li>
+<li>デメリット：ノイズに敏感、過学習しやすい</li>
+</ul>
+</li>
+<li><strong>kが大きい場合</strong>：
+<ul>
+<li>メリット：ノイズに頑健、滑らかな決定境界</li>
+<li>デメリット：局所的なパターンを見逃す可能性、計算コストが高い</li>
+</ul>
+</li>
+</ul><p><strong>一般的な選び方：</strong></p><ul>
+<li>k = √n（nは訓練データ数）を初期値として試す</li>
+<li>交差検証で最適なkを探索</li>
+<li>通常、kは奇数にすることが多い（分類問題で同票を避けるため）</li>
+</ul><p><strong>メリット：</strong></p><ul>
+<li>実装が簡単</li>
+<li>非線形の関係も捉えられる</li>
+<li>訓練が不要（データを保持するだけ）</li>
+</ul><p><strong>デメリット：</strong></p><ul>
+<li>予測時に全訓練データとの距離計算が必要（計算コストが高い）</li>
+<li>次元の呪いの影響を受けやすい</li>
+<li>特徴量のスケーリングが重要</li>
+</ul></details><br></section><section><h3 id="q4-svmサポートベクターマシンsupport-vector-machineの基本的な考え方を説明してください">Q4. SVM（サポートベクターマシン、Support Vector Machine）の基本的な考え方を説明してください。<a class="anchor" href="#q4-svmサポートベクターマシンsupport-vector-machineの基本的な考え方を説明してください"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h3><details>
+<summary>解答を見る</summary><p>SVMは、分類問題において、クラス間のマージン（余白）を最大化するように決定境界を引くアルゴリズムです。マージンを最大化することで、汎化性能の高いモデルを構築できます。</p><p><strong>基本的な考え方（線形SVM）：</strong></p><ol>
+<li>2つのクラスを分離する直線（決定境界）を引く</li>
+<li>その直線から最も近いデータ点（サポートベクター）までの距離（マージン）を最大化する</li>
+<li>マージンが最大になるような決定境界を選択</li>
+</ol><p><strong>ハードマージンとソフトマージン：</strong></p><ul>
+<li><strong>ハードマージン</strong>：完全に線形分離可能な場合、全てのデータ点を正しく分類</li>
+<li><strong>ソフトマージン</strong>：完全に分離できない場合、誤分類を許容する（Cパラメータで制御）</li>
+</ul><p><strong>カーネル法：</strong>
+線形分離できない場合、カーネル関数を使って高次元空間に写像し、その空間で線形分離を行う：</p><ul>
+<li><strong>線形カーネル</strong>：K(x, y) = xᵀy</li>
+<li><strong>多項式カーネル</strong>：K(x, y) = (γxᵀy + r)ᵈ</li>
+<li><strong>RBFカーネル（ガウシアンカーネル）</strong>：K(x, y) = exp(-γ||x - y||²)（最も一般的）</li>
+</ul><p><strong>主なパラメータ：</strong></p><ul>
+<li><strong>C</strong>：誤分類の許容度（大きいほど誤分類を許さない）</li>
+<li><strong>γ（gamma）</strong>：RBFカーネルの影響範囲（大きいほど複雑な境界）</li>
+</ul><p><strong>メリット：</strong></p><ul>
+<li>高次元データに強い</li>
+<li>カーネル法により非線形問題にも対応可能</li>
+<li>サポートベクターのみが重要（メモリ効率が良い）</li>
+</ul><p><strong>デメリット：</strong></p><ul>
+<li>大規模データには計算コストが高い</li>
+<li>パラメータ調整が重要</li>
+<li>確率を直接出力できない</li>
+</ul></details><br></section><section><h3 id="q5-ナイーブベイズnaive-bayesのナイーブの意味となぜそれでもうまく動作するのかを説明してください">Q5. ナイーブベイズ（Naive Bayes）の「ナイーブ」の意味と、なぜそれでもうまく動作するのかを説明してください。<a class="anchor" href="#q5-ナイーブベイズnaive-bayesのナイーブの意味となぜそれでもうまく動作するのかを説明してください"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h3><details>
+<summary>解答を見る</summary><p>ナイーブベイズは、ベイズの定理を利用した分類アルゴリズムです。「ナイーブ（naive）」とは「単純な」という意味で、特徴量間の独立性を仮定していることを指します。この仮定は現実的には成り立たないことが多いですが、それでも多くの場合に良好な性能を示します。</p><p><strong>ベイズの定理：</strong>
+P(クラス|特徴) = P(特徴|クラス) × P(クラス) / P(特徴)</p><p><strong>ナイーブな仮定：</strong>
+各特徴量が互いに独立であると仮定：
+P(x₁, x₂, …, xₙ|クラス) = P(x₁|クラス) × P(x₂|クラス) × … × P(xₙ|クラス)</p><p><strong>なぜ「ナイーブ」か：</strong></p><ul>
+<li>現実では特徴量間に関連があることが多い（例：年齢と年収）</li>
+<li>この独立性の仮定は「単純すぎる（naive）」ため、この名前がついた</li>
+</ul><p><strong>なぜうまく動作するのか：</strong></p><ol>
+<li><strong>分類に必要なのは順序</strong>：確率の正確な値ではなく、クラス間の大小関係が重要</li>
+<li><strong>独立性の仮定の影響が相殺される</strong>：誤差が各特徴量で発生しても、全体としては相殺される傾向</li>
+<li><strong>データが少なくても動作</strong>：各特徴量の条件付き確率を個別に推定できるため、少ないデータでも学習可能</li>
+<li><strong>実装が簡単で高速</strong>：確率の計算が単純</li>
+</ol><p><strong>主な種類：</strong></p><ul>
+<li><strong>ガウシアンナイーブベイズ</strong>：連続値特徴量に使用、正規分布を仮定</li>
+<li><strong>多項ナイーブベイズ</strong>：カウントデータ（例：単語の出現回数）に使用</li>
+<li><strong>ベルヌーイナイーブベイズ</strong>：二値特徴量に使用</li>
+</ul><p><strong>メリット：</strong></p><ul>
+<li>学習・予測が高速</li>
+<li>少ないデータでも動作</li>
+<li>実装が簡単</li>
+<li>テキスト分類（スパム判定など）に特に有効</li>
+</ul><p><strong>デメリット：</strong></p><ul>
+<li>独立性の仮定が現実的でない</li>
+<li>特徴量間の相互作用を捉えられない</li>
+</ul></details><br></section><section><h3 id="q6-k-meansクラスタリングのアルゴリズムの手順を説明してください">Q6. k-meansクラスタリングのアルゴリズムの手順を説明してください。<a class="anchor" href="#q6-k-meansクラスタリングのアルゴリズムの手順を説明してください"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h3><details>
+<summary>解答を見る</summary><p>k-meansは、教師なし学習のクラスタリング手法で、データをk個のクラスタに分割します。各クラスタは、そのクラスタの中心（セントロイド）からの距離が最小になるようにデータを割り当てます。</p><p><strong>アルゴリズムの手順：</strong></p><ol>
+<li><strong>初期化</strong>：k個のセントロイドをランダムに選択（またはk-means++などの手法で初期化）</li>
+<li><strong>割り当て（Assignment）</strong>：各データ点を最も近いセントロイドのクラスタに割り当て</li>
+<li><strong>更新（Update）</strong>：各クラスタのセントロイドを、そのクラスタに属するデータ点の平均に更新</li>
+<li><strong>収束判定</strong>：セントロイドの位置が変化しなくなる、または変化が閾値以下になるまで、ステップ2と3を繰り返す</li>
+</ol><p><strong>距離の計算：</strong></p><ul>
+<li>通常はユークリッド距離を使用：||x - c||²（x: データ点、c: セントロイド）</li>
+</ul><p><strong>目的関数（最小化する関数）：</strong></p><ul>
+<li>クラスタ内誤差平方和（Within-Cluster Sum of Squares, WCSS）</li>
+<li>WCSS = Σᵢ Σⱼ ||xᵢⱼ - cᵢ||²（i: クラスタ、j: データ点）</li>
+</ul><p><strong>kの選び方：</strong></p><ul>
+<li><strong>エルボー法</strong>：kを変えながらWCSSをプロットし、急激に減少が止まる点（エルボー）を選択</li>
+<li><strong>シルエット分析</strong>：クラスタの分離度を評価</li>
+<li><strong>ドメイン知識</strong>：ビジネス要件に基づいてkを決定</li>
+</ul><p><strong>メリット：</strong></p><ul>
+<li>実装が簡単</li>
+<li>計算が高速（O(nkd)、n: データ数、k: クラスタ数、d: 次元数）</li>
+<li>大規模データにも適用可能</li>
+</ul><p><strong>デメリット：</strong></p><ul>
+<li>kを事前に指定する必要がある</li>
+<li>初期値に依存する（異なる初期値で異なる結果になる可能性）</li>
+<li>クラスタの形状が球形を仮定（非球形のクラスタには不適切）</li>
+<li>外れ値の影響を受けやすい</li>
+</ul><p><strong>改善手法：</strong></p><ul>
+<li><strong>k-means++</strong>：初期セントロイドを適切に選択</li>
+<li><strong>k-medoids</strong>：セントロイドをデータ点から選択（外れ値に頑健）</li>
+</ul></details><br></section><section><h3 id="q7-ランダムフォレストrandom-forestのランダムの意味とアンサンブル学習の考え方を説明してください">Q7. ランダムフォレスト（Random Forest）の「ランダム」の意味と、アンサンブル学習の考え方を説明してください。<a class="anchor" href="#q7-ランダムフォレストrandom-forestのランダムの意味とアンサンブル学習の考え方を説明してください"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h3><details>
+<summary>解答を見る</summary><p>ランダムフォレストは、複数の決定木を組み合わせたアンサンブル学習手法です。「ランダム」という名前は、2つのランダム性に由来します。</p><p><strong>ランダム性の2つの要素：</strong></p><ol>
+<li><strong>ブートストラップサンプリング</strong>：訓練データからランダムに復元抽出して、各決定木の訓練データを作成</li>
+<li><strong>特徴量のランダム選択</strong>：各ノードの分割時に、全特徴量からランダムに選択した特徴量のみを候補とする</li>
+</ol><p><strong>アンサンブル学習の考え方：</strong></p><ul>
+<li><strong>バギング（Bootstrap Aggregating）</strong>：複数の弱学習器（決定木）を独立に学習し、その予測を平均（回帰）または多数決（分類）で統合</li>
+<li>「三人寄れば文殊の知恵」：複数のモデルの意見を集約することで、単一のモデルよりも汎化性能が向上</li>
+</ul><p><strong>アルゴリズムの流れ：</strong></p><ol>
+<li>訓練データからブートストラップサンプルをn個作成（nは決定木の数）</li>
+<li>各サンプルで決定木を学習（各ノードで特徴量をランダム選択）</li>
+<li>新しいデータに対して、全決定木の予測を集約</li>
+</ol><p><strong>集約方法：</strong></p><ul>
+<li><strong>分類</strong>：各決定木の予測クラスで多数決</li>
+<li><strong>回帰</strong>：各決定木の予測値の平均</li>
+</ul><p><strong>メリット：</strong></p><ul>
+<li>過学習に強い（各決定木は異なるデータで学習）</li>
+<li>外れ値に頑健</li>
+<li>特徴量の重要度を計算できる</li>
+<li>ハイパーパラメータ調整が比較的容易</li>
+<li>並列化が容易</li>
+</ul><p><strong>デメリット：</strong></p><ul>
+<li>解釈が難しい（決定木の集合のため）</li>
+<li>メモリ使用量が多い</li>
+<li>線形関係を捉えるのが苦手</li>
+</ul><p><strong>主要なパラメータ：</strong></p><ul>
+<li><strong>n_estimators</strong>：決定木の数（多いほど性能向上、ただし計算コスト増）</li>
+<li><strong>max_depth</strong>：決定木の最大深度</li>
+<li><strong>max_features</strong>：各ノードで考慮する特徴量の数</li>
+</ul></details><br></section><section><h3 id="q8-勾配ブースティングgradient-boostingとランダムフォレストの違いを説明してください">Q8. 勾配ブースティング（Gradient Boosting）とランダムフォレストの違いを説明してください。<a class="anchor" href="#q8-勾配ブースティングgradient-boostingとランダムフォレストの違いを説明してください"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h3><details>
+<summary>解答を見る</summary><p>勾配ブースティングとランダムフォレストは、どちらも決定木を使ったアンサンブル手法ですが、学習方法が大きく異なります。</p><p><strong>ランダムフォレスト（バギング）：</strong></p><ul>
+<li><strong>並列学習</strong>：複数の決定木を独立に並列に学習</li>
+<li><strong>独立した学習</strong>：各決定木は互いに影響を与えない</li>
+<li><strong>ブートストラップサンプリング</strong>：各決定木は異なるデータサンプルで学習</li>
+<li><strong>予測の統合</strong>：各決定木の予測を平均または多数決</li>
+</ul><p><strong>勾配ブースティング（ブースティング）：</strong></p><ul>
+<li><strong>逐次学習</strong>：決定木を1つずつ順番に学習</li>
+<li><strong>誤差の修正</strong>：前の決定木が間違えた部分を次の決定木が修正するように学習</li>
+<li><strong>同じデータを使用</strong>：全決定木が同じ訓練データを使用（重み付けは異なる）</li>
+<li><strong>予測の統合</strong>：各決定木の予測を重み付きで加算</li>
+</ul><p><strong>勾配ブースティングのアルゴリズム：</strong></p><ol>
+<li>最初の決定木を学習（全データに同じ重み）</li>
+<li>残差（誤差）を計算</li>
+<li>残差を予測する次の決定木を学習</li>
+<li>予測を更新：F(x) = F₀(x) + α × F₁(x)（α: 学習率）</li>
+<li>ステップ2-4を繰り返す</li>
+</ol><p><strong>主な実装：</strong></p><ul>
+<li><strong>XGBoost</strong>：高速で高性能、正則化機能あり</li>
+<li><strong>LightGBM</strong>：XGBoostより高速、大規模データに強い</li>
+<li><strong>CatBoost</strong>：カテゴリ変数の処理に優れる</li>
+</ul><p><strong>比較：</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>項目</th><th>ランダムフォレスト</th><th>勾配ブースティング</th></tr></thead><tbody><tr><td>学習方法</td><td>並列</td><td>逐次</td></tr><tr><td>学習速度</td><td>速い</td><td>遅い（順次学習のため）</td></tr><tr><td>過学習</td><td>比較的強い</td><td>弱い（注意が必要）</td></tr><tr><td>パラメータ調整</td><td>比較的容易</td><td>複雑</td></tr><tr><td>性能</td><td>良好</td><td>通常より高い</td></tr><tr><td>解釈性</td><td>低い</td><td>低い</td></tr></tbody></table><p><strong>使い分け：</strong></p><ul>
+<li><strong>ランダムフォレスト</strong>：並列化したい、パラメータ調整を簡単にしたい場合</li>
+<li><strong>勾配ブースティング</strong>：最高の性能を追求したい、時間をかけて調整できる場合</li>
+</ul></details><br></section><section><h3 id="q9-主成分分析pcaprincipal-component-analysisの目的と仕組みを説明してください">Q9. 主成分分析（PCA、Principal Component Analysis）の目的と仕組みを説明してください。<a class="anchor" href="#q9-主成分分析pcaprincipal-component-analysisの目的と仕組みを説明してください"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h3><details>
+<summary>解答を見る</summary><p>PCAは、次元削減の手法で、元のデータの情報をできるだけ保持しながら、より少ない次元で表現します。高次元データを可視化したり、計算コストを削減したりする際に使用されます。</p><p><strong>目的：</strong></p><ol>
+<li><strong>次元削減</strong>：高次元データを低次元に圧縮</li>
+<li><strong>可視化</strong>：2次元や3次元に圧縮してデータを可視化</li>
+<li><strong>ノイズ除去</strong>：重要な情報を保持しつつ、ノイズを除去</li>
+<li><strong>計算コストの削減</strong>：特徴量の数を減らして計算を高速化</li>
+</ol><p><strong>基本的な仕組み：</strong></p><ol>
+<li><strong>データの標準化</strong>：各特徴量を平均0、分散1に標準化</li>
+<li><strong>共分散行列の計算</strong>：特徴量間の相関を表す共分散行列を計算</li>
+<li><strong>固有値分解</strong>：共分散行列の固有値と固有ベクトルを計算</li>
+<li><strong>主成分の選択</strong>：固有値が大きい順に主成分（固有ベクトル）を選択</li>
+<li><strong>射影</strong>：元のデータを主成分空間に射影</li>
+</ol><p><strong>主成分の意味：</strong></p><ul>
+<li><strong>第1主成分</strong>：データの分散が最大になる方向</li>
+<li><strong>第2主成分</strong>：第1主成分と直交し、残りの分散が最大になる方向</li>
+<li>以降も同様に、直交する方向で分散が最大になる成分を順次選択</li>
+</ul><p><strong>寄与率と累積寄与率：</strong></p><ul>
+<li><strong>寄与率</strong>：各主成分が全体の分散の何%を説明するか</li>
+<li><strong>累積寄与率</strong>：上位k個の主成分で全体の分散の何%を説明するか</li>
+<li>通常、累積寄与率が80-90%になる主成分数を選択</li>
+</ul><p><strong>メリット：</strong></p><ul>
+<li>データの構造を保持しながら次元削減</li>
+<li>計算が比較的簡単</li>
+<li>可視化に有効</li>
+<li>線形変換のため解釈が容易</li>
+</ul><p><strong>デメリット：</strong></p><ul>
+<li>線形関係しか捉えられない（非線形関係には不適切）</li>
+<li>主成分の解釈が難しい場合がある</li>
+<li>情報の損失が発生する（完全に元のデータを再現できない）</li>
+</ul><p><strong>注意点：</strong></p><ul>
+<li>PCAは教師なし学習なので、クラス情報は使用しない</li>
+<li>標準化が重要（スケールが異なる特徴量がある場合）</li>
+</ul></details><br></section><section><h3 id="q10-ニューラルネットワークの基本的な構造入力層隠れ層出力層と各層の役割を説明してください">Q10. ニューラルネットワークの基本的な構造（入力層、隠れ層、出力層）と、各層の役割を説明してください。<a class="anchor" href="#q10-ニューラルネットワークの基本的な構造入力層隠れ層出力層と各層の役割を説明してください"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h3><details>
+<summary>解答を見る</summary><p>ニューラルネットワークは、人間の脳の神経回路を模倣した機械学習モデルで、複数の層（レイヤー）から構成されます。</p><p><strong>基本的な構造：</strong></p><ol>
+<li><strong>入力層（Input Layer）</strong>：データを受け取る層</li>
+<li><strong>隠れ層（Hidden Layer）</strong>：中間で処理を行う層（1層以上）</li>
+<li><strong>出力層（Output Layer）</strong>：最終的な予測を出力する層</li>
+</ol><p><strong>各層の役割：</strong></p><p><strong>入力層：</strong></p><ul>
+<li>特徴量の数だけニューロン（ノード）がある</li>
+<li>データをそのまま受け取り、次の層に渡す</li>
+<li>通常、活性化関数は適用しない（恒等関数）</li>
+</ul><p><strong>隠れ層：</strong></p><ul>
+<li>データの特徴を抽出・変換する</li>
+<li>複数の隠れ層を重ねることで、より複雑なパターンを学習可能（深層学習）</li>
+<li>各ニューロンは、前の層からの入力の重み付き和を計算し、活性化関数を通す</li>
+<li>計算式：h = f(Wx + b)（W: 重み行列、x: 入力、b: バイアス、f: 活性化関数）</li>
+</ul><p><strong>出力層：</strong></p><ul>
+<li>タスクに応じた形式で予測を出力</li>
+<li><strong>回帰問題</strong>：1つのニューロン、活性化関数なし（または線形）</li>
+<li><strong>2クラス分類</strong>：1つのニューロン、シグモイド関数</li>
+<li><strong>多クラス分類</strong>：クラス数だけニューロン、ソフトマックス関数</li>
+</ul><p><strong>活性化関数の役割：</strong></p><ul>
+<li>非線形性を導入（線形変換だけでは表現力が限られる）</li>
+<li>代表的な活性化関数：
+<ul>
+<li><strong>ReLU</strong>：f(x) = max(0, x)（最も一般的）</li>
+<li><strong>シグモイド</strong>：f(x) = 1 / (1 + e⁻ˣ)</li>
+<li><strong>tanh</strong>：f(x) = (eˣ - e⁻ˣ) / (eˣ + e⁻ˣ)</li>
+</ul>
+</li>
+</ul><p><strong>順伝播（Forward Propagation）：</strong>
+入力から出力に向かって、各層で計算を順次実行していく過程</p><p><strong>逆伝播（Backpropagation）：</strong>
+出力の誤差を入力側に向かって逆に伝播させ、各層の重みを更新する過程</p><p><strong>メリット：</strong></p><ul>
+<li>非線形の複雑な関係を学習可能</li>
+<li>特徴量エンジニアリングが比較的不要（自動的に特徴を学習）</li>
+<li>様々なタスクに適用可能</li>
+</ul><p><strong>デメリット：</strong></p><ul>
+<li>大量のデータと計算資源が必要</li>
+<li>ハイパーパラメータの調整が複雑</li>
+<li>解釈が難しい（ブラックボックス）</li>
+</ul></details><br></section><section><h3 id="q11-バックプロパゲーション誤差逆伝播法の基本的な仕組みを説明してください">Q11. バックプロパゲーション（誤差逆伝播法）の基本的な仕組みを説明してください。<a class="anchor" href="#q11-バックプロパゲーション誤差逆伝播法の基本的な仕組みを説明してください"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h3><details>
+<summary>解答を見る</summary><p>バックプロパゲーションは、ニューラルネットワークの学習において、出力層の誤差を入力層に向かって逆に伝播させ、各層の重みを更新するアルゴリズムです。</p><p><strong>基本的な流れ：</strong></p><ol>
+<li><strong>順伝播</strong>：入力から出力まで計算し、予測値と実際の値の誤差を計算</li>
+<li><strong>誤差の計算</strong>：損失関数（例：平均二乗誤差、交差エントロピー）で誤差を計算</li>
+<li><strong>逆伝播</strong>：出力層から入力層に向かって、誤差を逆に伝播</li>
+<li><strong>重みの更新</strong>：各層の重みを勾配降下法で更新</li>
+</ol><p><strong>数学的な仕組み：</strong></p><ul>
+<li><strong>連鎖律（Chain Rule）</strong>：合成関数の微分を利用</li>
+<li>出力層の誤差δᴸを計算</li>
+<li>各層lの誤差δˡを、次の層の誤差δˡ⁺¹から計算：δˡ = (Wˡ⁺¹)ᵀ δˡ⁺¹ ⊙ f’(zˡ)（⊙: 要素積、f’: 活性化関数の微分）</li>
+<li>重みの勾配：∂L/∂Wˡ = δˡ (aˡ⁻¹)ᵀ（a: 活性化後の値）</li>
+<li>重みの更新：Wˡ ← Wˡ - α × ∂L/∂Wˡ（α: 学習率）</li>
+</ul><p><strong>なぜ逆伝播が必要か：</strong></p><ul>
+<li>ニューロン数が多くなると、各重みの影響を直接計算するのは困難</li>
+<li>連鎖律を利用することで、効率的に全ての重みの勾配を一度に計算できる</li>
+</ul><p><strong>メリット：</strong></p><ul>
+<li>効率的に全ての重みを更新できる</li>
+<li>深いネットワークでも学習可能</li>
+<li>自動微分により実装が容易（PyTorch、TensorFlowなど）</li>
+</ul><p><strong>注意点：</strong></p><ul>
+<li>学習率の設定が重要（大きすぎると発散、小さすぎると収束が遅い）</li>
+<li>重みの初期化が重要（Xavier初期化、He初期化など）</li>
+</ul></details><br></section><section><h3 id="q12-勾配消失問題vanishing-gradient-problemと勾配爆発問題exploding-gradient-problemとは何ですかなぜ発生するのかどのように解決できるのかを説明してください">Q12. 勾配消失問題（Vanishing Gradient Problem）と勾配爆発問題（Exploding Gradient Problem）とは何ですか？なぜ発生するのか、どのように解決できるのかを説明してください。<a class="anchor" href="#q12-勾配消失問題vanishing-gradient-problemと勾配爆発問題exploding-gradient-problemとは何ですかなぜ発生するのかどのように解決できるのかを説明してください"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h3><details>
+<summary>解答を見る</summary><p>勾配消失問題と勾配爆発問題は、深いニューラルネットワークの学習において、逆伝播の過程で勾配が適切に伝播しなくなる問題です。</p><p><strong>勾配消失問題（Vanishing Gradient Problem）：</strong></p><p><strong>問題の内容：</strong></p><ul>
+<li>深いネットワークで、逆伝播の過程で勾配が0に近づいてしまう</li>
+<li>入力層に近い層の重みがほとんど更新されなくなる</li>
+<li>結果として、深いネットワークが学習できない</li>
+</ul><p><strong>なぜ発生するか：</strong></p><ol>
+<li>
+<p><strong>活性化関数の微分が小さい</strong>：</p>
+<ul>
+<li>シグモイド関数：f’(x) = f(x)(1-f(x))、最大値が0.25</li>
+<li>tanh関数：f’(x) = 1 - tanh²(x)、最大値が1</li>
+<li>連鎖律により、各層で勾配が小さくなり、層を重ねるごとに指数関数的に小さくなる</li>
+</ul>
+</li>
+<li>
+<p><strong>重みの初期値が小さい</strong>：</p>
+<ul>
+<li>重みが小さいと、勾配も小さくなる</li>
+</ul>
+</li>
+<li>
+<p><strong>数学的な説明</strong>：</p>
+<ul>
+<li>勾配は連鎖律により、各層の活性化関数の微分と重みの積になる</li>
+<li>各層で0.5以下の値が掛け合わされると、層数が増えるごとに指数関数的に小さくなる</li>
+<li>例：10層で各層0.5なら、0.5¹⁰ ≈ 0.001</li>
+</ul>
+</li>
+</ol><p><strong>解決策：</strong></p><ol>
+<li>
+<p><strong>ReLU活性化関数の使用</strong>：</p>
+<ul>
+<li>ReLUの微分は1（x > 0の場合）なので、勾配が消失しにくい</li>
+<li>ただし、x ≤ 0の場合は勾配が0になる（死んだReLU問題）</li>
+</ul>
+</li>
+<li>
+<p><strong>残差接続（Residual Connection）</strong>：</p>
+<ul>
+<li>ResNetで使用される手法</li>
+<li>スキップ接続により、勾配が直接伝播する経路を作る</li>
+<li>式：y = F(x) + x（F: 変換、x: 入力）</li>
+</ul>
+</li>
+<li>
+<p><strong>適切な重みの初期化</strong>：</p>
+<ul>
+<li>Xavier初期化、He初期化など</li>
+<li>各層の出力の分散を適切に保つ</li>
+</ul>
+</li>
+<li>
+<p><strong>バッチ正規化（Batch Normalization）</strong>：</p>
+<ul>
+<li>各層の入力を正規化することで、学習を安定化</li>
+<li>勾配の伝播を改善</li>
+</ul>
+</li>
+<li>
+<p><strong>勾配クリッピング</strong>：</p>
+<ul>
+<li>勾配が小さくなりすぎないように、最小値を設定</li>
+</ul>
+</li>
+</ol><p><strong>勾配爆発問題（Exploding Gradient Problem）：</strong></p><p><strong>問題の内容：</strong></p><ul>
+<li>逆伝播の過程で勾配が非常に大きくなってしまう</li>
+<li>重みの更新が大きすぎて、学習が不安定になる</li>
+<li>損失関数が発散したり、NaN（Not a Number）が発生する</li>
+</ul><p><strong>なぜ発生するか：</strong></p><ol>
+<li>
+<p><strong>重みの初期値が大きい</strong>：</p>
+<ul>
+<li>重みが大きいと、勾配も大きくなる</li>
+</ul>
+</li>
+<li>
+<p><strong>活性化関数の微分が大きい</strong>：</p>
+<ul>
+<li>活性化関数の微分が1より大きい場合、層を重ねるごとに勾配が大きくなる</li>
+</ul>
+</li>
+<li>
+<p><strong>学習率が大きい</strong>：</p>
+<ul>
+<li>学習率が大きすぎると、更新が大きくなりすぎる</li>
+</ul>
+</li>
+<li>
+<p><strong>数学的な説明</strong>：</p>
+<ul>
+<li>各層で1より大きい値が掛け合わされると、層数が増えるごとに指数関数的に大きくなる</li>
+<li>例：10層で各層1.5なら、1.5¹⁰ ≈ 57.7</li>
+</ul>
+</li>
+</ol><p><strong>解決策：</strong></p><ol>
+<li>
+<p><strong>勾配クリッピング（Gradient Clipping）</strong>：</p>
+<ul>
+<li>勾配の最大値を制限（例：1.0や5.0）</li>
+<li>式：gradient = min(gradient, threshold) または gradient = gradient / max(1, ||gradient||/threshold)</li>
+</ul>
+</li>
+<li>
+<p><strong>適切な重みの初期化</strong>：</p>
+<ul>
+<li>重みを小さめに初期化</li>
+<li>Xavier初期化、He初期化など</li>
+</ul>
+</li>
+<li>
+<p><strong>学習率の調整</strong>：</p>
+<ul>
+<li>学習率を小さくする</li>
+<li>学習率スケジューリングを使用</li>
+</ul>
+</li>
+<li>
+<p><strong>バッチ正規化</strong>：</p>
+<ul>
+<li>各層の入力を正規化することで、学習を安定化</li>
+</ul>
+</li>
+<li>
+<p><strong>重みの正則化</strong>：</p>
+<ul>
+<li>L2正則化などで重みを制限</li>
+</ul>
+</li>
+</ol><p><strong>両方の問題への対処：</strong></p><ul>
+<li><strong>適切なアーキテクチャの選択</strong>：ResNet、DenseNetなど、勾配の伝播を改善するアーキテクチャ</li>
+<li><strong>注意深いハイパーパラメータ調整</strong>：学習率、重みの初期化、正則化の強さなど</li>
+<li><strong>勾配の監視</strong>：学習中に勾配の大きさを監視し、問題を早期に検出</li>
+</ul><p>これらの問題を理解し、適切に対処することで、深いニューラルネットワークを効果的に学習できるようになります。</p></details><br></section><section><h3 id="q13-畳み込み操作におけるフィルタカーネルストライドパディングとは何ですかそれぞれの役割と出力サイズの計算方法を説明してください">Q13. 畳み込み操作におけるフィルタ（カーネル）、ストライド、パディングとは何ですか？それぞれの役割と、出力サイズの計算方法を説明してください。<a class="anchor" href="#q13-畳み込み操作におけるフィルタカーネルストライドパディングとは何ですかそれぞれの役割と出力サイズの計算方法を説明してください"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h3><details>
+<summary>解答を見る</summary><p>畳み込み操作は、CNNの核心となる操作で、フィルタ、ストライド、パディングという3つの重要な概念があります。</p><p><strong>フィルタ（Filter / Kernel）とは：</strong></p><ul>
+<li>畳み込み操作で使用する小さな行列（例：3×3、5×5）</li>
+<li>画像上をスライドさせながら、局所的な特徴を抽出するための「テンプレート」</li>
+<li>各要素は学習可能なパラメータ（重み）</li>
+<li>例：エッジ検出用のフィルタ、ぼかし用のフィルタなど</li>
+</ul><p><strong>ストライド（Stride）とは：</strong></p><ul>
+<li>フィルタを画像上で移動させる際の「ステップ幅」</li>
+<li>ストライド=1：フィルタを1ピクセルずつ移動</li>
+<li>ストライド=2：フィルタを2ピクセルずつ移動</li>
+<li><strong>ストライドが大きいほど</strong>：出力サイズが小さくなる、計算量が減る、情報が失われる</li>
+</ul><p><strong>パディング（Padding）とは：</strong></p><ul>
+<li>入力画像の周囲に追加する値（通常は0）</li>
+<li><strong>ゼロパディング（Zero Padding）</strong>：周囲に0を追加</li>
+<li><strong>パディングの目的</strong>：
+<ol>
+<li>出力サイズを調整（入力と同じサイズに保つなど）</li>
+<li>境界の情報を保持（端のピクセルもフィルタの中心になるように）</li>
+<li>情報の損失を防ぐ</li>
+</ol>
+</li>
+</ul><p><strong>出力サイズの計算式：</strong>
+出力サイズ = (入力サイズ + 2×パディング - フィルタサイズ) / ストライド + 1</p><p><strong>具体例：</strong></p><p><strong>例1：パディングなし、ストライド=1</strong></p><ul>
+<li>入力：5×5の画像</li>
+<li>フィルタ：3×3</li>
+<li>パディング：0</li>
+<li>ストライド：1</li>
+<li>出力サイズ = (5 + 2×0 - 3) / 1 + 1 = 3×3</li>
+</ul><p><strong>例2：パディングあり、ストライド=1（出力サイズを入力と同じに）</strong></p><ul>
+<li>入力：5×5の画像</li>
+<li>フィルタ：3×3</li>
+<li>パディング：1（周囲に1ピクセル分の0を追加）</li>
+<li>ストライド：1</li>
+<li>出力サイズ = (5 + 2×1 - 3) / 1 + 1 = 5×5（入力と同じサイズ）</li>
+</ul><p><strong>例3：ストライド=2（ダウンサンプリング）</strong></p><ul>
+<li>入力：7×7の画像</li>
+<li>フィルタ：3×3</li>
+<li>パディング：1</li>
+<li>ストライド：2</li>
+<li>出力サイズ = (7 + 2×1 - 3) / 2 + 1 = 4×4</li>
+</ul><p><strong>パディングの種類：</strong></p><ul>
+<li><strong>Valid Padding（パディングなし）</strong>：パディング=0、出力サイズが小さくなる</li>
+<li><strong>Same Padding</strong>：出力サイズを入力サイズと同じにするためのパディング
+<ul>
+<li>パディング = (フィルタサイズ - 1) / 2（フィルタサイズが奇数の場合）</li>
+<li>例：3×3フィルタなら、パディング=1でSame Padding</li>
+</ul>
+</li>
+</ul><p><strong>各パラメータの影響：</strong></p><p><strong>フィルタサイズ：</strong></p><ul>
+<li>小さい（3×3など）：細かい特徴を捉える、計算が速い</li>
+<li>大きい（7×7など）：広い範囲の特徴を捉える、計算が遅い</li>
+</ul><p><strong>ストライド：</strong></p><ul>
+<li>小さい（1など）：詳細な情報を保持、計算量が多い</li>
+<li>大きい（2以上）：ダウンサンプリング効果、計算量が少ない</li>
+</ul><p><strong>パディング：</strong></p><ul>
+<li>なし：情報が失われる可能性、出力サイズが小さくなる</li>
+<li>あり：情報を保持、出力サイズを調整可能</li>
+</ul><p><strong>実際の使用例：</strong></p><ul>
+<li><strong>VGG</strong>：3×3フィルタ、パディング=1、ストライド=1を多用</li>
+<li><strong>ResNet</strong>：最初の層で7×7フィルタ、ストライド=2でダウンサンプリング</li>
+<li><strong>MobileNet</strong>：深度方向分離畳み込みで効率化</li>
+</ul><p>これらの概念を理解することで、CNNのアーキテクチャを設計したり、既存のモデルを理解したりできるようになります。</p></details><br></section><section><h3 id="q14-畳み込みニューラルネットワークcnnの畳み込み層とプーリング層の役割を説明してください">Q14. 畳み込みニューラルネットワーク（CNN）の畳み込み層とプーリング層の役割を説明してください。<a class="anchor" href="#q14-畳み込みニューラルネットワークcnnの畳み込み層とプーリング層の役割を説明してください"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h3><details>
+<summary>解答を見る</summary><p>CNNは、画像認識などに特化したニューラルネットワークで、畳み込み層とプーリング層を組み合わせて、画像の特徴を階層的に抽出します。</p><p><strong>畳み込み層（Convolutional Layer）の役割：</strong></p><ul>
+<li><strong>特徴マップの抽出</strong>：フィルタ（カーネル）を使って、画像から局所的な特徴（エッジ、テクスチャなど）を抽出</li>
+<li><strong>パラメータ共有</strong>：同じフィルタを画像全体に適用することで、パラメータ数を削減し、位置に依存しない特徴抽出を実現</li>
+<li><strong>計算方法</strong>：フィルタを画像上でスライドさせながら、要素積の和を計算（内積）</li>
+</ul><p><strong>畳み込みの具体例：</strong></p><ul>
+<li>入力：28×28の画像</li>
+<li>フィルタ：3×3のカーネル</li>
+<li>出力：26×26の特徴マップ（ストライド=1、パディング=0の場合）</li>
+<li>複数のフィルタを使うことで、異なる特徴を同時に抽出</li>
+</ul><p><strong>プーリング層（Pooling Layer）の役割：</strong></p><ul>
+<li><strong>次元削減</strong>：特徴マップのサイズを縮小して、計算量を削減</li>
+<li><strong>位置不変性</strong>：小さな位置ずれに対して頑健になる</li>
+<li><strong>過学習の抑制</strong>：情報を集約することで、過学習を抑制</li>
+</ul><p><strong>主なプーリング手法：</strong></p><ul>
+<li><strong>最大プーリング（Max Pooling）</strong>：領域内の最大値を取る（最も一般的）</li>
+<li><strong>平均プーリング（Average Pooling）</strong>：領域内の平均値を取る</li>
+<li><strong>グローバル平均プーリング</strong>：特徴マップ全体の平均を取る</li>
+</ul><p><strong>CNNの典型的な構造：</strong></p><ol>
+<li><strong>畳み込み層 + 活性化関数（ReLU）</strong></li>
+<li><strong>プーリング層</strong></li>
+<li>上記を繰り返し（複数回）</li>
+<li><strong>全結合層（Fully Connected Layer）</strong>：最終的な分類・回帰</li>
+</ol><p><strong>なぜCNNが画像に適しているか：</strong></p><ol>
+<li><strong>局所的な特徴の抽出</strong>：画像の局所的なパターン（エッジなど）を効率的に抽出</li>
+<li><strong>パラメータ数の削減</strong>：全結合層と比べて、パラメータ数が大幅に削減</li>
+<li><strong>階層的な特徴学習</strong>：低レベル（エッジ）→中レベル（形状）→高レベル（物体）と階層的に学習</li>
+<li><strong>並進不変性</strong>：物体の位置が変わっても認識できる</li>
+</ol><p><strong>代表的なアーキテクチャ：</strong></p><ul>
+<li><strong>LeNet</strong>：初期のCNN</li>
+<li><strong>AlexNet</strong>：深層学習ブームの火付け役</li>
+<li><strong>VGG</strong>：小さなフィルタを重ねる構造</li>
+<li><strong>ResNet</strong>：残差接続で非常に深いネットワークを実現</li>
+<li><strong>EfficientNet</strong>：効率的なアーキテクチャ</li>
+</ul></details><br></section><section><h3 id="q15-リカレントニューラルネットワークrnnとlstmの違いおよびなぜlstmが必要になったのかを説明してください">Q15. リカレントニューラルネットワーク（RNN）とLSTMの違い、およびなぜLSTMが必要になったのかを説明してください。<a class="anchor" href="#q15-リカレントニューラルネットワークrnnとlstmの違いおよびなぜlstmが必要になったのかを説明してください"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h3><details>
+<summary>解答を見る</summary><p>RNNとLSTMは、時系列データや自然言語処理など、順序のあるデータを扱うためのニューラルネットワークです。</p><p><strong>RNN（Recurrent Neural Network）の特徴：</strong></p><ul>
+<li><strong>時系列の処理</strong>：過去の情報を保持する隠れ状態（hidden state）を持つ</li>
+<li><strong>再帰的な構造</strong>：同じ層を時系列に沿って繰り返し適用</li>
+<li><strong>計算式</strong>：hₜ = f(Wₕₕhₜ₋₁ + Wₓₕxₜ + b)（h: 隠れ状態、x: 入力、t: 時刻）</li>
+</ul><p><strong>RNNの問題点：</strong></p><ol>
+<li><strong>勾配消失問題</strong>：時系列が長くなると、過去の情報が伝播しにくくなる</li>
+<li><strong>長期依存の学習が困難</strong>：長期的な文脈を捉えられない</li>
+<li><strong>勾配爆発問題</strong>：逆伝播の過程で勾配が大きくなりすぎる場合もある</li>
+</ol><p><strong>LSTM（Long Short-Term Memory）の解決策：</strong>
+LSTMは、RNNの問題を解決するために開発された改良版で、以下の3つのゲートで情報の流れを制御します：</p><ol>
+<li><strong>忘却ゲート（Forget Gate）</strong>：過去の情報をどの程度忘れるかを決定</li>
+<li><strong>入力ゲート（Input Gate）</strong>：新しい情報をどの程度記憶するかを決定</li>
+<li><strong>出力ゲート（Output Gate）</strong>：隠れ状態からどの情報を出力するかを決定</li>
+</ol><p><strong>LSTMの構造：</strong></p><ul>
+<li><strong>セル状態（Cell State）</strong>：長期的な情報を保持する「記憶」</li>
+<li><strong>隠れ状態（Hidden State）</strong>：短期的な情報を保持</li>
+<li>ゲートにより、セル状態への情報の追加・削除を制御</li>
+</ul><p><strong>なぜLSTMが必要になったか：</strong></p><ul>
+<li><strong>長期依存の学習</strong>：時系列が長いデータでも、重要な情報を長期にわたって保持可能</li>
+<li><strong>勾配消失の緩和</strong>：セル状態により、勾配が安定して伝播</li>
+<li><strong>実用的な性能</strong>：自然言語処理、音声認識、時系列予測などで高い性能を発揮</li>
+</ul><p><strong>GRU（Gated Recurrent Unit）：</strong></p><ul>
+<li>LSTMの簡略版で、ゲートを2つに削減（リセットゲート、更新ゲート）</li>
+<li>LSTMよりパラメータが少なく、計算が高速</li>
+<li>多くの場合、LSTMと同等の性能</li>
+</ul><p><strong>現在の主流：</strong></p><ul>
+<li><strong>Transformer</strong>：Attention機構を使ったモデル（BERT、GPTなど）</li>
+<li>RNN/LSTMより並列化が容易で、長距離依存の学習に優れる</li>
+<li>ただし、RNN/LSTMも特定のタスクでは依然として有効</li>
+</ul><p><strong>使い分け：</strong></p><ul>
+<li><strong>RNN/LSTM</strong>：時系列データ、逐次的な処理が必要な場合</li>
+<li><strong>Transformer</strong>：自然言語処理、大規模なデータ、並列化が重要な場合</li>
+</ul></details></section></section>
+<section><h2 id="結論">結論<a class="anchor" href="#結論"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h2><p>一問一答形式で機械学習の主要なアルゴリズムについて学んでみました。線形回帰、ロジスティック回帰、k-NN、SVM、ナイーブベイズ、k-means、ランダムフォレスト、勾配ブースティング、PCA、ニューラルネットワークなど、様々なアルゴリズムの仕組みや特徴を理解できたのではないでしょうか。</p><p>各アルゴリズムにはそれぞれ得意な分野や適用場面があります。データの性質やタスクの要件に応じて、適切なアルゴリズムを選択できるようになることが重要です。また、アルゴリズムの原理を理解することで、ハイパーパラメータの調整や、モデルの改善の方向性を見つけやすくなります。</p><p>基礎編とアルゴリズム編を通じて、機械学習の基本的な知識を一問一答形式で学んできました。勾配消失問題や勾配爆発問題など、深いネットワークを学習する際に重要な概念についても理解を深めることができたのではないでしょうか。次回は、実践編として、データの前処理、モデルの評価、ハイパーパラメータの調整、実装のコツなどについても一問一答形式で学んでいければと思います。</p><p>機械学習は理論と実践の両方が重要です。アルゴリズムの理解を深めながら、実際にコードを書いて試してみることで、より深い理解が得られるでしょう。継続的に学習を進めていきましょう。</p><p><a href="/tags/yiyida/1/">一問一答記事一覧</a></p></section>  </div> <script type="module">document.addEventListener("click",function(s){const t=s.target;if(t&&t.classList.contains("copy-btn")){const c=t.closest("pre")?.querySelector("code"),i=Array.from(c?.querySelectorAll(".code:not(summary *)")??[]).map(e=>e.textContent).map(e=>e===`
+`?"":e).join(`
+`);navigator.clipboard.writeText(i);const o=t.getAttribute("data-timeout-id");o&&clearTimeout(parseInt(o)),t.classList.add("success");const n=setTimeout(()=>{t.classList.remove("success")},1e3);t.setAttribute("data-timeout-id",n.toString())}});</script> <div class="relative transition overflow-hidden bg-[var(--license-block-bg)] py-5 px-6 mb-6 rounded-xl license-container onload-animation"> <div class="transition font-bold text-black/75 dark:text-white/75"> 一問一答で学ぶ機械学習【アルゴリズム編】 </div> <a href="https://yurudeep.com/posts/deeplearning/2025/20251124/" class="link text-[var(--primary)]"> https://yurudeep.com/posts/deeplearning/2025/20251124/ </a> <div class="flex gap-6 mt-2"> <div> <div class="transition text-black/30 dark:text-white/30 text-sm">作者</div> <div class="transition text-black/75 dark:text-white/75 line-clamp-2">ひらノルム</div> </div> <div> <div class="transition text-black/30 dark:text-white/30 text-sm">公開日</div> <div class="transition text-black/75 dark:text-white/75 line-clamp-2">2025-11-24</div> </div> <div> <div class="transition text-black/30 dark:text-white/30 text-sm">ライセンス</div> <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" class="link text-[var(--primary)] line-clamp-2">CC BY-NC-SA 4.0</a> </div> </div> <svg width="0.97em" height="1em" class="transition text-[15rem] absolute pointer-events-none right-6 top-1/2 -translate-y-1/2 text-black/5 dark:text-white/5" data-icon="fa6-brands:creative-commons">   <symbol id="ai:fa6-brands:creative-commons" viewBox="0 0 496 512"><path fill="currentColor" d="m245.83 214.87l-33.22 17.28c-9.43-19.58-25.24-19.93-27.46-19.93c-22.13 0-33.22 14.61-33.22 43.84c0 23.57 9.21 43.84 33.22 43.84c14.47 0 24.65-7.09 30.57-21.26l30.55 15.5c-6.17 11.51-25.69 38.98-65.1 38.98c-22.6 0-73.96-10.32-73.96-77.05c0-58.69 43-77.06 72.63-77.06c30.72-.01 52.7 11.95 65.99 35.86m143.05 0l-32.78 17.28c-9.5-19.77-25.72-19.93-27.9-19.93c-22.14 0-33.22 14.61-33.22 43.84c0 23.55 9.23 43.84 33.22 43.84c14.45 0 24.65-7.09 30.54-21.26l31 15.5c-2.1 3.75-21.39 38.98-65.09 38.98c-22.69 0-73.96-9.87-73.96-77.05c0-58.67 42.97-77.06 72.63-77.06c30.71-.01 52.58 11.95 65.56 35.86M247.56 8.05C104.74 8.05 0 123.11 0 256.05c0 138.49 113.6 248 247.56 248c129.93 0 248.44-100.87 248.44-248c0-137.87-106.62-248-248.44-248m.87 450.81c-112.54 0-203.7-93.04-203.7-202.81c0-105.42 85.43-203.27 203.72-203.27c112.53 0 202.82 89.46 202.82 203.26c-.01 121.69-99.68 202.82-202.84 202.82"/></symbol><use href="#ai:fa6-brands:creative-commons"></use>  </svg> </div> </div> </div> <div class="flex flex-col md:flex-row justify-between mb-4 gap-4 overflow-hidden w-full"> <a href="/posts/deeplearning/2025/20251125/" class="w-full font-bold overflow-hidden active:scale-95"> <div class="btn-card rounded-2xl w-full h-[3.75rem] max-w-full px-4 flex items-center !justify-start gap-4"> <svg width="1em" height="1em" class="text-[2rem] text-[var(--primary)]" data-icon="material-symbols:chevron-left-rounded">   <symbol id="ai:material-symbols:chevron-left-rounded" viewBox="0 0 24 24"><path fill="currentColor" d="m10.8 12l3.9 3.9q.275.275.275.7t-.275.7t-.7.275t-.7-.275l-4.6-4.6q-.15-.15-.212-.325T8.425 12t.063-.375t.212-.325l4.6-4.6q.275-.275.7-.275t.7.275t.275.7t-.275.7z"/></symbol><use href="#ai:material-symbols:chevron-left-rounded"></use>  </svg> <div class="overflow-hidden transition overflow-ellipsis whitespace-nowrap max-w-[calc(100%_-_3rem)] text-black/75 dark:text-white/75"> 一問一答で学ぶ機械学習【実践編】 </div> </div> </a> <a href="/posts/deeplearning/2025/20251123/" class="w-full font-bold overflow-hidden active:scale-95"> <div class="btn-card rounded-2xl w-full h-[3.75rem] max-w-full px-4 flex items-center !justify-end gap-4"> <div class="overflow-hidden transition overflow-ellipsis whitespace-nowrap max-w-[calc(100%_-_3rem)] text-black/75 dark:text-white/75"> 一問一答で学ぶ機械学習【基礎編】 </div> <svg width="1em" height="1em" viewBox="0 0 24 24" class="text-[2rem] text-[var(--primary)]" data-icon="material-symbols:chevron-right-rounded">   <use href="#ai:material-symbols:chevron-right-rounded"></use>  </svg> </div> </a> </div>  <div class="footer col-span-2 onload-animation hidden lg:block"> <!--<div class="border-t border-[var(&#45;&#45;primary)] mx-16 border-dashed py-8 max-w-[var(&#45;&#45;page-width)] flex flex-col items-center justify-center px-6">--><div class="transition border-t border-black/10 dark:border-white/15 my-10 border-dashed mx-32"></div> <!--<div class="transition bg-[oklch(92%_0.01_var(&#45;&#45;hue))] dark:bg-black rounded-2xl py-8 mt-4 mb-8 flex flex-col items-center justify-center px-6">--> <div class="transition border-dashed border-[oklch(85%_0.01_var(--hue))] dark:border-white/15 rounded-2xl mb-12 flex flex-col items-center justify-center px-6"> <div class="transition text-50 text-sm text-center">
+&copy; <span id="copyright-year">2026</span> ひらノルム. All Rights Reserved. /
+<a class="transition link text-[var(--primary)] font-medium" target="_blank" href="/rss.xml">RSS</a> /
+<a class="transition link text-[var(--primary)] font-medium" target="_blank" href="/sitemap-index.xml">Sitemap</a><br>
+Powered by
+<a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://astro.build">Astro</a> &
+<a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/saicaca/fuwari">Fuwari</a> </div> </div> </div> </div> </main> <div class="footer col-span-2 onload-animation block lg:hidden"> <!--<div class="border-t border-[var(&#45;&#45;primary)] mx-16 border-dashed py-8 max-w-[var(&#45;&#45;page-width)] flex flex-col items-center justify-center px-6">--><div class="transition border-t border-black/10 dark:border-white/15 my-10 border-dashed mx-32"></div> <!--<div class="transition bg-[oklch(92%_0.01_var(&#45;&#45;hue))] dark:bg-black rounded-2xl py-8 mt-4 mb-8 flex flex-col items-center justify-center px-6">--> <div class="transition border-dashed border-[oklch(85%_0.01_var(--hue))] dark:border-white/15 rounded-2xl mb-12 flex flex-col items-center justify-center px-6"> <div class="transition text-50 text-sm text-center">
+&copy; <span id="copyright-year">2026</span> ひらノルム. All Rights Reserved. /
+<a class="transition link text-[var(--primary)] font-medium" target="_blank" href="/rss.xml">RSS</a> /
+<a class="transition link text-[var(--primary)] font-medium" target="_blank" href="/sitemap-index.xml">Sitemap</a><br>
+Powered by
+<a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://astro.build">Astro</a> &
+<a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/saicaca/fuwari">Fuwari</a> </div> </div> </div> </div> <!-- There can't be a filter on parent element, or it will break `fixed` --><div class="back-to-top-wrapper hidden lg:block" data-astro-cid-eymb5ayk> <div id="back-to-top-btn" class="back-to-top-btn hide flex items-center rounded-2xl overflow-hidden transition" onclick="backToTop()" data-astro-cid-eymb5ayk> <button aria-label="Back to Top" class="btn-card h-[3.75rem] w-[3.75rem]" data-astro-cid-eymb5ayk> <svg width="1em" height="1em" class="mx-auto" data-astro-cid-eymb5ayk="true" data-icon="material-symbols:keyboard-arrow-up-rounded">   <symbol id="ai:material-symbols:keyboard-arrow-up-rounded" viewBox="0 0 24 24"><path fill="currentColor" d="m12 10.8l-3.9 3.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7l4.6-4.6q.3-.3.7-.3t.7.3l4.6 4.6q.275.275.275.7t-.275.7t-.7.275t-.7-.275z"/></symbol><use href="#ai:material-symbols:keyboard-arrow-up-rounded"></use>  </svg> </button> </div> </div>  <script>
+function backToTop() {
+    window.scroll({ top: 0, behavior: 'smooth' });
+}
+</script> </div> </div>  <div class="absolute w-full z-0 hidden 2xl:block"> <div class="relative max-w-[var(--page-width)] mx-auto"> <!-- TOC component --> <div id="toc-wrapper" class="hidden lg:block transition absolute top-0 -right-[var(--toc-width)] w-[var(--toc-width)] items-center"> <div id="toc-inner-wrapper" class="fixed top-14 w-[var(--toc-width)] h-[calc(100vh_-_20rem)] overflow-y-scroll overflow-x-hidden hide-scrollbar"> <div id="toc" class="w-full h-full transition-swup-fade "> <div class="h-8 w-full"></div> <table-of-contents class="group"><a href="#はじめに" class="px-2 flex gap-2 relative transition w-full min-h-9 rounded-xl
+        hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2
+    "><div class="transition w-5 h-5 shrink-0 rounded-lg text-xs flex items-center justify-center font-bold bg-[var(--toc-badge-bg)] text-[var(--btn-content)]">1</div><div class="transition text-sm text-50">はじめに</div></a><a href="#一問一答" class="px-2 flex gap-2 relative transition w-full min-h-9 rounded-xl
+        hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2
+    "><div class="transition w-5 h-5 shrink-0 rounded-lg text-xs flex items-center justify-center font-bold bg-[var(--toc-badge-bg)] text-[var(--btn-content)]">2</div><div class="transition text-sm text-50">一問一答</div></a><a href="#q1-線形回帰linear-regressionの基本的な仕組みを説明してください" class="px-2 flex gap-2 relative transition w-full min-h-9 rounded-xl
+        hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2
+    "><div class="transition w-5 h-5 shrink-0 rounded-lg text-xs flex items-center justify-center font-bold ml-4"><div class="transition w-2 h-2 rounded-[0.1875rem] bg-[var(--toc-badge-bg)]"></div></div><div class="transition text-sm text-50">Q1. 線形回帰（Linear Regression）の基本的な仕組みを説明してください。</div></a><a href="#q2-ロジスティック回帰logistic-regressionは回帰なのに分類問題に使われるのはなぜですか" class="px-2 flex gap-2 relative transition w-full min-h-9 rounded-xl
+        hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2
+    "><div class="transition w-5 h-5 shrink-0 rounded-lg text-xs flex items-center justify-center font-bold ml-4"><div class="transition w-2 h-2 rounded-[0.1875rem] bg-[var(--toc-badge-bg)]"></div></div><div class="transition text-sm text-50">Q2. ロジスティック回帰（Logistic Regression）は回帰なのに分類問題に使われるのはなぜですか？</div></a><a href="#q3-k-nnk近傍法k-nearest-neighborsの仕組みとkの値の選び方について説明してください" class="px-2 flex gap-2 relative transition w-full min-h-9 rounded-xl
+        hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2
+    "><div class="transition w-5 h-5 shrink-0 rounded-lg text-xs flex items-center justify-center font-bold ml-4"><div class="transition w-2 h-2 rounded-[0.1875rem] bg-[var(--toc-badge-bg)]"></div></div><div class="transition text-sm text-50">Q3. k-NN（k近傍法、k-Nearest Neighbors）の仕組みと、kの値の選び方について説明してください。</div></a><a href="#q4-svmサポートベクターマシンsupport-vector-machineの基本的な考え方を説明してください" class="px-2 flex gap-2 relative transition w-full min-h-9 rounded-xl
+        hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2
+    "><div class="transition w-5 h-5 shrink-0 rounded-lg text-xs flex items-center justify-center font-bold ml-4"><div class="transition w-2 h-2 rounded-[0.1875rem] bg-[var(--toc-badge-bg)]"></div></div><div class="transition text-sm text-50">Q4. SVM（サポートベクターマシン、Support Vector Machine）の基本的な考え方を説明してください。</div></a><a href="#q5-ナイーブベイズnaive-bayesのナイーブの意味となぜそれでもうまく動作するのかを説明してください" class="px-2 flex gap-2 relative transition w-full min-h-9 rounded-xl
+        hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2
+    "><div class="transition w-5 h-5 shrink-0 rounded-lg text-xs flex items-center justify-center font-bold ml-4"><div class="transition w-2 h-2 rounded-[0.1875rem] bg-[var(--toc-badge-bg)]"></div></div><div class="transition text-sm text-50">Q5. ナイーブベイズ（Naive Bayes）の「ナイーブ」の意味と、なぜそれでもうまく動作するのかを説明してください。</div></a><a href="#q6-k-meansクラスタリングのアルゴリズムの手順を説明してください" class="px-2 flex gap-2 relative transition w-full min-h-9 rounded-xl
+        hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2
+    "><div class="transition w-5 h-5 shrink-0 rounded-lg text-xs flex items-center justify-center font-bold ml-4"><div class="transition w-2 h-2 rounded-[0.1875rem] bg-[var(--toc-badge-bg)]"></div></div><div class="transition text-sm text-50">Q6. k-meansクラスタリングのアルゴリズムの手順を説明してください。</div></a><a href="#q7-ランダムフォレストrandom-forestのランダムの意味とアンサンブル学習の考え方を説明してください" class="px-2 flex gap-2 relative transition w-full min-h-9 rounded-xl
+        hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2
+    "><div class="transition w-5 h-5 shrink-0 rounded-lg text-xs flex items-center justify-center font-bold ml-4"><div class="transition w-2 h-2 rounded-[0.1875rem] bg-[var(--toc-badge-bg)]"></div></div><div class="transition text-sm text-50">Q7. ランダムフォレスト（Random Forest）の「ランダム」の意味と、アンサンブル学習の考え方を説明してください。</div></a><a href="#q8-勾配ブースティングgradient-boostingとランダムフォレストの違いを説明してください" class="px-2 flex gap-2 relative transition w-full min-h-9 rounded-xl
+        hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2
+    "><div class="transition w-5 h-5 shrink-0 rounded-lg text-xs flex items-center justify-center font-bold ml-4"><div class="transition w-2 h-2 rounded-[0.1875rem] bg-[var(--toc-badge-bg)]"></div></div><div class="transition text-sm text-50">Q8. 勾配ブースティング（Gradient Boosting）とランダムフォレストの違いを説明してください。</div></a><a href="#q9-主成分分析pcaprincipal-component-analysisの目的と仕組みを説明してください" class="px-2 flex gap-2 relative transition w-full min-h-9 rounded-xl
+        hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2
+    "><div class="transition w-5 h-5 shrink-0 rounded-lg text-xs flex items-center justify-center font-bold ml-4"><div class="transition w-2 h-2 rounded-[0.1875rem] bg-[var(--toc-badge-bg)]"></div></div><div class="transition text-sm text-50">Q9. 主成分分析（PCA、Principal Component Analysis）の目的と仕組みを説明してください。</div></a><a href="#q10-ニューラルネットワークの基本的な構造入力層隠れ層出力層と各層の役割を説明してください" class="px-2 flex gap-2 relative transition w-full min-h-9 rounded-xl
+        hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2
+    "><div class="transition w-5 h-5 shrink-0 rounded-lg text-xs flex items-center justify-center font-bold ml-4"><div class="transition w-2 h-2 rounded-[0.1875rem] bg-[var(--toc-badge-bg)]"></div></div><div class="transition text-sm text-50">Q10. ニューラルネットワークの基本的な構造（入力層、隠れ層、出力層）と、各層の役割を説明してください。</div></a><a href="#q11-バックプロパゲーション誤差逆伝播法の基本的な仕組みを説明してください" class="px-2 flex gap-2 relative transition w-full min-h-9 rounded-xl
+        hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2
+    "><div class="transition w-5 h-5 shrink-0 rounded-lg text-xs flex items-center justify-center font-bold ml-4"><div class="transition w-2 h-2 rounded-[0.1875rem] bg-[var(--toc-badge-bg)]"></div></div><div class="transition text-sm text-50">Q11. バックプロパゲーション（誤差逆伝播法）の基本的な仕組みを説明してください。</div></a><a href="#q12-勾配消失問題vanishing-gradient-problemと勾配爆発問題exploding-gradient-problemとは何ですかなぜ発生するのかどのように解決できるのかを説明してください" class="px-2 flex gap-2 relative transition w-full min-h-9 rounded-xl
+        hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2
+    "><div class="transition w-5 h-5 shrink-0 rounded-lg text-xs flex items-center justify-center font-bold ml-4"><div class="transition w-2 h-2 rounded-[0.1875rem] bg-[var(--toc-badge-bg)]"></div></div><div class="transition text-sm text-50">Q12. 勾配消失問題（Vanishing Gradient Problem）と勾配爆発問題（Exploding Gradient Problem）とは何ですか？なぜ発生するのか、どのように解決できるのかを説明してください。</div></a><a href="#q13-畳み込み操作におけるフィルタカーネルストライドパディングとは何ですかそれぞれの役割と出力サイズの計算方法を説明してください" class="px-2 flex gap-2 relative transition w-full min-h-9 rounded-xl
+        hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2
+    "><div class="transition w-5 h-5 shrink-0 rounded-lg text-xs flex items-center justify-center font-bold ml-4"><div class="transition w-2 h-2 rounded-[0.1875rem] bg-[var(--toc-badge-bg)]"></div></div><div class="transition text-sm text-50">Q13. 畳み込み操作におけるフィルタ（カーネル）、ストライド、パディングとは何ですか？それぞれの役割と、出力サイズの計算方法を説明してください。</div></a><a href="#q14-畳み込みニューラルネットワークcnnの畳み込み層とプーリング層の役割を説明してください" class="px-2 flex gap-2 relative transition w-full min-h-9 rounded-xl
+        hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2
+    "><div class="transition w-5 h-5 shrink-0 rounded-lg text-xs flex items-center justify-center font-bold ml-4"><div class="transition w-2 h-2 rounded-[0.1875rem] bg-[var(--toc-badge-bg)]"></div></div><div class="transition text-sm text-50">Q14. 畳み込みニューラルネットワーク（CNN）の畳み込み層とプーリング層の役割を説明してください。</div></a><a href="#q15-リカレントニューラルネットワークrnnとlstmの違いおよびなぜlstmが必要になったのかを説明してください" class="px-2 flex gap-2 relative transition w-full min-h-9 rounded-xl
+        hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2
+    "><div class="transition w-5 h-5 shrink-0 rounded-lg text-xs flex items-center justify-center font-bold ml-4"><div class="transition w-2 h-2 rounded-[0.1875rem] bg-[var(--toc-badge-bg)]"></div></div><div class="transition text-sm text-50">Q15. リカレントニューラルネットワーク（RNN）とLSTMの違い、およびなぜLSTMが必要になったのかを説明してください。</div></a><a href="#結論" class="px-2 flex gap-2 relative transition w-full min-h-9 rounded-xl
+        hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2
+    "><div class="transition w-5 h-5 shrink-0 rounded-lg text-xs flex items-center justify-center font-bold bg-[var(--toc-badge-bg)] text-[var(--btn-content)]">3</div><div class="transition text-sm text-50">結論</div></a><div id="active-indicator" style="opacity: 0" class="-z-10 absolute bg-[var(--toc-btn-hover)] left-0 right-0 rounded-xl transition-all group-hover:bg-transparent border-2 border-[var(--toc-btn-hover)] group-hover:border-[var(--toc-btn-active)] border-dashed"></div></table-of-contents><script type="module">class l extends HTMLElement{tocEl=null;visibleClass="visible";observer;anchorNavTarget=null;headingIdxMap=new Map;headings=[];sections=[];tocEntries=[];active=[];activeIndicator=null;constructor(){super(),this.observer=new IntersectionObserver(this.markVisibleSection,{threshold:0})}markVisibleSection=t=>{t.forEach(e=>{const i=e.target.children[0]?.getAttribute("id"),s=i?this.headingIdxMap.get(i):void 0;s!=null&&(this.active[s]=e.isIntersecting),e.isIntersecting&&this.anchorNavTarget==e.target.firstChild&&(this.anchorNavTarget=null)}),this.active.includes(!0)||this.fallback(),this.update()};toggleActiveHeading=()=>{let t=this.active.length-1,e=this.active.length-1,i=-1;for(;t>=0&&!this.active[t];)this.tocEntries[t].classList.remove(this.visibleClass),t--;for(;t>=0&&this.active[t];)this.tocEntries[t].classList.add(this.visibleClass),e=Math.min(e,t),i=Math.max(i,t),t--;for(;t>=0;)this.tocEntries[t].classList.remove(this.visibleClass),t--;if(e>i)this.activeIndicator?.setAttribute("style","opacity: 0");else{let s=this.tocEl?.getBoundingClientRect().top||0,n=this.tocEl?.scrollTop||0,o=this.tocEntries[e].getBoundingClientRect().top-s+n,c=this.tocEntries[i].getBoundingClientRect().bottom-s+n;this.activeIndicator?.setAttribute("style",`top: ${o}px; height: ${c-o}px`)}};scrollToActiveHeading=()=>{if(this.anchorNavTarget||!this.tocEl)return;const t=document.querySelectorAll(`#toc .${this.visibleClass}`);if(!t.length)return;const e=t[0],i=t[t.length-1],s=this.tocEl.clientHeight;let n;i.getBoundingClientRect().bottom-e.getBoundingClientRect().top<.9*s?n=e.offsetTop-32:n=i.offsetTop-s*.8,this.tocEl.scrollTo({top:n,left:0,behavior:"smooth"})};update=()=>{requestAnimationFrame(()=>{this.toggleActiveHeading(),this.scrollToActiveHeading()})};fallback=()=>{if(this.sections.length)for(let t=0;t<this.sections.length;t++){let e=this.sections[t].getBoundingClientRect().top,i=this.sections[t].getBoundingClientRect().bottom;if(this.isInRange(e,0,window.innerHeight)||this.isInRange(i,0,window.innerHeight)||e<0&&i>window.innerHeight)this.markActiveHeading(t);else if(e>window.innerHeight)break}};markActiveHeading=t=>{this.active[t]=!0};handleAnchorClick=t=>{const e=t.composedPath().find(i=>i instanceof HTMLAnchorElement);if(e){const i=decodeURIComponent(e.hash?.substring(1)),s=this.headingIdxMap.get(i);s!==void 0?this.anchorNavTarget=this.headings[s]:this.anchorNavTarget=null}};isInRange(t,e,i){return e<t&&t<i}connectedCallback(){const t=document.querySelector(".prose");t?t.addEventListener("animationend",()=>{this.init()},{once:!0}):console.debug("Animation element not found")}init(){if(this.tocEl=document.getElementById("toc-inner-wrapper"),!!this.tocEl&&(this.tocEl.addEventListener("click",this.handleAnchorClick,{capture:!0}),this.activeIndicator=document.getElementById("active-indicator"),this.tocEntries=Array.from(document.querySelectorAll("#toc a[href^='#']")),this.tocEntries.length!==0)){this.sections=new Array(this.tocEntries.length),this.headings=new Array(this.tocEntries.length);for(let t=0;t<this.tocEntries.length;t++){const e=decodeURIComponent(this.tocEntries[t].hash?.substring(1)),i=document.getElementById(e),s=i?.parentElement;i instanceof HTMLElement&&s instanceof HTMLElement&&(this.headings[t]=i,this.sections[t]=s,this.headingIdxMap.set(e,t))}this.active=new Array(this.tocEntries.length).fill(!1),this.sections.forEach(t=>this.observer.observe(t)),this.fallback(),this.update()}}disconnectedCallback(){this.sections.forEach(t=>this.observer.unobserve(t)),this.observer.disconnect(),this.tocEl?.removeEventListener("click",this.handleAnchorClick)}}customElements.get("table-of-contents")||customElements.define("table-of-contents",l);</script> <div class="h-8 w-full"></div> </div> </div> </div> <!-- #toc needs to exist for Swup to work normally -->  </div> </div>  <!-- increase the page height during page transition to prevent the scrolling animation from jumping --> <div id="page-height-extend" class="hidden h-[300vh]" data-astro-cid-sckkx6r4 style="--bannerOffset: 15vh;--banner-height-home: 65vh;--banner-height: 35vh;--configHue: 250;--page-width: 75rem;"></div>  <script type="module" src="/_astro/Layout.astro_astro_type_script_index_0_lang.DAHrxWCB.js"></script> <script type="module" src="/_astro/Layout.astro_astro_type_script_index_1_lang._gVziMX_.js"></script></body></html>
