@@ -81,6 +81,11 @@ export const profileConfig: ProfileConfig = {
 			icon: "fa6-brands:kaggle",
 			url: "https://www.kaggle.com/hiranorm",
 		},
+		{
+			name: "X",
+			icon: "fa6-brands:x-twitter",
+			url: "https://x.com/hiranorm_dayo",
+		},
 	],
 };
 
