@@ -2,7 +2,7 @@
 # 旧: /blogs/{category}/{year}/{slug}.html
 # 新: /posts/{category}/{year}/{slug}/
 
-# automation
+# automation (移動なし)
 /blogs/automation/2020/20200314.html  /posts/automation/2020/20200314/  301
 /blogs/automation/2020/20200320.html  /posts/automation/2020/20200320/  301
 /blogs/automation/2020/20200502.html  /posts/automation/2020/20200502/  301
@@ -12,7 +12,7 @@
 /blogs/automation/2020/20200818.html  /posts/automation/2020/20200818/  301
 /blogs/automation/2023/20230309.html  /posts/automation/2023/20230309/  301
 
-# deeplearning
+# deeplearning (移動なし — deeplearningに残った記事)
 /blogs/deeplearning/2020/20200612.html  /posts/deeplearning/2020/20200612/  301
 /blogs/deeplearning/2022/20220405.html  /posts/deeplearning/2022/20220405/  301
 /blogs/deeplearning/2022/20220413.html  /posts/deeplearning/2022/20220413/  301
@@ -25,52 +25,128 @@
 /blogs/deeplearning/2022/20221229.html  /posts/deeplearning/2022/20221229/  301
 /blogs/deeplearning/2023/20230131.html  /posts/deeplearning/2023/20230131/  301
 /blogs/deeplearning/2023/20230310.html  /posts/deeplearning/2023/20230310/  301
-/blogs/deeplearning/2024/20240714.html  /posts/deeplearning/2024/20240714/  301
-/blogs/deeplearning/2024/20240724.html  /posts/deeplearning/2024/20240724/  301
-/blogs/deeplearning/2024/20241129.html  /posts/deeplearning/2024/20241129/  301
 /blogs/deeplearning/2025/20250603.html  /posts/deeplearning/2025/20250603/  301
 /blogs/deeplearning/2025/20251123.html  /posts/deeplearning/2025/20251123/  301
 /blogs/deeplearning/2025/20251124.html  /posts/deeplearning/2025/20251124/  301
 /blogs/deeplearning/2025/20251125.html  /posts/deeplearning/2025/20251125/  301
 /blogs/deeplearning/2025/20251127.html  /posts/deeplearning/2025/20251127/  301
 /blogs/deeplearning/2025/20251129.html  /posts/deeplearning/2025/20251129/  301
-/blogs/deeplearning/2025/20251130.html  /posts/deeplearning/2025/20251130/  301
 /blogs/deeplearning/2025/20251202.html  /posts/deeplearning/2025/20251202/  301
 /blogs/deeplearning/2025/20251205.html  /posts/deeplearning/2025/20251205/  301
-/blogs/deeplearning/2026/20260413.html  /posts/deeplearning/2026/20260413/  301
 
-# other
-/blogs/other/2019/20190423.html  /posts/other/2019/20190423/  301
-/blogs/other/2019/20190902.html  /posts/other/2019/20190902/  301
-/blogs/other/2019/20190925.html  /posts/other/2019/20190925/  301
-/blogs/other/2019/20191025.html  /posts/other/2019/20191025/  301
-/blogs/other/2019/20191215.html  /posts/other/2019/20191215/  301
-/blogs/other/2020/20200203.html  /posts/other/2020/20200203/  301
-/blogs/other/2020/20200304.html  /posts/other/2020/20200304/  301
-/blogs/other/2020/20200315.html  /posts/other/2020/20200315/  301
-/blogs/other/2020/20200427.html  /posts/other/2020/20200427/  301
-/blogs/other/2020/20200501.html  /posts/other/2020/20200501/  301
-/blogs/other/2020/20200520.html  /posts/other/2020/20200520/  301
-/blogs/other/2020/20200525.html  /posts/other/2020/20200525/  301
-/blogs/other/2020/20200623.html  /posts/other/2020/20200623/  301
-/blogs/other/2020/20200706.html  /posts/other/2020/20200706/  301
-/blogs/other/2020/20200715.html  /posts/other/2020/20200715/  301
-/blogs/other/2020/20200803.html  /posts/other/2020/20200803/  301
-/blogs/other/2020/20200808.html  /posts/other/2020/20200808/  301
-/blogs/other/2020/20201023.html  /posts/other/2020/20201023/  301
-/blogs/other/2020/20201024.html  /posts/other/2020/20201024/  301
-/blogs/other/2020/20201113.html  /posts/other/2020/20201113/  301
-/blogs/other/2021/20210110.html  /posts/other/2021/20210110/  301
-/blogs/other/2021/20210125.html  /posts/other/2021/20210125/  301
-/blogs/other/2021/20210207.html  /posts/other/2021/20210207/  301
-/blogs/other/2021/20210209.html  /posts/other/2021/20210209/  301
-/blogs/other/2021/20210210.html  /posts/other/2021/20210210/  301
-/blogs/other/2021/20210312.html  /posts/other/2021/20210312/  301
-/blogs/other/2022/20220313.html  /posts/other/2022/20220313/  301
-/blogs/other/2022/20220402.html  /posts/other/2022/20220402/  301
-/blogs/other/2022/20220412.html  /posts/other/2022/20220412/  301
-/blogs/other/2022/20220918.html  /posts/other/2022/20220918/  301
-/blogs/other/2022/20220922.html  /posts/other/2022/20220922/  301
-/blogs/other/2024/20241203.html  /posts/other/2024/20241203/  301
-/blogs/other/2025/20251227.html  /posts/other/2025/20251227/  301
-/blogs/other/2026/20260412.html  /posts/other/2026/20260412/  301
+# deeplearning -> aicoding (VuePress旧URL → 新パス)
+/blogs/deeplearning/2024/20241129.html  /posts/aicoding/2024/20241129/  301
+/blogs/deeplearning/2025/20251130.html  /posts/aicoding/2025/20251130/  301
+/blogs/deeplearning/2026/20260413.html  /posts/aicoding/2026/20260413/  301
+
+# deeplearning -> devenv (VuePress旧URL → 新パス)
+/blogs/deeplearning/2024/20240714.html  /posts/devenv/2024/20240714/  301
+
+# deeplearning -> essay (VuePress旧URL → 新パス)
+/blogs/deeplearning/2024/20240724.html  /posts/essay/2024/20240724/  301
+
+# other -> devenv (VuePress旧URL → 新パス)
+/blogs/other/2020/20200520.html  /posts/devenv/2020/20200520/  301
+/blogs/other/2020/20200525.html  /posts/devenv/2020/20200525/  301
+/blogs/other/2020/20200623.html  /posts/devenv/2020/20200623/  301
+/blogs/other/2021/20210207.html  /posts/devenv/2021/20210207/  301
+/blogs/other/2022/20220412.html  /posts/devenv/2022/20220412/  301
+/blogs/other/2022/20220918.html  /posts/devenv/2022/20220918/  301
+/blogs/other/2024/20241203.html  /posts/devenv/2024/20241203/  301
+/blogs/other/2025/20251227.html  /posts/devenv/2025/20251227/  301
+
+# other -> web (VuePress旧URL → 新パス)
+/blogs/other/2019/20190902.html  /posts/web/2019/20190902/  301
+/blogs/other/2019/20190925.html  /posts/web/2019/20190925/  301
+/blogs/other/2019/20191025.html  /posts/web/2019/20191025/  301
+/blogs/other/2020/20200501.html  /posts/web/2020/20200501/  301
+/blogs/other/2021/20210125.html  /posts/web/2021/20210125/  301
+/blogs/other/2021/20210209.html  /posts/web/2021/20210209/  301
+/blogs/other/2021/20210210.html  /posts/web/2021/20210210/  301
+/blogs/other/2022/20220313.html  /posts/web/2022/20220313/  301
+
+# other -> review (VuePress旧URL → 新パス)
+/blogs/other/2020/20200203.html  /posts/review/2020/20200203/  301
+/blogs/other/2020/20200315.html  /posts/review/2020/20200315/  301
+/blogs/other/2020/20200706.html  /posts/review/2020/20200706/  301
+/blogs/other/2020/20200808.html  /posts/review/2020/20200808/  301
+/blogs/other/2020/20201024.html  /posts/review/2020/20201024/  301
+/blogs/other/2021/20210110.html  /posts/review/2021/20210110/  301
+/blogs/other/2022/20220922.html  /posts/review/2022/20220922/  301
+
+# other -> essay (VuePress旧URL → 新パス)
+/blogs/other/2019/20190423.html  /posts/essay/2019/20190423/  301
+/blogs/other/2019/20191215.html  /posts/essay/2019/20191215/  301
+/blogs/other/2020/20200304.html  /posts/essay/2020/20200304/  301
+/blogs/other/2020/20200427.html  /posts/essay/2020/20200427/  301
+/blogs/other/2020/20200715.html  /posts/essay/2020/20200715/  301
+/blogs/other/2020/20200803.html  /posts/essay/2020/20200803/  301
+/blogs/other/2020/20201023.html  /posts/essay/2020/20201023/  301
+/blogs/other/2020/20201113.html  /posts/essay/2020/20201113/  301
+/blogs/other/2021/20210312.html  /posts/essay/2021/20210312/  301
+/blogs/other/2022/20220402.html  /posts/essay/2022/20220402/  301
+/blogs/other/2026/20260412.html  /posts/essay/2026/20260412/  301
+
+# automation -> web (VuePress旧URL → 新パス)
+# 20260414 はVuePress時代に存在しなかったためVuePressリダイレクトなし
+
+# ===================================================
+# 旧Astroパス → 新Astroパスのリダイレクト (カテゴリ移動分)
+# ===================================================
+
+# deeplearning -> aicoding
+/posts/deeplearning/2024/20241129/  /posts/aicoding/2024/20241129/  301
+/posts/deeplearning/2025/20251130/  /posts/aicoding/2025/20251130/  301
+/posts/deeplearning/2026/20260413/  /posts/aicoding/2026/20260413/  301
+/posts/deeplearning/2026/20260415/  /posts/aicoding/2026/20260415/  301
+
+# deeplearning -> devenv
+/posts/deeplearning/2024/20240714/  /posts/devenv/2024/20240714/  301
+
+# deeplearning -> essay
+/posts/deeplearning/2024/20240724/  /posts/essay/2024/20240724/  301
+
+# automation -> web
+/posts/automation/2026/20260414/  /posts/web/2026/20260414/  301
+
+# other -> devenv
+/posts/other/2020/20200520/  /posts/devenv/2020/20200520/  301
+/posts/other/2020/20200525/  /posts/devenv/2020/20200525/  301
+/posts/other/2020/20200623/  /posts/devenv/2020/20200623/  301
+/posts/other/2021/20210207/  /posts/devenv/2021/20210207/  301
+/posts/other/2022/20220412/  /posts/devenv/2022/20220412/  301
+/posts/other/2022/20220918/  /posts/devenv/2022/20220918/  301
+/posts/other/2024/20241203/  /posts/devenv/2024/20241203/  301
+/posts/other/2025/20251227/  /posts/devenv/2025/20251227/  301
+
+# other -> web
+/posts/other/2019/20190902/  /posts/web/2019/20190902/  301
+/posts/other/2019/20190925/  /posts/web/2019/20190925/  301
+/posts/other/2019/20191025/  /posts/web/2019/20191025/  301
+/posts/other/2020/20200501/  /posts/web/2020/20200501/  301
+/posts/other/2021/20210125/  /posts/web/2021/20210125/  301
+/posts/other/2021/20210209/  /posts/web/2021/20210209/  301
+/posts/other/2021/20210210/  /posts/web/2021/20210210/  301
+/posts/other/2022/20220313/  /posts/web/2022/20220313/  301
+
+# other -> review
+/posts/other/2020/20200203/  /posts/review/2020/20200203/  301
+/posts/other/2020/20200315/  /posts/review/2020/20200315/  301
+/posts/other/2020/20200706/  /posts/review/2020/20200706/  301
+/posts/other/2020/20200808/  /posts/review/2020/20200808/  301
+/posts/other/2020/20201024/  /posts/review/2020/20201024/  301
+/posts/other/2021/20210110/  /posts/review/2021/20210110/  301
+/posts/other/2022/20220922/  /posts/review/2022/20220922/  301
+
+# other -> essay
+/posts/other/2019/20190423/  /posts/essay/2019/20190423/  301
+/posts/other/2019/20191215/  /posts/essay/2019/20191215/  301
+/posts/other/2020/20200304/  /posts/essay/2020/20200304/  301
+/posts/other/2020/20200427/  /posts/essay/2020/20200427/  301
+/posts/other/2020/20200715/  /posts/essay/2020/20200715/  301
+/posts/other/2020/20200803/  /posts/essay/2020/20200803/  301
+/posts/other/2020/20201023/  /posts/essay/2020/20201023/  301
+/posts/other/2020/20201113/  /posts/essay/2020/20201113/  301
+/posts/other/2021/20210312/  /posts/essay/2021/20210312/  301
+/posts/other/2022/20220402/  /posts/essay/2022/20220402/  301
+/posts/other/2026/20260412/  /posts/essay/2026/20260412/  301
