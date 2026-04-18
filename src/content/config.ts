@@ -22,7 +22,17 @@ const postsCollection = defineCollection({
 const specCollection = defineCollection({
 	schema: z.object({}),
 });
+const dojoCollection = defineCollection({
+	schema: z.object({
+		title: z.string(),
+		order: z.number(),
+		difficulty: z.enum(["low", "medium", "high"]),
+		category: z.enum(["left", "left-thumb", "right", "right-thumb", "both", "both-thumb", "all", "free"]),
+		description: z.string().optional().default(""),
+	}),
+});
 export const collections = {
 	posts: postsCollection,
 	spec: specCollection,
+	dojo: dojoCollection,
 };

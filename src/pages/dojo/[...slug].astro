@@ -1,0 +1,99 @@
+---
+import { getCollection } from 'astro:content';
+import DojoLayout from '@layouts/DojoLayout.astro';
+import TypingPractice from '@components/dojo/TypingPractice.svelte';
+
+export async function getStaticPaths() {
+  const lessons = await getCollection('dojo');
+  return lessons.map(lesson => ({
+    params: { slug: lesson.id.replace(/\.md$/, '') },
+    props: { lesson },
+  }));
+}
+
+const { lesson } = Astro.props;
+
+// Parse the raw body text into lines (excluding empty lines)
+const rawBody = lesson.body ?? '';
+const practiceLines = rawBody
+  .split('\n')
+  .map(l => l.trim())
+  .filter(l => l.length > 0);
+
+const allLessons = (await getCollection('dojo')).sort((a, b) => a.data.order - b.data.order);
+const currentIdx = allLessons.findIndex(l => l.id === lesson.id);
+const prevLesson = currentIdx > 0 ? allLessons[currentIdx - 1] : null;
+const nextLesson = currentIdx < allLessons.length - 1 ? allLessons[currentIdx + 1] : null;
+
+const isFreeMode = lesson.data.category === 'free';
+
+const categoryLabels: Record<string, string> = {
+  left: '左手・親指なし',
+  'left-thumb': '左手・親指あり',
+  right: '右手・親指なし',
+  'right-thumb': '右手・親指あり',
+  both: '両手・親指なし',
+  'both-thumb': '両手・親指あり',
+  all: '両手総合',
+  free: '自由作文',
+};
+---
+
+<DojoLayout title={`${lesson.data.title} — 親指シフト道場`} description={lesson.data.description}>
+  <div class="lesson-page py-6 px-4">
+    <!-- Breadcrumb -->
+    <nav class="text-xs opacity-50 mb-6 flex items-center gap-1.5">
+      <a href="/dojo/" class="hover:opacity-80 transition-opacity">道場</a>
+      <span>/</span>
+      <span>親指シフト</span>
+      <span>/</span>
+      <span class="opacity-80">{lesson.data.title}</span>
+    </nav>
+
+    <!-- Lesson header -->
+    <div class="lesson-header mb-8">
+      <div class="flex items-center gap-3 mb-1">
+        <span class="text-xs opacity-50 font-mono">LESSON {String(lesson.data.order).padStart(2, '0')}</span>
+        <span class="text-xs opacity-50">・</span>
+        <span class="text-xs opacity-50">{categoryLabels[lesson.data.category]}</span>
+      </div>
+      <h1 class="text-2xl font-bold">{lesson.data.title}</h1>
+      {lesson.data.description && (
+        <p class="text-sm opacity-60 mt-1">{lesson.data.description}</p>
+      )}
+    </div>
+
+    <!-- Typing practice component -->
+    <div class="practice-area rounded-2xl border border-current/10 bg-[oklch(0.12_0.02_250_/0.5)] p-6 mb-8">
+      <TypingPractice
+        client:only="svelte"
+        lines={practiceLines}
+        title={lesson.data.title}
+        listUrl="/dojo/"
+        isFreeMode={isFreeMode}
+      />
+    </div>
+
+    <!-- Navigation -->
+    <nav class="lesson-nav flex justify-between gap-4">
+      {prevLesson ? (
+        <a
+          href={`/dojo/${prevLesson.id.replace(/\.md$/, '')}/`}
+          class="nav-btn prev flex-1 p-3 rounded-lg border border-current/15 hover:border-current/40 transition-all text-sm"
+        >
+          <div class="opacity-40 text-xs mb-0.5">← 前のレッスン</div>
+          <div class="font-medium">{prevLesson.data.title}</div>
+        </a>
+      ) : <div class="flex-1"></div>}
+      {nextLesson ? (
+        <a
+          href={`/dojo/${nextLesson.id.replace(/\.md$/, '')}/`}
+          class="nav-btn next flex-1 p-3 rounded-lg border border-current/15 hover:border-current/40 transition-all text-sm text-right"
+        >
+          <div class="opacity-40 text-xs mb-0.5">次のレッスン →</div>
+          <div class="font-medium">{nextLesson.data.title}</div>
+        </a>
+      ) : <div class="flex-1"></div>}
+    </nav>
+  </div>
+</DojoLayout>

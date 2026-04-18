@@ -1,0 +1,72 @@
+---
+import { getCollection } from 'astro:content';
+import DojoLayout from '@layouts/DojoLayout.astro';
+
+const lessons = (await getCollection('dojo'))
+  .sort((a, b) => a.data.order - b.data.order);
+
+const categoryLabels: Record<string, string> = {
+  left: '左手・親指なし',
+  'left-thumb': '左手・親指あり',
+  right: '右手・親指なし',
+  'right-thumb': '右手・親指あり',
+  both: '両手・親指なし',
+  'both-thumb': '両手・親指あり',
+  all: '両手総合',
+  free: '自由作文',
+};
+
+const difficultyLabels: Record<string, string> = {
+  low: '初級',
+  medium: '中級',
+  high: '上級',
+};
+---
+
+<DojoLayout title="親指シフト道場 — ゆるディープ" description="親指シフトのタイピング練習道場。初級から上級まで段階的に練習できます。">
+  <div class="dojo-top py-8 px-4">
+    <div class="header mb-10 text-center">
+      <div class="text-4xl mb-2">⛩️</div>
+      <h1 class="text-3xl font-bold mb-2">親指シフト道場</h1>
+      <p class="opacity-60 text-sm">お手本をひらがなで入力してスピードと正確さを鍛えよう</p>
+      <div class="mt-3 text-xs opacity-40 space-y-0.5">
+        <p>変換なし・バックスペース不可</p>
+        <p>（練習効率重視のルール）</p>
+      </div>
+    </div>
+
+    <div class="section mb-8">
+      <h2 class="text-lg font-bold mb-4 border-b border-current/20 pb-2">
+        初級編 — 1文字連打〜短い単語
+      </h2>
+      <div class="lesson-grid grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {lessons.filter(l => l.data.difficulty === 'low').map(lesson => {
+          const slug = lesson.id; // e.g. "oyayubi-shift/lesson01"
+          return (
+            <a
+              href={`/dojo/${slug.replace(/\.md$/, '')}/`}
+              class="lesson-card block p-4 rounded-xl border border-current/15 hover:border-[oklch(0.6_0.12_250)] hover:bg-[oklch(0.5_0.05_250_/0.08)] transition-all group"
+            >
+              <div class="flex items-start justify-between gap-2 mb-1">
+                <span class="font-bold text-sm group-hover:text-[oklch(0.7_0.15_250)] transition-colors">
+                  {String(lesson.data.order).padStart(2, '0')}. {lesson.data.title}
+                </span>
+                <span class="badge shrink-0 text-xs px-2 py-0.5 rounded-full bg-[oklch(0.3_0.05_250_/0.3)] opacity-70">
+                  {difficultyLabels[lesson.data.difficulty]}
+                </span>
+              </div>
+              <div class="text-xs opacity-50 mb-1">{categoryLabels[lesson.data.category]}</div>
+              {lesson.data.description && (
+                <div class="text-xs opacity-40">{lesson.data.description}</div>
+              )}
+            </a>
+          );
+        })}
+      </div>
+    </div>
+
+    <div class="coming-soon text-center opacity-40 text-sm py-6">
+      中級編・上級編は近日公開予定
+    </div>
+  </div>
+</DojoLayout>
