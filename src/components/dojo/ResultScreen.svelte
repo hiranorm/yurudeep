@@ -1,51 +1,47 @@
 <script lang="ts">
-import confetti from "canvas-confetti";
-import { onMount } from "svelte";
+  import confetti from 'canvas-confetti';
+  import { onMount } from 'svelte';
 
-interface Props {
-	totalChars: number;
-	correctChars: number;
-	elapsedMs: number;
-	onRetry: () => void;
-	listUrl: string;
-}
+  interface Props {
+    totalChars: number;
+    correctChars: number;
+    elapsedMs: number;
+    onRetry: () => void;
+    listUrl: string;
+  }
 
-let { totalChars, correctChars, elapsedMs, onRetry, listUrl }: Props = $props();
+  let { totalChars, correctChars, elapsedMs, onRetry, listUrl }: Props = $props();
 
-const accuracy = $derived(
-	totalChars > 0 ? Math.round((correctChars / totalChars) * 100) : 0,
-);
-const seconds = $derived((elapsedMs / 1000).toFixed(1));
-const cpm = $derived(
-	elapsedMs > 0 ? Math.round((correctChars / elapsedMs) * 60000) : 0,
-);
+  const accuracy = $derived(totalChars > 0 ? Math.round((correctChars / totalChars) * 100) : 0);
+  const seconds = $derived((elapsedMs / 1000).toFixed(1));
+  const cpm = $derived(elapsedMs > 0 ? Math.round((correctChars / elapsedMs) * 60000) : 0);
 
-onMount(() => {
-	const duration = 2000;
-	const end = Date.now() + duration;
+  onMount(() => {
+    const duration = 2000;
+    const end = Date.now() + duration;
 
-	const frame = () => {
-		confetti({
-			particleCount: 3,
-			angle: 60,
-			spread: 55,
-			origin: { x: 0 },
-			colors: ["#7c3aed", "#2563eb", "#059669"],
-		});
-		confetti({
-			particleCount: 3,
-			angle: 120,
-			spread: 55,
-			origin: { x: 1 },
-			colors: ["#7c3aed", "#2563eb", "#059669"],
-		});
+    const frame = () => {
+      confetti({
+        particleCount: 3,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0 },
+        colors: ['#7c3aed', '#2563eb', '#059669'],
+      });
+      confetti({
+        particleCount: 3,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1 },
+        colors: ['#7c3aed', '#2563eb', '#059669'],
+      });
 
-		if (Date.now() < end) {
-			requestAnimationFrame(frame);
-		}
-	};
-	frame();
-});
+      if (Date.now() < end) {
+        requestAnimationFrame(frame);
+      }
+    };
+    frame();
+  });
 </script>
 
 <div class="result-screen flex flex-col items-center gap-6 py-10 px-4 text-center">
