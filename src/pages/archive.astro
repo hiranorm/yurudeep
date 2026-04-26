@@ -11,6 +11,6 @@ const categories = await getCategoryList();
 ---
 
 <MainGridLayout title={i18n(I18nKey.archive)}>
-    <ArchivePanel sortedPosts={sortedPostsList} tags={tags} categories={categories} client:only="svelte"></ArchivePanel>
+    <ArchivePanel sortedPosts={sortedPostsList} tags={tags.map(t => t.name)} categories={categories.map(c => c.name)} client:only="svelte"></ArchivePanel>
 </MainGridLayout>
 
