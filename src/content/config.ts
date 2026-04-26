@@ -27,7 +27,16 @@ const dojoCollection = defineCollection({
 		title: z.string(),
 		order: z.number(),
 		difficulty: z.enum(["low", "medium", "high"]),
-		category: z.enum(["left", "left-thumb", "right", "right-thumb", "both", "both-thumb", "all", "free"]),
+		category: z.enum([
+			"left",
+			"left-thumb",
+			"right",
+			"right-thumb",
+			"both",
+			"both-thumb",
+			"all",
+			"free",
+		]),
 		description: z.string().optional().default(""),
 	}),
 });

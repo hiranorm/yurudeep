@@ -1,25 +1,26 @@
 ---
-import { getCollection } from 'astro:content';
-import DojoLayout from '@layouts/DojoLayout.astro';
+import { getCollection } from "astro:content";
+import DojoLayout from "@layouts/DojoLayout.astro";
 
-const lessons = (await getCollection('dojo'))
-  .sort((a, b) => a.data.order - b.data.order);
+const lessons = (await getCollection("dojo")).sort(
+	(a, b) => a.data.order - b.data.order,
+);
 
 const categoryLabels: Record<string, string> = {
-  left: '左手・親指なし',
-  'left-thumb': '左手・親指あり',
-  right: '右手・親指なし',
-  'right-thumb': '右手・親指あり',
-  both: '両手・親指なし',
-  'both-thumb': '両手・親指あり',
-  all: '両手総合',
-  free: '自由作文',
+	left: "左手・親指なし",
+	"left-thumb": "左手・親指あり",
+	right: "右手・親指なし",
+	"right-thumb": "右手・親指あり",
+	both: "両手・親指なし",
+	"both-thumb": "両手・親指あり",
+	all: "両手総合",
+	free: "自由作文",
 };
 
 const difficultyLabels: Record<string, string> = {
-  low: '初級',
-  medium: '中級',
-  high: '上級',
+	low: "初級",
+	medium: "中級",
+	high: "上級",
 };
 ---
 

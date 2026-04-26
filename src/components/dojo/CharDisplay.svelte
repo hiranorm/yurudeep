@@ -1,13 +1,13 @@
 <script lang="ts">
-  interface Props {
-    template: string;
-    results: ('correct' | 'miss' | null)[];
-    currentIndex: number;
-  }
+interface Props {
+	template: string;
+	results: ("correct" | "miss" | null)[];
+	currentIndex: number;
+}
 
-  let { template, results, currentIndex }: Props = $props();
+let { template, results, currentIndex }: Props = $props();
 
-  const chars = $derived(template.split(''));
+const chars = $derived(template.split(""));
 </script>
 
 <div class="char-display flex flex-wrap gap-0 font-mono text-2xl md:text-3xl leading-relaxed tracking-widest select-none">

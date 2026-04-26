@@ -1,41 +1,44 @@
 ---
-import { getCollection } from 'astro:content';
-import DojoLayout from '@layouts/DojoLayout.astro';
-import TypingPractice from '@components/dojo/TypingPractice.svelte';
+import { getCollection } from "astro:content";
+import TypingPractice from "@components/dojo/TypingPractice.svelte";
+import DojoLayout from "@layouts/DojoLayout.astro";
 
 export async function getStaticPaths() {
-  const lessons = await getCollection('dojo');
-  return lessons.map(lesson => ({
-    params: { slug: lesson.id.replace(/\.md$/, '') },
-    props: { lesson },
-  }));
+	const lessons = await getCollection("dojo");
+	return lessons.map((lesson) => ({
+		params: { slug: lesson.id.replace(/\.md$/, "") },
+		props: { lesson },
+	}));
 }
 
 const { lesson } = Astro.props;
 
 // Parse the raw body text into lines (excluding empty lines)
-const rawBody = lesson.body ?? '';
+const rawBody = lesson.body ?? "";
 const practiceLines = rawBody
-  .split('\n')
-  .map(l => l.trim())
-  .filter(l => l.length > 0);
+	.split("\n")
+	.map((l) => l.trim())
+	.filter((l) => l.length > 0);
 
-const allLessons = (await getCollection('dojo')).sort((a, b) => a.data.order - b.data.order);
-const currentIdx = allLessons.findIndex(l => l.id === lesson.id);
+const allLessons = (await getCollection("dojo")).sort(
+	(a, b) => a.data.order - b.data.order,
+);
+const currentIdx = allLessons.findIndex((l) => l.id === lesson.id);
 const prevLesson = currentIdx > 0 ? allLessons[currentIdx - 1] : null;
-const nextLesson = currentIdx < allLessons.length - 1 ? allLessons[currentIdx + 1] : null;
+const nextLesson =
+	currentIdx < allLessons.length - 1 ? allLessons[currentIdx + 1] : null;
 
-const isFreeMode = lesson.data.category === 'free';
+const isFreeMode = lesson.data.category === "free";
 
 const categoryLabels: Record<string, string> = {
-  left: '左手・親指なし',
-  'left-thumb': '左手・親指あり',
-  right: '右手・親指なし',
-  'right-thumb': '右手・親指あり',
-  both: '両手・親指なし',
-  'both-thumb': '両手・親指あり',
-  all: '両手総合',
-  free: '自由作文',
+	left: "左手・親指なし",
+	"left-thumb": "左手・親指あり",
+	right: "右手・親指なし",
+	"right-thumb": "右手・親指あり",
+	both: "両手・親指なし",
+	"both-thumb": "両手・親指あり",
+	all: "両手総合",
+	free: "自由作文",
 };
 ---
 
