@@ -1,4 +1,5 @@
 import type {
+	CommentConfig,
 	ExpressiveCodeConfig,
 	LicenseConfig,
 	NavBarConfig,
@@ -12,7 +13,7 @@ export const siteConfig: SiteConfig = {
 	subtitle: "ゆるふわなディープラーニングブログ",
 	lang: "ja",
 	themeColor: {
-		hue: 250,
+		hue: 245,
 		fixed: true,
 	},
 	banner: {
@@ -104,4 +105,21 @@ export const expressiveCodeConfig: ExpressiveCodeConfig = {
 	// Note: Some styles (such as background color) are being overridden, see the astro.config.mjs file.
 	// Please select a dark theme, as this blog theme currently only supports dark background color
 	theme: "github-dark",
+};
+
+// IDs are obtained from https://giscus.app after enabling Discussions and installing the Giscus app on hiranorm/yurudeep
+export const commentConfig: CommentConfig = {
+	enable: true,
+	provider: "giscus",
+	giscus: {
+		repo: "hiranorm/yurudeep",
+		repoId: "R_kgDOSArZWQ",
+		category: "Announcements",
+		categoryId: "DIC_kwDOSArZWc4C8Ods",
+		mapping: "pathname",
+		theme: "cobalt",
+		lang: "ja",
+		reactionsEnabled: "1",
+		inputPosition: "bottom",
+	},
 };

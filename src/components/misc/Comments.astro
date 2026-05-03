@@ -1,0 +1,48 @@
+---
+import { commentConfig } from "@/config";
+
+interface Props {
+	class?: string;
+}
+const { class: className } = Astro.props;
+const g = commentConfig.giscus;
+---
+
+<div
+  class={`card-base px-9 py-6 ${className ?? ""}`}
+  data-repo={g.repo}
+  data-repo-id={g.repoId}
+  data-category={g.category}
+  data-category-id={g.categoryId}
+  data-mapping={g.mapping}
+  data-theme={g.theme}
+  data-lang={g.lang}
+  data-reactions-enabled={g.reactionsEnabled}
+  data-input-position={g.inputPosition}
+  data-load-giscus="true"
+  data-loading="lazy"
+></div>
+
+<script>
+  const el = document.querySelector<HTMLElement>('[data-load-giscus="true"]');
+  if (el) {
+    const d = el.dataset;
+    const s = document.createElement("script");
+    s.src = "https://giscus.app/client.js";
+    s.setAttribute("data-repo", d.repo ?? "");
+    s.setAttribute("data-repo-id", d.repoId ?? "");
+    s.setAttribute("data-category", d.category ?? "");
+    s.setAttribute("data-category-id", d.categoryId ?? "");
+    s.setAttribute("data-mapping", d.mapping ?? "pathname");
+    s.setAttribute("data-strict", "0");
+    s.setAttribute("data-reactions-enabled", d.reactionsEnabled ?? "1");
+    s.setAttribute("data-emit-metadata", "0");
+    s.setAttribute("data-input-position", d.inputPosition ?? "bottom");
+    s.setAttribute("data-theme", d.theme ?? "noborder_dark");
+    s.setAttribute("data-lang", d.lang ?? "ja");
+    s.setAttribute("data-loading", el.dataset.loading ?? "lazy");
+    s.setAttribute("crossorigin", "anonymous");
+    s.async = true;
+    el.appendChild(s);
+  }
+</script>
