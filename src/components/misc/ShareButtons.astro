@@ -1,0 +1,45 @@
+---
+import I18nKey from "@i18n/i18nKey";
+import { i18n } from "@i18n/translation";
+import { getPostUrlBySlug } from "@utils/url-utils";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+	title: string;
+	slug: string;
+	class?: string;
+}
+
+const { title, slug } = Astro.props;
+const className = Astro.props.class;
+
+const absoluteUrl = new URL(getPostUrlBySlug(slug), Astro.site).toString();
+
+const xUrl = `https://x.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(absoluteUrl)}`;
+const bskyUrl = `https://bsky.app/intent/compose?text=${encodeURIComponent(`${title}\n${absoluteUrl}`)}`;
+const hatenaUrl = `https://b.hatena.ne.jp/entry/panel/?url=${encodeURIComponent(absoluteUrl)}&title=${encodeURIComponent(title)}`;
+---
+
+<div class={`flex flex-wrap items-center gap-2 ${className ?? ""}`}>
+    <span class="transition text-sm text-black/30 dark:text-white/30 mr-1">
+        {i18n(I18nKey.share)}:
+    </span>
+    <a href={xUrl} target="_blank" rel="noopener noreferrer"
+       aria-label="Share on X"
+       class="btn-regular rounded-lg px-3 py-1.5 flex items-center gap-1.5 text-sm transition active:scale-95">
+        <Icon name="fa6-brands:x-twitter" class="text-base" />
+        <span>X</span>
+    </a>
+    <a href={bskyUrl} target="_blank" rel="noopener noreferrer"
+       aria-label="Share on Bluesky"
+       class="btn-regular rounded-lg px-3 py-1.5 flex items-center gap-1.5 text-sm transition active:scale-95">
+        <Icon name="fa6-brands:bluesky" class="text-base" />
+        <span>Bluesky</span>
+    </a>
+    <a href={hatenaUrl} target="_blank" rel="noopener noreferrer"
+       aria-label="Share on Hatena Bookmark"
+       class="btn-regular rounded-lg px-3 py-1.5 flex items-center gap-1.5 text-sm transition active:scale-95">
+        <Icon name="simple-icons:hatenabookmark" class="text-base" />
+        <span>はてブ</span>
+    </a>
+</div>
