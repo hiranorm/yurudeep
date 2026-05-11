@@ -43,17 +43,6 @@ function parseFrontmatter(content) {
 	return { title, description, category, draft, tags, body };
 }
 
-function extractSummary(body, description) {
-	const tipMatch = body.match(/:::tip\[要約\]\n([\s\S]*?):::/);
-	if (tipMatch) {
-		const firstBullet = tipMatch[1].match(/^\*\s+(.+)$/m);
-		if (firstBullet) {
-			return firstBullet[1].trim();
-		}
-	}
-	return description;
-}
-
 function buildHashtags(category, tags) {
 	const categoryTags = CATEGORY_HASHTAGS[category] ?? [];
 	const postTags = tags.map((t) => `#${t.replace(/\s+/g, "")}`);
@@ -90,7 +79,7 @@ try {
 	process.exit(1);
 }
 
-const { title, description, category, draft, tags, body } = parsed;
+const { title, description, category, draft, tags } = parsed;
 
 if (draft) {
 	console.warn(
@@ -107,11 +96,10 @@ if (!slugMatch) {
 
 const slug = slugMatch[1];
 const url = `${SITE_URL}/posts/${slug}/`;
-const summary = extractSummary(body, description);
 const hashtags = buildHashtags(category, tags);
 
-const xText = buildPostText(title, summary, url, hashtags);
-const bsText = buildPostText(title, summary, url, hashtags);
+const xText = buildPostText(title, description, url, hashtags);
+const bsText = buildPostText(title, description, url, hashtags);
 
 const xLen = [...xText].length;
 const bsLen = [...bsText].length;
