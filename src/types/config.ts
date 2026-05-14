@@ -56,8 +56,19 @@ export type NavBarLink = {
 	external?: boolean;
 };
 
+export type NavBarDropdownItem = {
+	name: string;
+	url: string;
+	external?: boolean;
+};
+
+export type NavBarDropdown = {
+	name: string;
+	dropdown: NavBarDropdownItem[];
+};
+
 export type NavBarConfig = {
-	links: (NavBarLink | LinkPreset)[];
+	links: (NavBarLink | NavBarDropdown | LinkPreset)[];
 };
 
 export type ProfileConfig = {

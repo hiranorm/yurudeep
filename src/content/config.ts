@@ -22,6 +22,12 @@ const postsCollection = defineCollection({
 const specCollection = defineCollection({
 	schema: z.object({}),
 });
+const tobariCollection = defineCollection({
+	schema: z.object({
+		title: z.string(),
+		description: z.string().optional().default(""),
+	}),
+});
 const dojoCollection = defineCollection({
 	schema: z.object({
 		title: z.string(),
@@ -43,5 +49,6 @@ const dojoCollection = defineCollection({
 export const collections = {
 	posts: postsCollection,
 	spec: specCollection,
+	tobari: tobariCollection,
 	dojo: dojoCollection,
 };

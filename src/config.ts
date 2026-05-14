@@ -63,6 +63,10 @@ export const navBarConfig: NavBarConfig = {
 			url: "/dojo/",
 			external: false,
 		},
+		{
+			name: "Apps",
+			dropdown: [{ name: "tobari", url: "/tobari/", external: false }],
+		},
 		LinkPreset.About,
 		{
 			name: "GitHub",
