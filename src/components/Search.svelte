@@ -87,6 +87,15 @@ const search = async (keyword: string, isDesktop: boolean): Promise<void> => {
 };
 
 onMount(() => {
+	const urlQuery = new URLSearchParams(window.location.search).get("q");
+	if (urlQuery) {
+		keywordDesktop = urlQuery;
+		keywordMobile = urlQuery;
+		document
+			.getElementById("search-panel")
+			?.classList.remove("float-panel-closed");
+	}
+
 	const initializeSearch = () => {
 		initialized = true;
 		pagefindLoaded =

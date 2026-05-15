@@ -1,7 +1,7 @@
 ---
+import { type CollectionEntry, getCollection } from "astro:content";
 import TobariPage from "@components/tobari/TobariPage.astro";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
-import { type CollectionEntry, getCollection } from "astro:content";
 
 export async function getStaticPaths() {
 	const entries = await getCollection("tobari");
