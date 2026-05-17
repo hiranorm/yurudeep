@@ -1,0 +1,15 @@
+---
+import { getEntry } from "astro:content";
+import SoutenPage from "@components/souten/SoutenPage.astro";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+
+const entry = await getEntry("souten", "ja");
+
+if (!entry) {
+	throw new Error("souten (ja) entry not found");
+}
+---
+
+<MainGridLayout title={entry.data.title} description={entry.data.description} lang="ja">
+  <SoutenPage entry={entry} lang="ja" />
+</MainGridLayout>

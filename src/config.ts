@@ -65,7 +65,10 @@ export const navBarConfig: NavBarConfig = {
 		},
 		{
 			name: "Apps",
-			dropdown: [{ name: "tobari", url: "/tobari/", external: false }],
+			dropdown: [
+				{ name: "tobari", url: "/tobari/", external: false },
+				{ name: "souten", url: "/souten/", external: false },
+			],
 		},
 		LinkPreset.About,
 		{

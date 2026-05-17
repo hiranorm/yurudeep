@@ -28,6 +28,12 @@ const tobariCollection = defineCollection({
 		description: z.string().optional().default(""),
 	}),
 });
+const soutenCollection = defineCollection({
+	schema: z.object({
+		title: z.string(),
+		description: z.string().optional().default(""),
+	}),
+});
 const dojoCollection = defineCollection({
 	schema: z.object({
 		title: z.string(),
@@ -50,5 +56,6 @@ export const collections = {
 	posts: postsCollection,
 	spec: specCollection,
 	tobari: tobariCollection,
+	souten: soutenCollection,
 	dojo: dojoCollection,
 };
