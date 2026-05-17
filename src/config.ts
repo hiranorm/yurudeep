@@ -57,10 +57,9 @@ export const siteConfig: SiteConfig = {
 export const navBarConfig: NavBarConfig = {
 	links: [
 		LinkPreset.Home,
-		LinkPreset.Archive,
 		{
-			name: "Dojo",
-			url: "/dojo/",
+			name: "Timeline",
+			url: "/timeline/",
 			external: false,
 		},
 		{
@@ -70,11 +69,15 @@ export const navBarConfig: NavBarConfig = {
 				{ name: "souten", url: "/souten/", external: false },
 			],
 		},
-		LinkPreset.About,
 		{
-			name: "GitHub",
-			url: "https://github.com/hiranorm",
-			external: true,
+			name: "Dojo",
+			url: "/dojo/",
+			external: false,
+		},
+		{
+			name: "Profile",
+			url: "/profile/",
+			external: false,
 		},
 	],
 };

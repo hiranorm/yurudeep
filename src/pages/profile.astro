@@ -6,13 +6,13 @@ import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
 
-const aboutPost = await getEntry("spec", "about");
+const profilePost = await getEntry("spec", "profile");
 
-if (!aboutPost) {
-	throw new Error("About page content not found");
+if (!profilePost) {
+	throw new Error("Profile page content not found");
 }
 
-const { Content } = await render(aboutPost);
+const { Content } = await render(profilePost);
 ---
 <MainGridLayout title={i18n(I18nKey.about)} description={i18n(I18nKey.about)}>
     <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
