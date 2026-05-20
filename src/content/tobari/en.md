@@ -11,4 +11,6 @@ A set of ultra-minimal web apps that black out your screen while letting your PC
 
 No UI. No ads. No login. No settings.
 
+A summer trio — Firefly / Fireworks / Ripple — has been added to the year-round set.
+
 Pick a veil below.

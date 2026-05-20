@@ -12,4 +12,6 @@ Mở lên là bắt đầu, đóng tab là kết thúc.
 
 Không UI. Không quảng cáo. Không đăng nhập. Không cài đặt.
 
+Bộ ba mùa hè đã được thêm: Đom đóm / Pháo hoa / Gợn nước.
+
 Hãy chọn một tấm màn bên dưới.

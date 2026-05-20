@@ -12,4 +12,6 @@ Buka — tirai turun. Tutup tab — selesai.
 
 Tanpa UI. Tanpa iklan. Tanpa login. Tanpa pengaturan.
 
+Trio musim panas ditambahkan: Kunang-kunang / Kembang api / Riak.
+
 Pilih satu tirai di bawah.

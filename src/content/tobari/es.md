@@ -12,4 +12,6 @@ Un conjunto de aplicaciones web ultraligeras que oscurecen la pantalla mientras 
 
 Sin interfaz. Sin anuncios. Sin login. Sin configuración.
 
+Trío de verano añadido: Luciérnaga / Fuegos artificiales / Ondas.
+
 Elige un telón abajo.
