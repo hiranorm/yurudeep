@@ -34,6 +34,12 @@ const soutenCollection = defineCollection({
 		description: z.string().optional().default(""),
 	}),
 });
+const emaCollection = defineCollection({
+	schema: z.object({
+		title: z.string(),
+		description: z.string().optional().default(""),
+	}),
+});
 const dojoCollection = defineCollection({
 	schema: z.object({
 		title: z.string(),
@@ -57,5 +63,6 @@ export const collections = {
 	spec: specCollection,
 	tobari: tobariCollection,
 	souten: soutenCollection,
+	ema: emaCollection,
 	dojo: dojoCollection,
 };

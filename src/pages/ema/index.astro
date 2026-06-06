@@ -1,0 +1,15 @@
+---
+import { getEntry } from "astro:content";
+import EmaPage from "@components/ema/EmaPage.astro";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+
+const entry = await getEntry("ema", "ja");
+
+if (!entry) {
+	throw new Error("ema (ja) entry not found");
+}
+---
+
+<MainGridLayout title={entry.data.title} description={entry.data.description} lang="ja">
+  <EmaPage entry={entry} lang="ja" />
+</MainGridLayout>

@@ -67,6 +67,7 @@ export const navBarConfig: NavBarConfig = {
 			dropdown: [
 				{ name: "tobari", url: "/tobari/", external: false },
 				{ name: "souten", url: "/souten/", external: false },
+				{ name: "ema", url: "/ema/", external: false },
 			],
 		},
 		{
