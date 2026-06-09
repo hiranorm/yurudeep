@@ -44,17 +44,31 @@ const links: (NavBarLink | NavBarDropdown)[] = navBarConfig.links.map(
                 if (isDropdown(l)) {
                     return (
                         <div class="nav-dropdown relative" data-nav-dropdown>
-                            <button
-                                type="button"
-                                aria-haspopup="true"
-                                aria-expanded="false"
-                                class="nav-dropdown-trigger btn-plain scale-animation rounded-lg h-11 font-bold px-5 active:scale-95"
-                            >
-                                <div class="flex items-center">
-                                    {l.name}
-                                    <Icon name="material-symbols:expand-more-rounded" class="text-[1.1rem] ml-0.5 transition-transform nav-dropdown-chevron" />
-                                </div>
-                            </button>
+                            {l.url ? (
+                                <a
+                                    href={url(l.url)}
+                                    aria-haspopup="true"
+                                    aria-expanded="false"
+                                    class="nav-dropdown-trigger btn-plain scale-animation rounded-lg h-11 font-bold px-5 active:scale-95 flex items-center"
+                                >
+                                    <div class="flex items-center">
+                                        {l.name}
+                                        <Icon name="material-symbols:expand-more-rounded" class="text-[1.1rem] ml-0.5 transition-transform nav-dropdown-chevron" />
+                                    </div>
+                                </a>
+                            ) : (
+                                <button
+                                    type="button"
+                                    aria-haspopup="true"
+                                    aria-expanded="false"
+                                    class="nav-dropdown-trigger btn-plain scale-animation rounded-lg h-11 font-bold px-5 active:scale-95"
+                                >
+                                    <div class="flex items-center">
+                                        {l.name}
+                                        <Icon name="material-symbols:expand-more-rounded" class="text-[1.1rem] ml-0.5 transition-transform nav-dropdown-chevron" />
+                                    </div>
+                                </button>
+                            )}
                             <div
                                 class="nav-dropdown-menu card-base !rounded-lg absolute top-full left-1/2 -translate-x-1/2 mt-1 min-w-[10rem] py-2 px-2 invisible opacity-0 translate-y-1 transition-all duration-150"
                                 role="menu"
@@ -162,8 +176,9 @@ function loadButtonScript() {
 
     const dropdowns = document.querySelectorAll<HTMLElement>("[data-nav-dropdown]");
     dropdowns.forEach((dd) => {
-        const trigger = dd.querySelector<HTMLButtonElement>(".nav-dropdown-trigger");
+        const trigger = dd.querySelector<HTMLElement>(".nav-dropdown-trigger");
         if (!trigger) return;
+        if (trigger.tagName === "A") return;
         trigger.addEventListener("click", (e) => {
             e.stopPropagation();
             const wasOpen = dd.classList.contains("open");

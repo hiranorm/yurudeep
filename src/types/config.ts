@@ -64,6 +64,7 @@ export type NavBarDropdownItem = {
 
 export type NavBarDropdown = {
 	name: string;
+	url?: string;
 	dropdown: NavBarDropdownItem[];
 };
 
