@@ -49,8 +49,8 @@ function buildHashtags(category, tags) {
 	return [...new Set([...categoryTags, ...postTags])].join(" ");
 }
 
-function buildPostText(title, summary, url, hashtags) {
-	return `${title}\n${summary}\n${url}\n${hashtags}`;
+function buildPostText(summary, url, hashtags) {
+	return `${summary}\n${url}\n${hashtags}`;
 }
 
 const args = process.argv.slice(2);
@@ -98,20 +98,22 @@ const slug = slugMatch[1];
 const url = `${SITE_URL}/posts/${slug}/`;
 const hashtags = buildHashtags(category, tags);
 
-const xText = buildPostText(title, description, url, hashtags);
-const bsText = buildPostText(title, description, url, hashtags);
+const xText = buildPostText(description, url, hashtags);
+const bsText = buildPostText(description, url, hashtags);
 
-const xLen = [...xText].length;
-const bsLen = [...bsText].length;
+// X / Bluesky とも URL とハッシュタグは文字数カウントから除外（URLは t.co 短縮で固定長、
+// ハッシュタグは frontmatter から自動生成されるので、要約本文の長さだけが調整対象になる）
+const xBodyLen = [...description].length;
+const bsBodyLen = [...description].length;
 
-if (xLen > 280) {
+if (xBodyLen > 280) {
 	console.warn(
-		`⚠ X 投稿文が ${xLen} 文字です（目安280字）。要約の短縮を検討してください。`,
+		`⚠ X 本文が ${xBodyLen} 文字です（目安280字、URL・ハッシュタグ除く）。要約の短縮を検討してください。`,
 	);
 }
-if (bsLen > 300) {
+if (bsBodyLen > 300) {
 	console.warn(
-		`⚠ Bluesky 投稿文が ${bsLen} 文字です（上限300字）。要約の短縮を検討してください。`,
+		`⚠ Bluesky 本文が ${bsBodyLen} 文字です（上限300字、URL・ハッシュタグ除く）。要約の短縮を検討してください。`,
 	);
 }
 
