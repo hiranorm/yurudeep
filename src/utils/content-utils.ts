@@ -3,17 +3,44 @@ import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import { getCategoryUrl } from "@utils/url-utils.ts";
 
-// // Retrieve posts and sort them by publication date
-async function getRawSortedPosts() {
-	const allBlogPosts = await getCollection("posts", ({ data }) => {
+// English translations are stored alongside the Japanese version with a `-en`
+// filename suffix (e.g. `20260614.md` and `20260614-en.md`). Astro's slug
+// generator strips dots, so we use a hyphen-based suffix instead.
+const EN_SLUG_SUFFIX = "-en";
+
+export function isEnglishPost(entry: CollectionEntry<"posts">): boolean {
+	return entry.data.lang === "en";
+}
+
+export function jaSlugFromEntrySlug(entrySlug: string): string {
+	return entrySlug.endsWith(EN_SLUG_SUFFIX)
+		? entrySlug.slice(0, -EN_SLUG_SUFFIX.length)
+		: entrySlug;
+}
+
+export function entrySlugToRoute(entrySlug: string): string {
+	return entrySlug.endsWith(EN_SLUG_SUFFIX)
+		? `${entrySlug.slice(0, -EN_SLUG_SUFFIX.length)}/en`
+		: entrySlug;
+}
+
+async function getAllPosts() {
+	return await getCollection("posts", ({ data }) => {
 		return import.meta.env.PROD ? data.draft !== true : true;
 	});
+}
 
-	const sorted = allBlogPosts.sort((a, b) => {
-		const dateA = new Date(a.data.published);
-		const dateB = new Date(b.data.published);
-		return dateA > dateB ? -1 : 1;
-	});
+// // Retrieve posts and sort them by publication date (Japanese / default-language only)
+async function getRawSortedPosts() {
+	const allBlogPosts = await getAllPosts();
+
+	const sorted = allBlogPosts
+		.filter((entry) => !isEnglishPost(entry))
+		.sort((a, b) => {
+			const dateA = new Date(a.data.published);
+			const dateB = new Date(b.data.published);
+			return dateA > dateB ? -1 : 1;
+		});
 	return sorted;
 }
 
@@ -46,15 +73,32 @@ export async function getSortedPostsList(): Promise<PostForList[]> {
 
 	return sortedPostsList;
 }
+
+// Used by [...slug].astro getStaticPaths: includes en translations so their pages get built.
+// Japanese posts retain prev/next links (set by getSortedPosts); en posts have no prev/next.
+export async function getAllPostsForRouting() {
+	const jaWithPrevNext = await getSortedPosts();
+	const all = await getAllPosts();
+	const enPosts = all.filter(isEnglishPost);
+	return [...jaWithPrevNext, ...enPosts];
+}
+
+export async function hasEnglishVersion(jaSlug: string): Promise<boolean> {
+	const all = await getAllPosts();
+	const target = `${jaSlug}${EN_SLUG_SUFFIX}`;
+	return all.some((entry) => entry.slug === target && isEnglishPost(entry));
+}
 export type Tag = {
 	name: string;
 	count: number;
 };
 
 export async function getTagList(): Promise<Tag[]> {
-	const allBlogPosts = await getCollection<"posts">("posts", ({ data }) => {
-		return import.meta.env.PROD ? data.draft !== true : true;
-	});
+	const allBlogPosts = (
+		await getCollection<"posts">("posts", ({ data }) => {
+			return import.meta.env.PROD ? data.draft !== true : true;
+		})
+	).filter((entry) => !isEnglishPost(entry));
 
 	const countMap: { [key: string]: number } = {};
 	allBlogPosts.forEach((post: { data: { tags: string[] } }) => {
@@ -79,9 +123,11 @@ export type Category = {
 };
 
 export async function getCategoryList(): Promise<Category[]> {
-	const allBlogPosts = await getCollection<"posts">("posts", ({ data }) => {
-		return import.meta.env.PROD ? data.draft !== true : true;
-	});
+	const allBlogPosts = (
+		await getCollection<"posts">("posts", ({ data }) => {
+			return import.meta.env.PROD ? data.draft !== true : true;
+		})
+	).filter((entry) => !isEnglishPost(entry));
 	const count: { [key: string]: number } = {};
 	allBlogPosts.forEach((post: { data: { category: string | null } }) => {
 		if (!post.data.category) {

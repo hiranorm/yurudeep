@@ -1,13 +1,20 @@
 ---
 import path from "node:path";
 import Comments from "@components/misc/Comments.astro";
+import LanguageSwitcher from "@components/misc/LanguageSwitcher.astro";
 import License from "@components/misc/License.astro";
 import Markdown from "@components/misc/Markdown.astro";
 import ShareButtons from "@components/misc/ShareButtons.astro";
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
-import { getSortedPosts } from "@utils/content-utils";
+import {
+	entrySlugToRoute,
+	getAllPostsForRouting,
+	hasEnglishVersion,
+	isEnglishPost,
+	jaSlugFromEntrySlug,
+} from "@utils/content-utils";
 import { getDir, getPostUrlBySlug } from "@utils/url-utils";
 import { Icon } from "astro-icon/components";
 import { commentConfig, licenseConfig } from "@/config";
@@ -17,9 +24,9 @@ import { profileConfig, siteConfig } from "../../config";
 import { formatDateToYYYYMMDD } from "../../utils/date-utils";
 
 export async function getStaticPaths() {
-	const blogEntries = await getSortedPosts();
+	const blogEntries = await getAllPostsForRouting();
 	return blogEntries.map((entry) => ({
-		params: { slug: entry.slug },
+		params: { slug: entrySlugToRoute(entry.slug) },
 		props: { entry },
 	}));
 }
@@ -28,6 +35,11 @@ const { entry } = Astro.props;
 const { Content, headings } = await entry.render();
 
 const { remarkPluginFrontmatter } = await entry.render();
+
+const isEn = isEnglishPost(entry);
+const jaSlug = jaSlugFromEntrySlug(entry.slug);
+const routeSlug = entrySlugToRoute(entry.slug);
+const showLanguageSwitcher = isEn || (await hasEnglishVersion(entry.slug));
 
 const jsonLd = {
 	"@context": "https://schema.org",
@@ -94,6 +106,13 @@ const jsonLd = {
                         tags={entry.data.tags}
                         category={entry.data.category}
                 ></PostMetadata>
+                {showLanguageSwitcher && (
+                    <LanguageSwitcher
+                        currentLang={isEn ? "en" : "ja"}
+                        jaSlug={jaSlug}
+                        class="mb-5"
+                    />
+                )}
                 {!entry.data.image && <div class="border-[var(--line-divider)] border-dashed border-b-[1px] mb-5"></div>}
             </div>
 
@@ -108,9 +127,9 @@ const jsonLd = {
                 <Content />
             </Markdown>
 
-            <ShareButtons title={entry.data.title} slug={entry.slug} class="mb-6 onload-animation" />
+            <ShareButtons title={entry.data.title} slug={routeSlug} class="mb-6 onload-animation" />
 
-            {licenseConfig.enable && <License title={entry.data.title} slug={entry.slug} pubDate={entry.data.published} class="mb-6 rounded-xl license-container onload-animation"></License>}
+            {licenseConfig.enable && <License title={entry.data.title} slug={routeSlug} pubDate={entry.data.published} class="mb-6 rounded-xl license-container onload-animation"></License>}
 
         </div>
     </div>

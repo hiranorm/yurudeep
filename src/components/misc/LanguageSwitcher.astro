@@ -1,0 +1,46 @@
+---
+import { getPostUrlBySlug } from "@utils/url-utils";
+
+interface Props {
+	currentLang: "ja" | "en";
+	jaSlug: string;
+	class?: string;
+}
+
+const { currentLang, jaSlug, class: className } = Astro.props;
+
+const jaUrl = getPostUrlBySlug(jaSlug);
+const enUrl = getPostUrlBySlug(`${jaSlug}/en`);
+
+const baseBtn =
+	"px-2.5 py-1 text-xs font-bold rounded-md transition select-none";
+const activeBtn =
+	"bg-[var(--primary)] text-[var(--card-bg)] cursor-default pointer-events-none";
+const inactiveBtn =
+	"text-black/60 dark:text-white/60 hover:bg-black/5 dark:hover:bg-white/10";
+---
+
+<div
+	class:list={[
+		"inline-flex items-center gap-1 rounded-lg bg-black/[0.03] dark:bg-white/[0.05] p-1",
+		className,
+	]}
+	aria-label="Language switcher"
+>
+	<a
+		href={jaUrl}
+		class:list={[baseBtn, currentLang === "ja" ? activeBtn : inactiveBtn]}
+		aria-current={currentLang === "ja" ? "page" : undefined}
+		hreflang="ja"
+	>
+		JA
+	</a>
+	<a
+		href={enUrl}
+		class:list={[baseBtn, currentLang === "en" ? activeBtn : inactiveBtn]}
+		aria-current={currentLang === "en" ? "page" : undefined}
+		hreflang="en"
+	>
+		EN
+	</a>
+</div>
