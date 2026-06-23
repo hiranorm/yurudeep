@@ -1,0 +1,67 @@
+---
+import { type CollectionEntry, render } from "astro:content";
+import Markdown from "@components/misc/Markdown.astro";
+
+interface Props {
+	entry: CollectionEntry<"tanzaku">;
+	lang: string;
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const PLAY_STORE_URL =
+	"https://play.google.com/store/apps/details?id=com.hiranorm.tanzaku";
+
+const shots = [
+	{ src: "/blogimg/tanzaku/home.webp", alt: "tanzaku ホーム画面 — 縦書きで読みやすいサイト一覧" },
+	{ src: "/blogimg/tanzaku/search.webp", alt: "tanzaku 検索画面 — 横書きサイトを縦組みで表示" },
+	{ src: "/blogimg/tanzaku/reading.webp", alt: "tanzaku 読書画面 — 本のような縦書き表示" },
+];
+---
+
+<div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+  <div class="card-base z-10 px-9 py-6 relative w-full">
+    <Markdown class="mt-2">
+      <Content />
+    </Markdown>
+
+    <!-- 紹介動画 (9:16) -->
+    <div class="tanzaku-video mt-8 max-w-xs mx-auto">
+      <video
+        controls
+        playsinline
+        muted
+        preload="metadata"
+        poster="/blogimg/tanzaku/poster.webp"
+        class="w-full rounded-2xl border border-current/10 bg-black"
+      >
+        <source src="/blogimg/tanzaku/tanzaku-promo.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+    <!-- Play Store CTA -->
+    <div class="tanzaku-cta mt-8 text-center">
+      <a
+        href={PLAY_STORE_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 px-7 py-3 rounded-xl font-bold border border-current/15 hover:border-[oklch(0.6_0.12_145)] hover:bg-[oklch(0.5_0.08_145_/0.10)] transition-all"
+      >
+        Google Play で入手 →
+      </a>
+    </div>
+
+    <!-- スクリーンショット -->
+    <div class="tanzaku-shots mt-10 grid grid-cols-3 gap-3">
+      {shots.map((s) => (
+        <img
+          src={s.src}
+          alt={s.alt}
+          loading="lazy"
+          class="w-full rounded-xl border border-current/10 bg-current/5"
+        />
+      ))}
+    </div>
+  </div>
+</div>

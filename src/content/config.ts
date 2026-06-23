@@ -40,6 +40,12 @@ const emaCollection = defineCollection({
 		description: z.string().optional().default(""),
 	}),
 });
+const tanzakuCollection = defineCollection({
+	schema: z.object({
+		title: z.string(),
+		description: z.string().optional().default(""),
+	}),
+});
 const dojoCollection = defineCollection({
 	schema: z.object({
 		title: z.string(),
@@ -64,5 +70,6 @@ export const collections = {
 	tobari: tobariCollection,
 	souten: soutenCollection,
 	ema: emaCollection,
+	tanzaku: tanzakuCollection,
 	dojo: dojoCollection,
 };
