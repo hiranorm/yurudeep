@@ -150,3 +150,11 @@
 /posts/other/2021/20210312/  /posts/essay/2021/20210312/  301
 /posts/other/2022/20220402/  /posts/essay/2022/20220402/  301
 /posts/other/2026/20260412/  /posts/essay/2026/20260412/  301
+
+# ===================================================
+# アプリのプライバシーポリシー集約サイト (policies Worker) のプロキシ配信
+# Google OAuth consent screen の authorized domain 要件のため、
+# PP を所有ドメイン (yurudeep.com) 配下の URL で配信する。
+# 一次情報は app_workspace/policies リポ (workers.dev 側)。ここは 200 プロキシのみ。
+# ===================================================
+/policies/*  https://policies.hira-euclid-norm-root2.workers.dev/:splat  200
