@@ -158,3 +158,8 @@
 # 一次情報は app_workspace/policies リポ (workers.dev 側)。ここは 200 プロキシのみ。
 # ===================================================
 /policies/*  https://policies.hira-euclid-norm-root2.workers.dev/:splat  200
+
+# アプリのホームページ (LP) も同じ policies Worker から配信する。
+# OAuth verification の「homepage と privacy policy は別 URL」要件のため、
+# /apps/<app>/ をアプリ homepage、/policies/<app>/ を PP として使い分ける。
+/apps/*  https://policies.hira-euclid-norm-root2.workers.dev/apps/:splat  200
