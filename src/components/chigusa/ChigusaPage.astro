@@ -16,7 +16,6 @@ const PLAY_STORE_URL =
 const ctaLabel =
 	lang === "en" ? "Get it on Google Play →" : "Google Play で入手 →";
 
-// 観察タブのスクリーンショットは撮り直し待ち。撮れたら observe.webp を足して 3 枚並びに戻す
 const shots =
 	lang === "en"
 		? [
@@ -28,6 +27,10 @@ const shots =
 					src: "/blogimg/chigusa/dig.webp",
 					alt: "chigusa dig-up screen — full-text search over the pile of seeds",
 				},
+				{
+					src: "/blogimg/chigusa/observe.webp",
+					alt: "chigusa observe screen — a heatmap of the last 12 weeks, with no streaks or goals",
+				},
 			]
 		: [
 				{
@@ -37,6 +40,10 @@ const shots =
 				{
 					src: "/blogimg/chigusa/dig.webp",
 					alt: "chigusa 掘り起こし画面 — 堆積した種を全文検索する",
+				},
+				{
+					src: "/blogimg/chigusa/observe.webp",
+					alt: "chigusa 観察画面 — 直近 12 週のヒートマップ。連続日数も目標もない",
 				},
 			];
 
@@ -81,7 +88,7 @@ const languages: { code: string; label: string; href: string }[] = [
 
     <!-- スクリーンショット -->
     {shots.length > 0 && (
-      <div class="chigusa-shots mt-10 grid grid-cols-2 gap-3 max-w-md mx-auto">
+      <div class="chigusa-shots mt-10 grid grid-cols-3 gap-3">
         {shots.map((s) => (
           <img
             src={s.src}
