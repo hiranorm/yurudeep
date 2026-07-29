@@ -1,0 +1,26 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import ChigusaPage from "@components/chigusa/ChigusaPage.astro";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+
+export async function getStaticPaths() {
+	const entries = await getCollection("chigusa");
+	return entries
+		.filter((e) => e.id.replace(/\.md$/, "") !== "ja")
+		.map((entry) => ({
+			params: { lang: entry.id.replace(/\.md$/, "") },
+			props: { entry },
+		}));
+}
+
+interface Props {
+	entry: CollectionEntry<"chigusa">;
+}
+
+const { entry } = Astro.props;
+const { lang } = Astro.params;
+---
+
+<MainGridLayout title={entry.data.title} description={entry.data.description} lang={lang}>
+  <ChigusaPage entry={entry} lang={lang!} />
+</MainGridLayout>

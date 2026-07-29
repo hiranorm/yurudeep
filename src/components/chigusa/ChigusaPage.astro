@@ -1,0 +1,109 @@
+---
+import { type CollectionEntry, render } from "astro:content";
+import Markdown from "@components/misc/Markdown.astro";
+
+interface Props {
+	entry: CollectionEntry<"chigusa">;
+	lang: string;
+}
+
+const { entry, lang } = Astro.props;
+const { Content } = await render(entry);
+
+const PLAY_STORE_URL =
+	"https://play.google.com/store/apps/details?id=com.hiranorm.chigusa";
+
+const ctaLabel =
+	lang === "en" ? "Get it on Google Play →" : "Google Play で入手 →";
+
+// 観察タブのスクリーンショットは撮り直し待ち。撮れたら observe.webp を足して 3 枚並びに戻す
+const shots =
+	lang === "en"
+		? [
+				{
+					src: "/blogimg/chigusa/plant.webp",
+					alt: "chigusa plant screen — the field clears and keeps focus right after saving",
+				},
+				{
+					src: "/blogimg/chigusa/dig.webp",
+					alt: "chigusa dig-up screen — full-text search over the pile of seeds",
+				},
+			]
+		: [
+				{
+					src: "/blogimg/chigusa/plant.webp",
+					alt: "chigusa 植える画面 — 保存直後も入力欄が空いてフォーカスが残る",
+				},
+				{
+					src: "/blogimg/chigusa/dig.webp",
+					alt: "chigusa 掘り起こし画面 — 堆積した種を全文検索する",
+				},
+			];
+
+const languages: { code: string; label: string; href: string }[] = [
+	{ code: "ja", label: "日本語", href: "/chigusa/" },
+	{ code: "en", label: "English", href: "/chigusa/en/" },
+];
+---
+
+<div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+  <div class="card-base z-10 px-9 py-6 relative w-full">
+    <Markdown class="mt-2">
+      <Content />
+    </Markdown>
+
+    <!-- 紹介動画 (9:20 実機録画) -->
+    <div class="chigusa-video mt-8 max-w-xs mx-auto">
+      <video
+        controls
+        playsinline
+        muted
+        loop
+        preload="metadata"
+        poster="/blogimg/chigusa/poster.webp"
+        class="w-full rounded-2xl border border-current/10 bg-black"
+      >
+        <source src="/blogimg/chigusa/chigusa-promo.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+    <!-- Play Store CTA -->
+    <div class="chigusa-cta mt-8 text-center">
+      <a
+        href={PLAY_STORE_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 px-7 py-3 rounded-xl font-bold border border-current/15 hover:border-[oklch(0.6_0.1_155)] hover:bg-[oklch(0.5_0.08_155_/0.10)] transition-all"
+      >
+        {ctaLabel}
+      </a>
+    </div>
+
+    <!-- スクリーンショット -->
+    {shots.length > 0 && (
+      <div class="chigusa-shots mt-10 grid grid-cols-2 gap-3 max-w-md mx-auto">
+        {shots.map((s) => (
+          <img
+            src={s.src}
+            alt={s.alt}
+            loading="lazy"
+            class="w-full rounded-xl border border-current/10 bg-current/5"
+          />
+        ))}
+      </div>
+    )}
+
+    <nav class="chigusa-langs mt-10 pt-4 border-t border-current/10 text-xs opacity-60 flex flex-wrap gap-x-3 gap-y-1 justify-center">
+      {languages.map((l, i) => (
+        <>
+          {i > 0 && <span class="opacity-40">|</span>}
+          {l.code === lang ? (
+            <span class="font-bold opacity-90">{l.label}</span>
+          ) : (
+            <a href={l.href} class="hover:opacity-100 hover:underline transition-opacity">{l.label}</a>
+          )}
+        </>
+      ))}
+    </nav>
+  </div>
+</div>

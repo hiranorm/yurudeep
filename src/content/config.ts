@@ -46,6 +46,12 @@ const tanzakuCollection = defineCollection({
 		description: z.string().optional().default(""),
 	}),
 });
+const chigusaCollection = defineCollection({
+	schema: z.object({
+		title: z.string(),
+		description: z.string().optional().default(""),
+	}),
+});
 const dojoCollection = defineCollection({
 	schema: z.object({
 		title: z.string(),
@@ -71,5 +77,6 @@ export const collections = {
 	souten: soutenCollection,
 	ema: emaCollection,
 	tanzaku: tanzakuCollection,
+	chigusa: chigusaCollection,
 	dojo: dojoCollection,
 };

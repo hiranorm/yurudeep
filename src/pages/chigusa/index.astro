@@ -1,0 +1,15 @@
+---
+import { getEntry } from "astro:content";
+import ChigusaPage from "@components/chigusa/ChigusaPage.astro";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+
+const entry = await getEntry("chigusa", "ja");
+
+if (!entry) {
+	throw new Error("chigusa (ja) entry not found");
+}
+---
+
+<MainGridLayout title={entry.data.title} description={entry.data.description} lang="ja">
+  <ChigusaPage entry={entry} lang="ja" />
+</MainGridLayout>
