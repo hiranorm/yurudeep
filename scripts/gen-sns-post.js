@@ -3,16 +3,6 @@ import path from "node:path";
 
 const SITE_URL = "https://yurudeep.com";
 
-const CATEGORY_HASHTAGS = {
-	deeplearning: ["#機械学習", "#deeplearning"],
-	aicoding: ["#AI駆動開発", "#ClaudeCode"],
-	automation: ["#自動化"],
-	devenv: ["#開発環境"],
-	web: ["#Web開発"],
-	review: ["#レビュー"],
-	essay: ["#エッセイ"],
-};
-
 function parseFrontmatter(content) {
 	const fmMatch = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
 	if (!fmMatch) {
@@ -29,28 +19,56 @@ function parseFrontmatter(content) {
 	const title = getField("title");
 	const rawDesc = getField("description");
 	const description = rawDesc.replace(/^['"]|['"]$/g, "");
-	const category = getField("category");
 	const draft = getField("draft") === "true";
 
-	const tagsMatch = fm.match(/^tags:\s*\[([^\]]*)\]/m);
-	const tags = tagsMatch
-		? tagsMatch[1]
-				.split(",")
-				.map((t) => t.trim())
-				.filter(Boolean)
-		: [];
-
-	return { title, description, category, draft, tags, body };
+	return { title, description, draft, body };
 }
 
-function buildHashtags(category, tags) {
-	const categoryTags = CATEGORY_HASHTAGS[category] ?? [];
-	const postTags = tags.map((t) => `#${t.replace(/\s+/g, "")}`);
-	return [...new Set([...categoryTags, ...postTags])].join(" ");
+// 本文は「詳細は、」で言い切らずに終える。リプライの「こちら」に文がつながるので、
+// 続きがあることを想起させてリプライまで読ませる狙い
+function buildBody(summary) {
+	return `${summary}\n\n詳細は、`;
 }
 
-function buildPostText(summary, url, hashtags) {
-	return `${summary}\n${url}\n${hashtags}`;
+function buildReply(url) {
+	return `こちら\n${url}`;
+}
+
+const X_LIMIT = 280;
+const BS_LIMIT = 300;
+const X_URL_WEIGHT = 23;
+
+// X の重み付き文字数。日本語などの全角は2、ASCII等は1で数える
+// （Twitter の weighted length 定義: 0x0000-0x10FF, 0x2000-0x200D,
+//   0x2010-0x201F, 0x2032-0x2037 が重み1、それ以外は重み2）
+function xWeightedLength(text) {
+	// URL は t.co 短縮で一律23幅になるので、23文字分の半角に置き換えて数える
+	const normalized = text.replace(
+		/https?:\/\/\S+/g,
+		"x".repeat(X_URL_WEIGHT),
+	);
+	let weight = 0;
+	for (const ch of normalized) {
+		const c = ch.codePointAt(0);
+		const isNarrow =
+			c <= 0x10ff ||
+			(c >= 0x2000 && c <= 0x200d) ||
+			(c >= 0x2010 && c <= 0x201f) ||
+			(c >= 0x2032 && c <= 0x2037);
+		weight += isNarrow ? 1 : 2;
+	}
+	return weight;
+}
+
+// Bluesky は CJK も等幅で1文字扱い。URL は短縮されず実長のまま数えられる
+function bsLength(text) {
+	return [...text].length;
+}
+
+function warnIfOver(label, actual, limit) {
+	if (actual > limit) {
+		console.warn(`⚠ ${label}が ${actual}/${limit} で超過しています。短縮してください。`);
+	}
 }
 
 const args = process.argv.slice(2);
@@ -79,7 +97,7 @@ try {
 	process.exit(1);
 }
 
-const { title, description, category, draft, tags } = parsed;
+const { title, description, draft } = parsed;
 
 if (draft) {
 	console.warn(
@@ -96,26 +114,22 @@ if (!slugMatch) {
 
 const slug = slugMatch[1];
 const url = `${SITE_URL}/posts/${slug}/`;
-const hashtags = buildHashtags(category, tags);
 
-const xText = buildPostText(description, url, hashtags);
-const bsText = buildPostText(description, url, hashtags);
+// 本文にはURLもハッシュタグも入れない。リンクはリプライ側に回して、本文だけで
+// 読み物として成立させる（URL入りの投稿はリーチが落ちやすく、本文も23字分圧迫される）
+const body = buildBody(description);
+const reply = buildReply(url);
 
-// X / Bluesky とも URL とハッシュタグは文字数カウントから除外（URLは t.co 短縮で固定長、
-// ハッシュタグは frontmatter から自動生成されるので、要約本文の長さだけが調整対象になる）
-const xBodyLen = [...description].length;
-const bsBodyLen = [...description].length;
+// 本文・リプライそれぞれが単独の投稿になるので、別々に上限を確認する
+const xBodyLen = xWeightedLength(body);
+const xReplyLen = xWeightedLength(reply);
+const bsBodyLen = bsLength(body);
+const bsReplyLen = bsLength(reply);
 
-if (xBodyLen > 280) {
-	console.warn(
-		`⚠ X 本文が ${xBodyLen} 文字です（目安280字、URL・ハッシュタグ除く）。要約の短縮を検討してください。`,
-	);
-}
-if (bsBodyLen > 300) {
-	console.warn(
-		`⚠ Bluesky 本文が ${bsBodyLen} 文字です（上限300字、URL・ハッシュタグ除く）。要約の短縮を検討してください。`,
-	);
-}
+warnIfOver("X 本文", xBodyLen, X_LIMIT);
+warnIfOver("X リプライ", xReplyLen, X_LIMIT);
+warnIfOver("Bluesky 本文", bsBodyLen, BS_LIMIT);
+warnIfOver("Bluesky リプライ", bsReplyLen, BS_LIMIT);
 
 const outPath = path.join("sns-posts", `${slug}.md`);
 const outDir = path.dirname(outPath);
@@ -137,21 +151,43 @@ generated: ${today}
 
 # ${title}
 
+本文にURLとハッシュタグは入れない。リンクはリプライにぶら下げ、本文は
+「詳細は、」で切ってリプライの「こちら」につなげる。本文だけ読んでも
+価値のある内容にしてから投稿すること。
+
 ## X
 
-${xText}
+### 本文
+
+${body}
+
+### リプライ
+
+${reply}
 
 ## Bluesky
 
-${bsText}
+### 本文
+
+${body}
+
+### リプライ
+
+${reply}
 `;
 
 fs.writeFileSync(outPath, outputContent);
 
 console.log(`✓ 生成完了: ${outPath}`);
 console.log("");
-console.log("--- X ---");
-console.log(xText);
+console.log(`--- X 本文（${xBodyLen}/${X_LIMIT}）---`);
+console.log(body);
 console.log("");
-console.log("--- Bluesky ---");
-console.log(bsText);
+console.log(`--- X リプライ（${xReplyLen}/${X_LIMIT}）---`);
+console.log(reply);
+console.log("");
+console.log(`--- Bluesky 本文（${bsBodyLen}/${BS_LIMIT}）---`);
+console.log(body);
+console.log("");
+console.log(`--- Bluesky リプライ（${bsReplyLen}/${BS_LIMIT}）---`);
+console.log(reply);
