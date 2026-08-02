@@ -24,15 +24,10 @@ function parseFrontmatter(content) {
 	return { title, description, draft, body };
 }
 
-// 本文は「詳細を書いた記事は、」で言い切らずに終える。リプライの「こちら」に
-// 文がつながるので、続きがあることを想起させてリプライまで読ませる狙い。
-// 「詳細は、」だと何が続くのか伏せる形になって煽りっぽいので、記事だと明示する
-function buildBody(summary) {
-	return `${summary}\n\n詳細を書いた記事は、`;
-}
-
-function buildReply(url) {
-	return `こちら\n${url}`;
+// 本文＋URLの1投稿にまとめる。本文とリプライに分ける方式も試したが、
+// リーチ面で見合う効果がなかったので戻した。ハッシュタグは付けない（もう流行っていない）
+function buildPostText(summary, url) {
+	return `${summary}\n${url}`;
 }
 
 const X_LIMIT = 280;
@@ -116,21 +111,14 @@ if (!slugMatch) {
 const slug = slugMatch[1];
 const url = `${SITE_URL}/posts/${slug}/`;
 
-// 本文にはURLもハッシュタグも入れない。リンクはリプライ側に回して、本文だけで
-// 読み物として成立させる（URL入りの投稿はリーチが落ちやすく、本文も23字分圧迫される）
-const body = buildBody(description);
-const reply = buildReply(url);
+const postText = buildPostText(description, url);
 
-// 本文・リプライそれぞれが単独の投稿になるので、別々に上限を確認する
-const xBodyLen = xWeightedLength(body);
-const xReplyLen = xWeightedLength(reply);
-const bsBodyLen = bsLength(body);
-const bsReplyLen = bsLength(reply);
+// URL込みで1投稿ぶんの長さを見る（X は t.co の23幅、Bluesky は実長で計算される）
+const xLen = xWeightedLength(postText);
+const bsLen = bsLength(postText);
 
-warnIfOver("X 本文", xBodyLen, X_LIMIT);
-warnIfOver("X リプライ", xReplyLen, X_LIMIT);
-warnIfOver("Bluesky 本文", bsBodyLen, BS_LIMIT);
-warnIfOver("Bluesky リプライ", bsReplyLen, BS_LIMIT);
+warnIfOver("X 本文", xLen, X_LIMIT);
+warnIfOver("Bluesky 本文", bsLen, BS_LIMIT);
 
 const outPath = path.join("sns-posts", `${slug}.md`);
 const outDir = path.dirname(outPath);
@@ -152,43 +140,24 @@ generated: ${today}
 
 # ${title}
 
-本文にURLとハッシュタグは入れない。リンクはリプライにぶら下げ、本文は
-「詳細を書いた記事は、」で切ってリプライの「こちら」につなげる。
-本文だけ読んでも価値のある内容にしてから投稿すること。
+本文の末尾にURLを置いた1投稿の形。ハッシュタグは付けない。
+記事を読まなくても何か持ち帰れる内容にしてから投稿すること。
 
 ## X
 
-### 本文
-
-${body}
-
-### リプライ
-
-${reply}
+${postText}
 
 ## Bluesky
 
-### 本文
-
-${body}
-
-### リプライ
-
-${reply}
+${postText}
 `;
 
 fs.writeFileSync(outPath, outputContent);
 
 console.log(`✓ 生成完了: ${outPath}`);
 console.log("");
-console.log(`--- X 本文（${xBodyLen}/${X_LIMIT}）---`);
-console.log(body);
+console.log(`--- X（${xLen}/${X_LIMIT}）---`);
+console.log(postText);
 console.log("");
-console.log(`--- X リプライ（${xReplyLen}/${X_LIMIT}）---`);
-console.log(reply);
-console.log("");
-console.log(`--- Bluesky 本文（${bsBodyLen}/${BS_LIMIT}）---`);
-console.log(body);
-console.log("");
-console.log(`--- Bluesky リプライ（${bsReplyLen}/${BS_LIMIT}）---`);
-console.log(reply);
+console.log(`--- Bluesky（${bsLen}/${BS_LIMIT}）---`);
+console.log(postText);
