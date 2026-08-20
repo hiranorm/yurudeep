@@ -1,0 +1,15 @@
+---
+import { getEntry } from "astro:content";
+import SekimoriPage from "@components/sekimori/SekimoriPage.astro";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+
+const entry = await getEntry("sekimori", "ja");
+
+if (!entry) {
+	throw new Error("sekimori (ja) entry not found");
+}
+---
+
+<MainGridLayout title={entry.data.title} description={entry.data.description} lang="ja">
+  <SekimoriPage entry={entry} lang="ja" />
+</MainGridLayout>

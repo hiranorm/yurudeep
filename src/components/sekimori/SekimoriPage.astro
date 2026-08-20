@@ -1,0 +1,109 @@
+---
+import { type CollectionEntry, render } from "astro:content";
+import Markdown from "@components/misc/Markdown.astro";
+
+interface Props {
+	entry: CollectionEntry<"sekimori">;
+	lang: string;
+}
+
+const { entry, lang } = Astro.props;
+const { Content } = await render(entry);
+
+const PLAY_STORE_URL =
+	"https://play.google.com/store/apps/details?id=com.hiranorm.sekimori";
+
+const ctaLabel =
+	lang === "en" ? "Get it on Google Play →" : "Google Play で入手 →";
+
+const shots =
+	lang === "en"
+		? [
+				{
+					src: "/blogimg/sekimori/en/ringing.webp",
+					alt: "sekimori ringing screen — slide to stop, and the count starts",
+				},
+				{
+					src: "/blogimg/sekimori/en/counting.webp",
+					alt: "sekimori counting screen — time left, and a warning that leaving starts you over",
+				},
+				{
+					src: "/blogimg/sekimori/en/ready.webp",
+					alt: "sekimori ready screen — the pentagon Stamp button, unlocked at last",
+				},
+				{
+					src: "/blogimg/sekimori/en/idle.webp",
+					alt: "sekimori home screen — the next alarm, the monthly pass rate, and passes on the calendar",
+				},
+			]
+		: [
+				{
+					src: "/blogimg/sekimori/ringing.webp",
+					alt: "sekimori 鳴動画面 — スワイプして止めると、その瞬間にカウントが始まる",
+				},
+				{
+					src: "/blogimg/sekimori/counting.webp",
+					alt: "sekimori カウント画面 — 残り時間と、離脱するとやり直しになる注意",
+				},
+				{
+					src: "/blogimg/sekimori/ready.webp",
+					alt: "sekimori 手形画面 — 時間ぶん経ってようやく解放される五角形の手形ボタン",
+				},
+				{
+					src: "/blogimg/sekimori/idle.webp",
+					alt: "sekimori ホーム画面 — 次のアラーム、月ごとの通過率、カレンダーに並ぶ手形",
+				},
+			];
+
+const languages: { code: string; label: string; href: string }[] = [
+	{ code: "ja", label: "日本語", href: "/sekimori/" },
+	{ code: "en", label: "English", href: "/sekimori/en/" },
+];
+---
+
+<div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+  <div class="card-base z-10 px-9 py-6 relative w-full">
+    <Markdown class="mt-2">
+      <Content />
+    </Markdown>
+
+    <!-- Play Store CTA -->
+    <div class="sekimori-cta mt-8 text-center">
+      <a
+        href={PLAY_STORE_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 px-7 py-3 rounded-xl font-bold border border-current/15 hover:border-[oklch(0.65_0.09_75)] hover:bg-[oklch(0.6_0.08_75_/0.12)] transition-all"
+      >
+        {ctaLabel}
+      </a>
+    </div>
+
+    <!-- スクリーンショット -->
+    {shots.length > 0 && (
+      <div class="sekimori-shots mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3">
+        {shots.map((s) => (
+          <img
+            src={s.src}
+            alt={s.alt}
+            loading="lazy"
+            class="w-full rounded-xl border border-current/10 bg-current/5"
+          />
+        ))}
+      </div>
+    )}
+
+    <nav class="sekimori-langs mt-10 pt-4 border-t border-current/10 text-xs opacity-60 flex flex-wrap gap-x-3 gap-y-1 justify-center">
+      {languages.map((l, i) => (
+        <>
+          {i > 0 && <span class="opacity-40">|</span>}
+          {l.code === lang ? (
+            <span class="font-bold opacity-90">{l.label}</span>
+          ) : (
+            <a href={l.href} class="hover:opacity-100 hover:underline transition-opacity">{l.label}</a>
+          )}
+        </>
+      ))}
+    </nav>
+  </div>
+</div>

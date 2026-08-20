@@ -71,6 +71,7 @@ export const navBarConfig: NavBarConfig = {
 				{ name: "ema", url: "/ema/", external: false },
 				{ name: "tanzaku", url: "/tanzaku/", external: false },
 				{ name: "chigusa", url: "/chigusa/", external: false },
+				{ name: "sekimori", url: "/sekimori/", external: false },
 			],
 		},
 		{
