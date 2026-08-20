@@ -7,9 +7,11 @@ description: An Android alarm app that turns the one route you always take in th
 
 > What you actually want to do, before what you have to do.
 
-Mornings where the real work — writing, research, drawing, code — never arrives, because email, social media, and the news got there first. sekimori is an alarm clock and a Gate, built to fix that ordering.
+You got up early to read, or to study, and somehow it is time to leave and you never got there. sekimori is an alarm clock and a Gate, built to fix that.
 
-This is not an app for people who slack off. It is for the serious kind of person who gets through **every obligation and has nothing left for the real work**.
+There are roughly two ways of never getting there. Either you **clear the necessary things first** — email, the news, the small obligations — or you **drift**, through social media and video. The two feel nothing alike from the inside, but they end the same way: the thing you actually wanted to do gets pushed to last, and by then the fuel is gone.
+
+So sekimori does not ask which kind you are. It fixes **the ordering**.
 
 Available on Android (Google Play).
 
@@ -21,7 +23,7 @@ So sekimori is not a habit tracker. It is **an alarm clock**, redesigned so that
 
 ## The core loop
 
-1. **Set it the night before** — a time, what you want to do, and how long (say 06:00 / novel / 25 min)
+1. **Set it the night before** — a time, what you want to do, and how long (say 06:00 / reading / 25 min)
 2. **It rings once** — slide to stop. There is no snooze
 3. **The count starts the moment you stop it** — no stopping the alarm and drifting away
 4. **Switching to another app starts you over** — screen off and face-down are fine, and the count runs on real clock time
@@ -32,16 +34,20 @@ So sekimori is not a habit tracker. It is **an alarm clock**, redesigned so that
 
 ## What the design is really about
 
-- **It does not keep ringing.** You cannot create under a siren. So stopping the sound and passing today's Gate are two separate things. Silence it whenever you like — the Gate still will not open until you stamp
+- **It does not keep ringing.** Nobody reads a book next to a siren. So stopping the sound and passing today's Gate are two separate things. Silence it whenever you like — the Gate still will not open until you stamp
 - **The pass is time-locked.** Twenty-five minutes means twenty-five minutes. That is the tooth that kills stamping early and walking away. A cheap pass makes the whole record a lie
 - **No OS-level blocking.** All the enforcement is in one thing: leave, and you start over. This app solves the problem with ordering, not prohibition
 - **Not too many controls.** No decisions first thing in the morning. You set it the night before, and the morning costs you one gesture
 
 ## The Morning Gate and the Night Gate
 
-There are two Gates, and their success conditions are the opposite of each other.
+There are two Gates.
 
-A morning is an active achievement — you got up and you wrote — so it needs the stamp. But what you want to achieve at night is **not using your phone**. Doing nothing is the success condition.
+Nights fail in the same shape mornings do. You know you should sleep, and instead the hour slips — either into video and social media, or into more of the necessary things. Opposite causes, identical outcome.
+
+The Gate itself, though, works the **other way around** at night.
+
+A morning is an active achievement — you got up and you did it — so it needs the stamp. But what you want to achieve at night is **putting the phone down**. Doing nothing is the success condition.
 
 Requiring a button press there inverts everything. The person who put the phone down and went to sleep is marked as a failure, and the person who opened the app before bed is marked as a success. **The nights you pass correctly are exactly the nights that leave no record.**
 
