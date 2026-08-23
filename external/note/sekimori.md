@@ -4,7 +4,7 @@ status: draft
 related:
   - https://play.google.com/store/apps/details?id=com.hiranorm.sekimori
   - https://yurudeep.com/sekimori/
-  - https://yurudeep.com/posts/essay/2026/20260821/
+  - https://yurudeep.com/posts/essay/2026/20260824/
 note はテーブル記法が崩れるので、note-outline.md の表は箇条書きに落としてある。
 -->
 
