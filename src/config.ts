@@ -90,7 +90,7 @@ export const navBarConfig: NavBarConfig = {
 export const profileConfig: ProfileConfig = {
 	avatar: "/assets/images/logo.png",
 	name: "ひらノルム",
-	bio: "京大大学院（工学・生物化学）修了。機械学習・AI・自動化についてゆるふわに書いています。親指シフト愛好家。\nKaggle Competitions Expert（銀2・銅4）／Notebooks Expert（金3・銀2・銅3）",
+	bio: "京大大学院（工学・生物化学）修了。機械学習・AI・自動化についてゆるふわに書いています。親指シフト愛好家。\nKaggle Competitions Expert（銀4・銅5）／Notebooks Expert（金3・銀2・銅3）",
 	links: [
 		{
 			name: "GitHub",
