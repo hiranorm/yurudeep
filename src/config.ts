@@ -84,6 +84,11 @@ export const navBarConfig: NavBarConfig = {
 			url: "/profile/",
 			external: false,
 		},
+		{
+			name: "Gallery",
+			url: "/gallery/",
+			external: false,
+		},
 	],
 };
 

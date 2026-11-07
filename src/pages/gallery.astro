@@ -1,0 +1,62 @@
+---
+import { readdirSync, readFileSync } from "node:fs";
+import { join } from "node:path";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import { getSortedPostsList } from "@utils/content-utils";
+import { getPostUrlBySlug } from "@utils/url-utils";
+import { imageMetadata } from "astro/assets/utils";
+
+const postsByImage = new Map<string, { title: string; url: string }[]>();
+for (const post of await getSortedPostsList()) {
+	const posts = postsByImage.get(post.data.image) ?? [];
+	posts.push({ title: post.data.title, url: getPostUrlBySlug(post.slug) });
+	postsByImage.set(post.data.image, posts);
+}
+
+const eyecatchDir = join(process.cwd(), "public/blogimg/eyecatch");
+const images = await Promise.all(
+	readdirSync(eyecatchDir)
+		.filter((file) => file.endsWith(".webp"))
+		.sort()
+		.map(async (file) => {
+			const { width, height } = await imageMetadata(
+				readFileSync(join(eyecatchDir, file)),
+				file,
+			);
+			return {
+				src: `/blogimg/eyecatch/${file}`,
+				name: file.replace(/\.webp$/, "").replaceAll("_", " "),
+				posts: postsByImage.get(`/blogimg/eyecatch/${file}`) ?? [],
+				width,
+				height,
+			};
+		}),
+);
+---
+
+<MainGridLayout title="Gallery" description="ゆるディープのアイキャッチ画像の一覧">
+    <div class="card-base z-10 px-6 md:px-9 py-6 relative w-full">
+        <h1 class="text-2xl font-bold text-90 mb-2">Gallery</h1>
+        <p class="text-sm text-50 mb-2">記事のアイキャッチ画像の一覧（{images.length} 枚）。これから使う候補も含む。クリックで拡大でき、前後の画像や、その画像を使っている記事へ移動できる。</p>
+        <p class="text-sm text-50 mb-6">
+            画像は主に <a class="link text-[var(--primary)] font-medium" href="https://huggingface.co/black-forest-labs/FLUX.1-schnell" target="_blank" rel="noopener noreferrer">FLUX.1-schnell</a>（Apache 2.0 ライセンスで商用利用可）と ChatGPT Image 系列で生成している。
+        </p>
+        <div id="eyecatch-gallery" class="grid grid-cols-2 md:grid-cols-3 gap-3">
+            {images.map((image) => (
+                <figure class="m-0">
+                    <img
+                        src={image.src}
+                        alt={image.name}
+                        data-eyecatch-posts={JSON.stringify(image.posts)}
+                        loading="lazy"
+                        decoding="async"
+                        width={image.width}
+                        height={image.height}
+                        class="w-full aspect-video object-cover rounded-lg cursor-zoom-in transition hover:opacity-80"
+                    />
+                    <figcaption class="mt-1 text-xs text-50 truncate">{image.name}</figcaption>
+                </figure>
+            ))}
+        </div>
+    </div>
+</MainGridLayout>
