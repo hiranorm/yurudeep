@@ -92,11 +92,11 @@ const medalCounts = medalOrder
 					<div class="flex items-start gap-4">
 						<div class="flex items-start gap-2 shrink-0">
 							<div
-								class="flex flex-col items-center gap-0.5 w-9 pt-2 text-[var(--primary)]"
+								class="flex flex-col items-center gap-1 w-12 pt-2 text-[var(--primary)]"
 								title={`${entryInfo[c.entry].label}で参加`}
 							>
-								<Icon name={entryInfo[c.entry].icon} class="text-base" />
-								<span class="text-[0.65rem] font-bold leading-none whitespace-nowrap">{entryInfo[c.entry].label}</span>
+								<Icon name={entryInfo[c.entry].icon} class="text-[1.6rem]" />
+								<span class="text-xs font-bold leading-none whitespace-nowrap">{entryInfo[c.entry].label}</span>
 							</div>
 							<KaggleMedal medal={c.medal} width={40} class="-mt-1" />
 						</div>
