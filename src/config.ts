@@ -78,6 +78,11 @@ export const navBarConfig: NavBarConfig = {
 			),
 		},
 		{
+			name: "Kaggle",
+			url: "/kaggle/",
+			external: false,
+		},
+		{
 			name: "Dojo",
 			url: "/dojo/",
 			external: false,
