@@ -50,7 +50,7 @@ const medalCounts = medalOrder
 ---
 
 <MainGridLayout title="Kaggle" description="ひらノルムのKaggleコンペ実績（メダル獲得分）と振り返り記事">
-	<div class="card-base z-10 px-6 md:px-9 py-6 relative w-full">
+	<div class="card-base z-10 px-6 md:px-9 py-6 relative w-full" data-kaggle>
 		<h1 class="text-3xl font-bold mb-2">Kaggle</h1>
 		<p class="opacity-75 mb-5">Kaggleのコンペでメダルを取ったもの。振り返り記事を書いたコンペは、記事へのリンクを付けている。</p>
 
@@ -59,10 +59,16 @@ const medalCounts = medalOrder
 				{kaggleTier}
 			</span>
 			{medalCounts.map((m) => (
-				<span class="flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-bold border border-current/15">
+				<button
+					type="button"
+					data-medal-filter={m.medal}
+					aria-pressed="false"
+					title={`${medalLabel[m.medal]}メダルだけ表示（もう一度押すと解除）`}
+					class="flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-bold border border-current/15 hover:border-[var(--primary)] hover:bg-[var(--btn-plain-bg-hover)] active:scale-95 transition aria-pressed:border-[var(--primary)] aria-pressed:bg-[var(--btn-regular-bg)] aria-pressed:text-[var(--primary)]"
+				>
 					<KaggleMedal medal={m.medal} width={12} label={false} />
 					{medalLabel[m.medal]} {m.count}
-				</span>
+				</button>
 			))}
 			<a
 				href={kaggleProfileUrl}
@@ -77,7 +83,7 @@ const medalCounts = medalOrder
 
 		<div class="flex flex-col gap-4">
 			{competitions.map((c) => (
-				<div class="flex flex-col p-5 rounded-xl border border-current/15">
+				<div class="flex flex-col p-5 rounded-xl border border-current/15" data-medal={c.medal}>
 					<div class="flex items-start gap-4">
 						<KaggleMedal medal={c.medal} width={40} class="shrink-0 -mt-1" />
 						<div class="min-w-0">
@@ -118,3 +124,22 @@ const medalCounts = medalOrder
 	</div>
 </MainGridLayout>
 
+<script>
+// メダルの印を押すと、そのメダルのコンペだけに絞り込む。もう一度押すと解除。
+// swup でページが差し替わっても効くよう、document に委譲する。
+document.addEventListener("click", (e) => {
+	const btn = (e.target as Element | null)?.closest<HTMLElement>(
+		"[data-medal-filter]",
+	);
+	const root = btn?.closest("[data-kaggle]");
+	if (!btn || !root) return;
+	const medal = btn.dataset.medalFilter;
+	const turningOn = btn.getAttribute("aria-pressed") !== "true";
+	for (const b of root.querySelectorAll<HTMLElement>("[data-medal-filter]")) {
+		b.setAttribute("aria-pressed", String(turningOn && b === btn));
+	}
+	for (const card of root.querySelectorAll<HTMLElement>("[data-medal]")) {
+		card.classList.toggle("hidden", turningOn && card.dataset.medal !== medal);
+	}
+});
+</script>
