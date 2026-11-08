@@ -60,6 +60,12 @@ export type NavBarDropdownItem = {
 	name: string;
 	url: string;
 	external?: boolean;
+	/** 項目の左に出すアイコン画像のURL */
+	icon?: string;
+	/** 透過アイコンの下に敷く背景色 */
+	iconBg?: string;
+	/** 見出しでまとめるグループ名（連続する同名の項目が1グループになる） */
+	group?: string;
 };
 
 export type NavBarDropdown = {

@@ -1,3 +1,4 @@
+import { appSections } from "./data/apps";
 import type {
 	CommentConfig,
 	ExpressiveCodeConfig,
@@ -65,14 +66,16 @@ export const navBarConfig: NavBarConfig = {
 		{
 			name: "Apps",
 			url: "/apps/",
-			dropdown: [
-				{ name: "tobari", url: "/tobari/", external: false },
-				{ name: "souten", url: "/souten/", external: false },
-				{ name: "ema", url: "/ema/", external: false },
-				{ name: "tanzaku", url: "/tanzaku/", external: false },
-				{ name: "chigusa", url: "/chigusa/", external: false },
-				{ name: "sekimori", url: "/sekimori/", external: false },
-			],
+			dropdown: appSections.flatMap((section) =>
+				section.apps.map((app) => ({
+					name: app.name,
+					url: app.href,
+					external: false,
+					icon: app.icon,
+					iconBg: app.iconBg,
+					group: section.title,
+				})),
+			),
 		},
 		{
 			name: "Dojo",

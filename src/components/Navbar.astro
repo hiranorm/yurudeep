@@ -7,10 +7,12 @@ import {
 	type NavBarDropdown,
 	type NavBarLink,
 } from "../types/config";
+import { groupDropdownItems } from "../utils/nav-utils";
 import { url } from "../utils/url-utils";
 import LightDarkSwitch from "./LightDarkSwitch.svelte";
 import Search from "./Search.svelte";
 import DisplaySettings from "./widget/DisplaySettings.svelte";
+import NavItemIcon from "./widget/NavItemIcon.astro";
 import NavMenuPanel from "./widget/NavMenuPanel.astro";
 
 const className = Astro.props.class;
@@ -73,19 +75,31 @@ const links: (NavBarLink | NavBarDropdown)[] = navBarConfig.links.map(
                                 class="nav-dropdown-menu card-base !rounded-lg absolute top-full left-1/2 -translate-x-1/2 mt-1 min-w-[10rem] py-2 px-2 invisible opacity-0 translate-y-1 transition-all duration-150"
                                 role="menu"
                             >
-                                {l.dropdown.map((d) => (
-                                    <a
-                                        href={d.external ? d.url : url(d.url)}
-                                        target={d.external ? "_blank" : null}
-                                        rel={d.external ? "noopener noreferrer" : null}
-                                        role="menuitem"
-                                        class="flex items-center justify-between gap-3 py-2 pl-3 pr-2 rounded-lg font-bold text-black/75 dark:text-white/75 hover:text-[var(--primary)] hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)] transition whitespace-nowrap"
-                                    >
-                                        <span>{d.name}</span>
-                                        {d.external && (
-                                            <Icon name="fa6-solid:arrow-up-right-from-square" class="text-[0.75rem] text-black/25 dark:text-white/25" />
+                                {groupDropdownItems(l.dropdown).map((g, gi) => (
+                                    <div class:list={[gi > 0 && "mt-1 pt-1 border-t border-black/5 dark:border-white/10"]}>
+                                        {g.group && (
+                                            <div class="px-3 pt-1.5 pb-1 text-xs font-bold text-black/40 dark:text-white/40 whitespace-nowrap" role="presentation">
+                                                {g.group}
+                                            </div>
                                         )}
-                                    </a>
+                                        {g.items.map((d) => (
+                                            <a
+                                                href={d.external ? d.url : url(d.url)}
+                                                target={d.external ? "_blank" : null}
+                                                rel={d.external ? "noopener noreferrer" : null}
+                                                role="menuitem"
+                                                class="flex items-center justify-between gap-3 py-2 pl-3 pr-2 rounded-lg font-bold text-black/75 dark:text-white/75 hover:text-[var(--primary)] hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)] transition whitespace-nowrap"
+                                            >
+                                                <span class="flex items-center gap-2.5">
+                                                    {d.icon && <NavItemIcon src={d.icon} bg={d.iconBg} />}
+                                                    {d.name}
+                                                </span>
+                                                {d.external && (
+                                                    <Icon name="fa6-solid:arrow-up-right-from-square" class="text-[0.75rem] text-black/25 dark:text-white/25" />
+                                                )}
+                                            </a>
+                                        ))}
+                                    </div>
                                 ))}
                             </div>
                         </div>
