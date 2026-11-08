@@ -64,6 +64,16 @@ export const navBarConfig: NavBarConfig = {
 			external: false,
 		},
 		{
+			name: "Gallery",
+			url: "/gallery/",
+			external: false,
+		},
+		{
+			name: "Dojo",
+			url: "/dojo/",
+			external: false,
+		},
+		{
 			name: "Apps",
 			url: "/apps/",
 			dropdown: appSections.flatMap((section) =>
@@ -83,18 +93,8 @@ export const navBarConfig: NavBarConfig = {
 			external: false,
 		},
 		{
-			name: "Dojo",
-			url: "/dojo/",
-			external: false,
-		},
-		{
 			name: "Profile",
 			url: "/profile/",
-			external: false,
-		},
-		{
-			name: "Gallery",
-			url: "/gallery/",
 			external: false,
 		},
 	],
