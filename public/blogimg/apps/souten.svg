@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="bodyGold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fce8a4"/>
+      <stop offset="35%" stop-color="#f0c419"/>
+      <stop offset="100%" stop-color="#b8860b"/>
+    </linearGradient>
+    <linearGradient id="rimGold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#a67c1f"/>
+      <stop offset="100%" stop-color="#6b4f10"/>
+    </linearGradient>
+  </defs>
+  <g transform="rotate(45 16 16)">
+    <path d="M16 2
+             C 19.5 5, 21 9, 21 14
+             L 21 25
+             L 11 25
+             L 11 14
+             C 11 9, 12.5 5, 16 2 Z"
+          fill="url(#bodyGold)"/>
+    <rect x="10" y="25" width="12" height="3" rx="0.8" fill="url(#rimGold)"/>
+    <path d="M13.5 11
+             C 13.5 8, 14.2 6, 15.5 4.5"
+          stroke="rgba(255, 248, 200, 0.7)"
+          stroke-width="1.4"
+          stroke-linecap="round"
+          fill="none"/>
+  </g>
+</svg>

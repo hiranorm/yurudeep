@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1b2540"/>
+      <stop offset="100%" stop-color="#0a0f1e"/>
+    </linearGradient>
+    <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#3b2a5c"/>
+      <stop offset="100%" stop-color="#5a3f86"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" fill="url(#sky)"/>
+  <circle cx="32" cy="38" r="1.6" fill="#f6e7a1" opacity="0.9"/>
+  <circle cx="27" cy="45" r="1" fill="#f6e7a1" opacity="0.6"/>
+  <circle cx="37" cy="31" r="0.9" fill="#f6e7a1" opacity="0.5"/>
+  <rect x="8" y="10" width="48" height="3" rx="1.5" fill="#c9b37a"/>
+  <path d="M10 13 H25 C24 28 22 44 26 56 C20 54 14 55 10 56 Z" fill="url(#cloth)"/>
+  <path d="M54 13 H39 C40 28 42 44 38 56 C44 54 50 55 54 56 Z" fill="url(#cloth)"/>
+  <path d="M15 13 C15 30 14 44 15 55 M20 13 C19 30 18 44 20 55 M49 13 C49 30 50 44 49 55 M44 13 C45 30 46 44 44 55" stroke="#2a1e44" stroke-width="1" fill="none" opacity="0.7"/>
+</svg>
