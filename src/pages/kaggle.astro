@@ -8,6 +8,7 @@ import {
 	kaggleCompetitions,
 	kaggleProfileUrl,
 	kaggleTier,
+	type Entry,
 	type Medal,
 } from "../data/kaggle";
 
@@ -39,6 +40,10 @@ const medalLabel: Record<Medal, string> = {
 	gold: "金",
 	silver: "銀",
 	bronze: "銅",
+};
+const entryInfo: Record<Entry, { label: string; icon: string }> = {
+	solo: { label: "ソロ", icon: "fa6-solid:user" },
+	team: { label: "チーム", icon: "fa6-solid:users" },
 };
 const medalOrder: Medal[] = ["gold", "silver", "bronze"];
 const medalCounts = medalOrder
@@ -85,7 +90,16 @@ const medalCounts = medalOrder
 			{competitions.map((c) => (
 				<div class="flex flex-col p-5 rounded-xl border border-current/15" data-medal={c.medal}>
 					<div class="flex items-start gap-4">
-						<KaggleMedal medal={c.medal} width={40} class="shrink-0 -mt-1" />
+						<div class="flex items-start gap-2 shrink-0">
+							<div
+								class="flex flex-col items-center gap-0.5 w-9 pt-2 text-[var(--primary)]"
+								title={`${entryInfo[c.entry].label}で参加`}
+							>
+								<Icon name={entryInfo[c.entry].icon} class="text-base" />
+								<span class="text-[0.65rem] font-bold leading-none whitespace-nowrap">{entryInfo[c.entry].label}</span>
+							</div>
+							<KaggleMedal medal={c.medal} width={40} class="-mt-1" />
+						</div>
 						<div class="min-w-0">
 							<a
 								href={c.url}
