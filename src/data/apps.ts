@@ -72,7 +72,22 @@ export const webApps: App[] = [
 	},
 ];
 
+// href が http(s) で始まるものは外部リンク（新しいタブで開く）として扱う
+export const skills: App[] = [
+	{
+		name: "okureyasu",
+		href: "https://github.com/hiranorm/okureyasu",
+		icon: "/blogimg/apps/okureyasu.svg",
+		tagline: "中身ははっきり、物言いははんなり。",
+		description:
+			"AIの話し言葉を京ことば（京都弁）に仕立てる Agent Skill。コードや数値は標準語のまま、話しかける部分だけを京ことばにする。いけずは一滴。",
+	},
+];
+
 export const appSections: AppSection[] = [
 	{ title: "スマホアプリ", note: "Android", apps: mobileApps },
 	{ title: "Webアプリ", note: "ブラウザで動く", apps: webApps },
+	{ title: "スキル", note: "AIエージェント向け", apps: skills },
 ];
+
+export const isExternalApp = (app: App) => /^https?:\/\//.test(app.href);

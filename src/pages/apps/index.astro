@@ -1,6 +1,6 @@
 ---
 import MainGridLayout from "@layouts/MainGridLayout.astro";
-import { appSections as sections } from "../../data/apps";
+import { isExternalApp, appSections as sections } from "../../data/apps";
 ---
 
 <MainGridLayout title="Apps" description="ひらノルムが作ったアプリ一覧">
@@ -19,6 +19,8 @@ import { appSections as sections } from "../../data/apps";
 						{section.apps.map((app) => (
 							<a
 								href={app.href}
+								target={isExternalApp(app) ? "_blank" : undefined}
+								rel={isExternalApp(app) ? "noopener noreferrer" : undefined}
 								class="block p-5 rounded-xl border border-current/15 hover:border-[var(--primary)] hover:bg-[var(--btn-plain-bg-hover)] transition-all group"
 							>
 								<div class="flex items-center gap-4 mb-3">

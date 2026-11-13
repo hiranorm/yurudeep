@@ -1,4 +1,4 @@
-import { appSections } from "./data/apps";
+import { appSections, isExternalApp } from "./data/apps";
 import type {
 	CommentConfig,
 	ExpressiveCodeConfig,
@@ -80,7 +80,7 @@ export const navBarConfig: NavBarConfig = {
 				section.apps.map((app) => ({
 					name: app.name,
 					url: app.href,
-					external: false,
+					external: isExternalApp(app),
 					icon: app.icon,
 					iconBg: app.iconBg,
 					group: section.title,
