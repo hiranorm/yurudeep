@@ -13,20 +13,38 @@ for (const post of await getSortedPostsList()) {
 	postsByImage.set(post.data.image, posts);
 }
 
+// 画像に埋め込んだ IPTC メタデータ（XMP）から生成モデル名を読む。
+// 付与は blog_image_making/ai_label.py。モデル名が無い AI 生成画像は「AI生成」、XMP が無い画像は表示なし。
+const unescapeXml = (text: string) =>
+	text
+		.replaceAll("&lt;", "<")
+		.replaceAll("&gt;", ">")
+		.replaceAll("&quot;", '"')
+		.replaceAll("&amp;", "&");
+function readAiModel(buf: Buffer): string | undefined {
+	const xmp = buf.toString("utf8");
+	const model = xmp.match(
+		/<Iptc4xmpExt:AISystemUsed>([^<]+)<\/Iptc4xmpExt:AISystemUsed>/,
+	)?.[1];
+	if (model) return unescapeXml(model);
+	if (xmp.includes("digitalsourcetype/trainedAlgorithmicMedia"))
+		return "AI生成";
+	return undefined;
+}
+
 const eyecatchDir = join(process.cwd(), "public/blogimg/eyecatch");
 const images = await Promise.all(
 	readdirSync(eyecatchDir)
 		.filter((file) => file.endsWith(".webp"))
 		.sort()
 		.map(async (file) => {
-			const { width, height } = await imageMetadata(
-				readFileSync(join(eyecatchDir, file)),
-				file,
-			);
+			const buf = readFileSync(join(eyecatchDir, file));
+			const { width, height } = await imageMetadata(buf, file);
 			return {
 				src: `/blogimg/eyecatch/${file}`,
 				name: file.replace(/\.webp$/, "").replaceAll("_", " "),
 				posts: postsByImage.get(`/blogimg/eyecatch/${file}`) ?? [],
+				model: readAiModel(buf),
 				width,
 				height,
 			};
@@ -48,13 +66,17 @@ const images = await Promise.all(
                         src={image.src}
                         alt={image.name}
                         data-eyecatch-posts={JSON.stringify(image.posts)}
+                        data-eyecatch-model={image.model}
                         loading="lazy"
                         decoding="async"
                         width={image.width}
                         height={image.height}
                         class="w-full aspect-video object-cover rounded-lg cursor-zoom-in transition hover:opacity-80"
                     />
-                    <figcaption class="mt-1 text-xs text-50 truncate">{image.name}</figcaption>
+                    <figcaption class="mt-1 text-xs text-50">
+                        <span class="block truncate">{image.name}</span>
+                        {image.model && <span class="block truncate opacity-75">{image.model}</span>}
+                    </figcaption>
                 </figure>
             ))}
         </div>

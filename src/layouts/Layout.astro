@@ -532,10 +532,17 @@ import "photoswipe/style.css"
 let lightboxes: PhotoSwipeLightbox[] = []
 let pswp = import("photoswipe")
 
-function renderEyecatchPosts(el: HTMLElement, posts?: { title: string; url: string }[]) {
+function renderEyecatchPosts(el: HTMLElement, posts?: { title: string; url: string }[], model?: string) {
 	el.replaceChildren()
 	el.style.display = posts ? "" : "none"
 	if (!posts) return
+
+	if (model) {
+		const modelLine = document.createElement("p")
+		modelLine.className = "mb-2 opacity-70"
+		modelLine.textContent = `生成: ${model}`
+		el.append(modelLine)
+	}
 
 	const heading = document.createElement("p")
 	heading.className = "mb-2 opacity-70"
@@ -585,6 +592,9 @@ function buildLightbox(options: Partial<PreparedPhotoSwipeOptions>) {
 			if (element.dataset.eyecatchPosts) {
 				itemData.eyecatchPosts = JSON.parse(element.dataset.eyecatchPosts)
 			}
+			if (element.dataset.eyecatchModel) {
+				itemData.eyecatchModel = element.dataset.eyecatchModel
+			}
 		}
 
 		return itemData
@@ -598,7 +608,7 @@ function buildLightbox(options: Partial<PreparedPhotoSwipeOptions>) {
 			appendTo: "root",
 			onInit: (el, pswp) => {
 				el.classList.add("pswp__hide-on-close", "absolute", "inset-x-0", "bottom-0", "max-h-[30vh]", "overflow-y-auto", "bg-black/75", "px-6", "py-4", "text-sm", "text-white")
-				pswp.on("change", () => renderEyecatchPosts(el, pswp.currSlide?.data.eyecatchPosts))
+				pswp.on("change", () => renderEyecatchPosts(el, pswp.currSlide?.data.eyecatchPosts, pswp.currSlide?.data.eyecatchModel))
 			},
 		})
 	})
