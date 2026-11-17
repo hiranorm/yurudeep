@@ -39,7 +39,7 @@ const images = await Promise.all(
         <h1 class="text-2xl font-bold text-90 mb-2">Gallery</h1>
         <p class="text-sm text-50 mb-2">記事のアイキャッチ画像の一覧（{images.length} 枚）。これから使う候補も含む。クリックで拡大でき、前後の画像や、その画像を使っている記事へ移動できる。</p>
         <p class="text-sm text-50 mb-6">
-            画像は主に <a class="link text-[var(--primary)] font-medium" href="https://huggingface.co/black-forest-labs/FLUX.1-schnell" target="_blank" rel="noopener noreferrer">FLUX.1-schnell</a>（Apache 2.0 ライセンスで商用利用可）と ChatGPT Image 系列で生成している。
+            画像は主に、2026年11月までは <a class="link text-[var(--primary)] font-medium" href="https://huggingface.co/black-forest-labs/FLUX.1-schnell" target="_blank" rel="noopener noreferrer">FLUX.1-schnell</a>、それ以降は <a class="link text-[var(--primary)] font-medium" href="https://huggingface.co/black-forest-labs/FLUX.2-klein-4B" target="_blank" rel="noopener noreferrer">FLUX.2 [klein] 4B</a> と <a class="link text-[var(--primary)] font-medium" href="https://huggingface.co/Tongyi-MAI/Z-Image-Turbo" target="_blank" rel="noopener noreferrer">Z-Image-Turbo</a> で生成している（いずれも Apache 2.0 ライセンスで商用利用可）。一部は ChatGPT Image 系列で生成。AI で生成した画像には、AI生成であることとモデル名を示すメタデータ（IPTC）を埋め込んでいる。
         </p>
         <div id="eyecatch-gallery" class="grid grid-cols-2 md:grid-cols-3 gap-3">
             {images.map((image) => (
